@@ -7,7 +7,7 @@
 #include "lib/std_types.hpp"
 
 #include <grpcpp/grpcpp.h>
-#include "protos/lag/lag.grpc.pb.h"
+#include "protos/lag.grpc.pb.h"
 
 class LagManager final : public ILagQueryable, public Observer::IPublisher, public std::enable_shared_from_this<LagManager> {
 public:

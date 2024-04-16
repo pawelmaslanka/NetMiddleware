@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "common.proto";
+import "port.proto";
+
+package Net;
+
+// The LAG service definition.
+service VlanManagement {
+  rpc CreateVlan (VlanInstance) returns (Result) {}
+  rpc DeleteVlan (VlanInstance) returns (Result) {}
+
+  rpc AddVlanMember (VlanMember) returns (Result) {}
+  rpc RemoveVlanMember (VlanMember) returns (Result) {}
+}
+
+// The request message containing the LAG id.
+message VlanInstance {
+  string id = 1;
+}
+
+message VlanMember {
+  VlanInstance lag = 1;
+  repeated Port members = 2;
+}

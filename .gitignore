@@ -32,3 +32,5 @@
 *.app
 
 build
+
+api/net_backup

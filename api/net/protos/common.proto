@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package Net;
+
+// The response message containing the message if error occured
+message Result {
+  string error_message = 1;
+}

@@ -44,7 +44,7 @@ set(SRC_LIST
 #   IMPORTED_LOCATION "api/net/protos/libnet_grpc_proto.a"
 # )
 
-link_directories(api/net/protos/lag)
+link_directories(api/net/protos)
 
 add_executable(${PROJECT_NAME} ${INC_LIST} ${SRC_LIST} main.${CPP_SRC_EXT})
 target_link_libraries(${PROJECT_NAME}
