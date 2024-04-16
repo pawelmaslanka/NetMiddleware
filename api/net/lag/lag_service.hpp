@@ -14,8 +14,3 @@ public:
     virtual grpc::Status AddLagMember(grpc::ServerContext* context, const Net::LagMember* request, Net::Result* response) override;
     virtual grpc::Status RemoveLagMember(grpc::ServerContext* context, const Net::LagMember* request, Net::Result* response) override;
 };
-
-int main(void) {
-    LagService lagService;
-    return 0;
-}

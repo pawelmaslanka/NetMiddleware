@@ -46,8 +46,8 @@ add_custom_command(TARGET net_grpc_proto POST_BUILD
 )
 
 foreach(_target
-  lag_service)
-  add_executable(${_target} "lag/${_target}.cpp")
+  service)
+  add_executable(${_target} "lag/lag_service.cpp" service.cpp)
   target_link_libraries(${_target}
     PRIVATE spdlog::spdlog_header_only
     net_grpc_proto
