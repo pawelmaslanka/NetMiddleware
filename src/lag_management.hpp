@@ -17,8 +17,8 @@ public:
     bool createLag(const String& lag_id);
     bool deleteLag(const String& lag_id);
 
-    bool addMember(const String& lag_id, const String& member);
-    bool removeMember(const String& lag_id, const String& member);
+    bool addMember(const String& lag_id, const String& member_id);
+    bool removeMember(const String& lag_id, const String& member_id);
 
     bool enableLacpProtocol(const String& lag_id, const bool enableLacpProto);
 

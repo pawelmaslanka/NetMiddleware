@@ -4,15 +4,15 @@ package Net;
 
 // The LAG service definition.
 service LagManagement {
-  rpc CreateLag (LagIface) returns (Result) {}
-  rpc DeleteLag (LagIface) returns (Result) {}
+  rpc CreateLag (LagInstance) returns (Result) {}
+  rpc DeleteLag (LagInstance) returns (Result) {}
 
   rpc AddLagMember (LagMember) returns (Result) {}
   rpc RemoveLagMember (LagMember) returns (Result) {}
 }
 
 // The request message containing the LAG id.
-message LagIface {
+message LagInstance {
   string id = 1;
 }
 
@@ -21,7 +21,7 @@ message Port {
 }
 
 message LagMember {
-  LagIface lag_iface = 1;
+  LagInstance lag = 1;
   repeated Port members = 2;
 }
 

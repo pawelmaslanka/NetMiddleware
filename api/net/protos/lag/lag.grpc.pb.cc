@@ -41,46 +41,46 @@ LagManagement::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& chan
   , rpcmethod_RemoveLagMember_(LagManagement_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status LagManagement::Stub::CreateLag(::grpc::ClientContext* context, const ::Net::LagIface& request, ::Net::Result* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::Net::LagIface, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CreateLag_, context, request, response);
+::grpc::Status LagManagement::Stub::CreateLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::Net::Result* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::Net::LagInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CreateLag_, context, request, response);
 }
 
-void LagManagement::Stub::async::CreateLag(::grpc::ClientContext* context, const ::Net::LagIface* request, ::Net::Result* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::Net::LagIface, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateLag_, context, request, response, std::move(f));
+void LagManagement::Stub::async::CreateLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::Net::LagInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateLag_, context, request, response, std::move(f));
 }
 
-void LagManagement::Stub::async::CreateLag(::grpc::ClientContext* context, const ::Net::LagIface* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) {
+void LagManagement::Stub::async::CreateLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateLag_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::Net::Result>* LagManagement::Stub::PrepareAsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::LagIface& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::Net::Result, ::Net::LagIface, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CreateLag_, context, request);
+::grpc::ClientAsyncResponseReader< ::Net::Result>* LagManagement::Stub::PrepareAsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::Net::Result, ::Net::LagInstance, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CreateLag_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::Net::Result>* LagManagement::Stub::AsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::LagIface& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::Net::Result>* LagManagement::Stub::AsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncCreateLagRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status LagManagement::Stub::DeleteLag(::grpc::ClientContext* context, const ::Net::LagIface& request, ::Net::Result* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::Net::LagIface, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_DeleteLag_, context, request, response);
+::grpc::Status LagManagement::Stub::DeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::Net::Result* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::Net::LagInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_DeleteLag_, context, request, response);
 }
 
-void LagManagement::Stub::async::DeleteLag(::grpc::ClientContext* context, const ::Net::LagIface* request, ::Net::Result* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::Net::LagIface, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DeleteLag_, context, request, response, std::move(f));
+void LagManagement::Stub::async::DeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::Net::LagInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DeleteLag_, context, request, response, std::move(f));
 }
 
-void LagManagement::Stub::async::DeleteLag(::grpc::ClientContext* context, const ::Net::LagIface* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) {
+void LagManagement::Stub::async::DeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DeleteLag_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::Net::Result>* LagManagement::Stub::PrepareAsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::LagIface& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::Net::Result, ::Net::LagIface, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_DeleteLag_, context, request);
+::grpc::ClientAsyncResponseReader< ::Net::Result>* LagManagement::Stub::PrepareAsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::Net::Result, ::Net::LagInstance, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_DeleteLag_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::Net::Result>* LagManagement::Stub::AsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::LagIface& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::Net::Result>* LagManagement::Stub::AsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncDeleteLagRaw(context, request, cq);
   result->StartCall();
@@ -137,20 +137,20 @@ LagManagement::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       LagManagement_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< LagManagement::Service, ::Net::LagIface, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< LagManagement::Service, ::Net::LagInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](LagManagement::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::Net::LagIface* req,
+             const ::Net::LagInstance* req,
              ::Net::Result* resp) {
                return service->CreateLag(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       LagManagement_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< LagManagement::Service, ::Net::LagIface, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< LagManagement::Service, ::Net::LagInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](LagManagement::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::Net::LagIface* req,
+             const ::Net::LagInstance* req,
              ::Net::Result* resp) {
                return service->DeleteLag(ctx, req, resp);
              }, this)));
@@ -179,14 +179,14 @@ LagManagement::Service::Service() {
 LagManagement::Service::~Service() {
 }
 
-::grpc::Status LagManagement::Service::CreateLag(::grpc::ServerContext* context, const ::Net::LagIface* request, ::Net::Result* response) {
+::grpc::Status LagManagement::Service::CreateLag(::grpc::ServerContext* context, const ::Net::LagInstance* request, ::Net::Result* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status LagManagement::Service::DeleteLag(::grpc::ServerContext* context, const ::Net::LagIface* request, ::Net::Result* response) {
+::grpc::Status LagManagement::Service::DeleteLag(::grpc::ServerContext* context, const ::Net::LagInstance* request, ::Net::Result* response) {
   (void) context;
   (void) request;
   (void) response;

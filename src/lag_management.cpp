@@ -15,9 +15,9 @@ bool LagManager::createLag(const String& lag_id) {
 
     grpc::ClientContext context;
     Net::Result result;
-    Net::LagIface lag_iface;
-    lag_iface.set_id(lag_id);
-    auto status = _lag_service->CreateLag(&context, lag_iface, &result);
+    Net::LagInstance lag_instance;
+    lag_instance.set_id(lag_id);
+    auto status = _lag_service->CreateLag(&context, lag_instance, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to create the LAG instance '{}': {} ({})",
             lag_id, status.error_message(), status.error_code());
@@ -36,9 +36,9 @@ bool LagManager::deleteLag(const String& lag_id) {
 
     grpc::ClientContext context;
     Net::Result result;
-    Net::LagIface lag_iface;
-    lag_iface.set_id(lag_id);
-    auto status = _lag_service->DeleteLag(&context, lag_iface, &result);
+    Net::LagInstance lag_instance;
+    lag_instance.set_id(lag_id);
+    auto status = _lag_service->DeleteLag(&context, lag_instance, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to delete the LAG instance '{}': {} ({})",
             lag_id, status.error_message(), status.error_code());
@@ -49,7 +49,7 @@ bool LagManager::deleteLag(const String& lag_id) {
     return true;
 }
 
-bool LagManager::addMember(const String& lag_id, const String& member) {
+bool LagManager::addMember(const String& lag_id, const String& member_id) {
     auto lag_it = _lag_by_id.find(lag_id);
     if (lag_it == _lag_by_id.end()) {
         spdlog::error("LAG '{}' not exists", lag_id);
@@ -59,10 +59,8 @@ bool LagManager::addMember(const String& lag_id, const String& member) {
     grpc::ClientContext context;
     Net::Result result;
     Net::LagMember lag_member;
-    lag_member.mutable_lag_iface()->set_id(lag_id);
-    lag_member.add_members()->set_id(member);
-    Net::LagIface lag_iface;
-    lag_iface.set_id(lag_id);
+    lag_member.mutable_lag()->set_id(lag_id);
+    lag_member.add_members()->set_id(member_id);
     auto status = _lag_service->AddLagMember(&context, lag_member, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to add member to the LAG instance '{}': {} ({})",
@@ -70,12 +68,12 @@ bool LagManager::addMember(const String& lag_id, const String& member) {
         return false;
     }
 
-    lag_it->second->Members.emplace(member);
-    notifySubscribers(MakeShared<LagObservable::AddMemberEvent>(shared_from_this(), lag_id, member));
+    lag_it->second->Members.emplace(member_id);
+    notifySubscribers(MakeShared<LagObservable::AddMemberEvent>(shared_from_this(), lag_id, member_id));
     return true;
 }
 
-bool LagManager::removeMember(const String& lag_id, const String& member) {
+bool LagManager::removeMember(const String& lag_id, const String& member_id) {
     auto lag_it = _lag_by_id.find(lag_id);
     if (lag_it == _lag_by_id.end()) {
         spdlog::error("LAG '{}' not exists", lag_id);
@@ -85,10 +83,8 @@ bool LagManager::removeMember(const String& lag_id, const String& member) {
     grpc::ClientContext context;
     Net::Result result;
     Net::LagMember lag_member;
-    lag_member.mutable_lag_iface()->set_id(lag_id);
-    lag_member.add_members()->set_id(member);
-    Net::LagIface lag_iface;
-    lag_iface.set_id(lag_id);
+    lag_member.mutable_lag()->set_id(lag_id);
+    lag_member.add_members()->set_id(member_id);
     auto status = _lag_service->RemoveLagMember(&context, lag_member, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to remove member from the LAG instance '{}': {} ({})",
@@ -96,8 +92,8 @@ bool LagManager::removeMember(const String& lag_id, const String& member) {
         return false;
     }
 
-    lag_it->second->Members.erase(member);
-    notifySubscribers(MakeShared<LagObservable::RemoveMemberEvent>(shared_from_this(), lag_id, member));
+    lag_it->second->Members.erase(member_id);
+    notifySubscribers(MakeShared<LagObservable::RemoveMemberEvent>(shared_from_this(), lag_id, member_id));
     return true;
 }
 
