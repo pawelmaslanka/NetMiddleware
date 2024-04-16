@@ -3,12 +3,12 @@ syntax = "proto3";
 package Net;
 
 // The LAG service definition.
-service Lag {
-  rpc Create (LagIface) returns (Result) {}
-  rpc Delete (LagIface) returns (Result) {}
+service LagManagement {
+  rpc CreateLag (LagIface) returns (Result) {}
+  rpc DeleteLag (LagIface) returns (Result) {}
 
-  rpc AddMember (LagMember) returns (Result) {}
-  rpc RemoveMember (LagMember) returns (Result) {}
+  rpc AddLagMember (LagMember) returns (Result) {}
+  rpc RemoveLagMember (LagMember) returns (Result) {}
 }
 
 // The request message containing the LAG id.
@@ -21,11 +21,11 @@ message Port {
 }
 
 message LagMember {
-  LagIface lagId = 1;
+  LagIface lag_iface = 1;
   repeated Port members = 2;
 }
 
 // The response message containing the message if error occured
 message Result {
-  string errorMessage = 1;
+  string error_message = 1;
 }

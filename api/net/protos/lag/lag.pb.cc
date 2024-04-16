@@ -25,7 +25,7 @@ namespace Net {
 
 inline constexpr Result::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : errormessage_(
+      : error_message_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
         _cached_size_{0} {}
@@ -90,7 +90,7 @@ inline constexpr LagMember::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : _cached_size_{0},
         members_{},
-        lagid_{nullptr} {}
+        lag_iface_{nullptr} {}
 
 template <typename>
 PROTOBUF_CONSTEXPR LagMember::LagMember(::_pbi::ConstantInitialized)
@@ -140,7 +140,7 @@ const ::uint32_t
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::Net::LagMember, _impl_.lagid_),
+        PROTOBUF_FIELD_OFFSET(::Net::LagMember, _impl_.lag_iface_),
         PROTOBUF_FIELD_OFFSET(::Net::LagMember, _impl_.members_),
         0,
         ~0u,
@@ -152,7 +152,7 @@ const ::uint32_t
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::Net::Result, _impl_.errormessage_),
+        PROTOBUF_FIELD_OFFSET(::Net::Result, _impl_.error_message_),
 };
 
 static const ::_pbi::MigrationSchema
@@ -171,20 +171,21 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_lag_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
     "\n\tlag.proto\022\003Net\"\026\n\010LagIface\022\n\n\002id\030\001 \001(\t"
-    "\"\022\n\004Port\022\n\n\002id\030\001 \001(\t\"E\n\tLagMember\022\034\n\005lag"
-    "Id\030\001 \001(\0132\r.Net.LagIface\022\032\n\007members\030\002 \003(\013"
-    "2\t.Net.Port\"\036\n\006Result\022\024\n\014errorMessage\030\001 "
-    "\001(\t2\260\001\n\003Lag\022&\n\006Create\022\r.Net.LagIface\032\013.N"
-    "et.Result\"\000\022&\n\006Delete\022\r.Net.LagIface\032\013.N"
-    "et.Result\"\000\022*\n\tAddMember\022\016.Net.LagMember"
-    "\032\013.Net.Result\"\000\022-\n\014RemoveMember\022\016.Net.La"
-    "gMember\032\013.Net.Result\"\000b\006proto3"
+    "\"\022\n\004Port\022\n\n\002id\030\001 \001(\t\"I\n\tLagMember\022 \n\tlag"
+    "_iface\030\001 \001(\0132\r.Net.LagIface\022\032\n\007members\030\002"
+    " \003(\0132\t.Net.Port\"\037\n\006Result\022\025\n\rerror_messa"
+    "ge\030\001 \001(\t2\306\001\n\rLagManagement\022)\n\tCreateLag\022"
+    "\r.Net.LagIface\032\013.Net.Result\"\000\022)\n\tDeleteL"
+    "ag\022\r.Net.LagIface\032\013.Net.Result\"\000\022-\n\014AddL"
+    "agMember\022\016.Net.LagMember\032\013.Net.Result\"\000\022"
+    "0\n\017RemoveLagMember\022\016.Net.LagMember\032\013.Net"
+    ".Result\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_lag_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_lag_2eproto = {
     false,
     false,
-    350,
+    377,
     descriptor_table_protodef_lag_2eproto,
     "lag.proto",
     &descriptor_table_lag_2eproto_once,
@@ -639,8 +640,8 @@ LagMember::LagMember(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
   ::uint32_t cached_has_bits = _impl_._has_bits_[0];
-  _impl_.lagid_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::Net::LagIface>(
-                              arena, *from._impl_.lagid_)
+  _impl_.lag_iface_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::Net::LagIface>(
+                              arena, *from._impl_.lag_iface_)
                         : nullptr;
 
   // @@protoc_insertion_point(copy_constructor:Net.LagMember)
@@ -653,7 +654,7 @@ inline PROTOBUF_NDEBUG_INLINE LagMember::Impl_::Impl_(
 
 inline void LagMember::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.lagid_ = {};
+  _impl_.lag_iface_ = {};
 }
 LagMember::~LagMember() {
   // @@protoc_insertion_point(destructor:Net.LagMember)
@@ -662,7 +663,7 @@ LagMember::~LagMember() {
 }
 inline void LagMember::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  delete _impl_.lagid_;
+  delete _impl_.lag_iface_;
   _impl_.~Impl_();
 }
 
@@ -690,8 +691,8 @@ PROTOBUF_NOINLINE void LagMember::Clear() {
   _impl_.members_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(_impl_.lagid_ != nullptr);
-    _impl_.lagid_->Clear();
+    ABSL_DCHECK(_impl_.lag_iface_ != nullptr);
+    _impl_.lag_iface_->Clear();
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
@@ -725,14 +726,14 @@ const ::_pbi::TcParseTable<1, 2, 2, 0, 2> LagMember::_table_ = {
     // repeated .Net.Port members = 2;
     {::_pbi::TcParser::FastMtR1,
      {18, 63, 1, PROTOBUF_FIELD_OFFSET(LagMember, _impl_.members_)}},
-    // .Net.LagIface lagId = 1;
+    // .Net.LagIface lag_iface = 1;
     {::_pbi::TcParser::FastMtS1,
-     {10, 0, 0, PROTOBUF_FIELD_OFFSET(LagMember, _impl_.lagid_)}},
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(LagMember, _impl_.lag_iface_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // .Net.LagIface lagId = 1;
-    {PROTOBUF_FIELD_OFFSET(LagMember, _impl_.lagid_), _Internal::kHasBitsOffset + 0, 0,
+    // .Net.LagIface lag_iface = 1;
+    {PROTOBUF_FIELD_OFFSET(LagMember, _impl_.lag_iface_), _Internal::kHasBitsOffset + 0, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
     // repeated .Net.Port members = 2;
     {PROTOBUF_FIELD_OFFSET(LagMember, _impl_.members_), -1, 1,
@@ -752,10 +753,10 @@ const ::_pbi::TcParseTable<1, 2, 2, 0, 2> LagMember::_table_ = {
   (void)cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .Net.LagIface lagId = 1;
+  // .Net.LagIface lag_iface = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-        1, *_impl_.lagid_, _impl_.lagid_->GetCachedSize(), target, stream);
+        1, *_impl_.lag_iface_, _impl_.lag_iface_->GetCachedSize(), target, stream);
   }
 
   // repeated .Net.Port members = 2;
@@ -791,11 +792,11 @@ const ::_pbi::TcParseTable<1, 2, 2, 0, 2> LagMember::_table_ = {
   for (const auto& msg : this->_internal_members()) {
     total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
   }
-  // .Net.LagIface lagId = 1;
+  // .Net.LagIface lag_iface = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size +=
-        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.lagid_);
+        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.lag_iface_);
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -815,12 +816,12 @@ void LagMember::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::googl
       from._internal_members());
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(from._impl_.lagid_ != nullptr);
-    if (_this->_impl_.lagid_ == nullptr) {
-      _this->_impl_.lagid_ =
-          ::google::protobuf::Message::CopyConstruct<::Net::LagIface>(arena, *from._impl_.lagid_);
+    ABSL_DCHECK(from._impl_.lag_iface_ != nullptr);
+    if (_this->_impl_.lag_iface_ == nullptr) {
+      _this->_impl_.lag_iface_ =
+          ::google::protobuf::Message::CopyConstruct<::Net::LagIface>(arena, *from._impl_.lag_iface_);
     } else {
-      _this->_impl_.lagid_->MergeFrom(*from._impl_.lagid_);
+      _this->_impl_.lag_iface_->MergeFrom(*from._impl_.lag_iface_);
     }
   }
   _this->_impl_._has_bits_[0] |= cached_has_bits;
@@ -843,7 +844,7 @@ void LagMember::InternalSwap(LagMember* PROTOBUF_RESTRICT other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.members_.InternalSwap(&other->_impl_.members_);
-  swap(_impl_.lagid_, other->_impl_.lagid_);
+  swap(_impl_.lag_iface_, other->_impl_.lag_iface_);
 }
 
 ::google::protobuf::Metadata LagMember::GetMetadata() const {
@@ -865,7 +866,7 @@ Result::Result(::google::protobuf::Arena* arena)
 inline PROTOBUF_NDEBUG_INLINE Result::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
     const Impl_& from)
-      : errormessage_(arena, from.errormessage_),
+      : error_message_(arena, from.error_message_),
         _cached_size_{0} {}
 
 Result::Result(
@@ -883,7 +884,7 @@ Result::Result(
 inline PROTOBUF_NDEBUG_INLINE Result::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : errormessage_(arena),
+      : error_message_(arena),
         _cached_size_{0} {}
 
 inline void Result::SharedCtor(::_pb::Arena* arena) {
@@ -896,7 +897,7 @@ Result::~Result() {
 }
 inline void Result::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.errormessage_.Destroy();
+  _impl_.error_message_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -921,7 +922,7 @@ PROTOBUF_NOINLINE void Result::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.errormessage_.ClearToEmpty();
+  _impl_.error_message_.ClearToEmpty();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -933,7 +934,7 @@ const char* Result::_InternalParse(
 
 
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 31, 2> Result::_table_ = {
+const ::_pbi::TcParseTable<0, 1, 0, 32, 2> Result::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -950,21 +951,21 @@ const ::_pbi::TcParseTable<0, 1, 0, 31, 2> Result::_table_ = {
     ::_pbi::TcParser::GetTable<::Net::Result>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // string errorMessage = 1;
+    // string error_message = 1;
     {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(Result, _impl_.errormessage_)}},
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(Result, _impl_.error_message_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // string errorMessage = 1;
-    {PROTOBUF_FIELD_OFFSET(Result, _impl_.errormessage_), 0, 0,
+    // string error_message = 1;
+    {PROTOBUF_FIELD_OFFSET(Result, _impl_.error_message_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\12\14\0\0\0\0\0\0"
+    "\12\15\0\0\0\0\0\0"
     "Net.Result"
-    "errorMessage"
+    "error_message"
   }},
 };
 
@@ -975,11 +976,11 @@ const ::_pbi::TcParseTable<0, 1, 0, 31, 2> Result::_table_ = {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  // string errorMessage = 1;
-  if (!this->_internal_errormessage().empty()) {
-    const std::string& _s = this->_internal_errormessage();
+  // string error_message = 1;
+  if (!this->_internal_error_message().empty()) {
+    const std::string& _s = this->_internal_error_message();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "Net.Result.errorMessage");
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "Net.Result.error_message");
     target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
@@ -1000,10 +1001,10 @@ const ::_pbi::TcParseTable<0, 1, 0, 31, 2> Result::_table_ = {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string errorMessage = 1;
-  if (!this->_internal_errormessage().empty()) {
+  // string error_message = 1;
+  if (!this->_internal_error_message().empty()) {
     total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_errormessage());
+                                    this->_internal_error_message());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1018,8 +1019,8 @@ void Result::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_errormessage().empty()) {
-    _this->_internal_set_errormessage(from._internal_errormessage());
+  if (!from._internal_error_message().empty()) {
+    _this->_internal_set_error_message(from._internal_error_message());
   }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1040,7 +1041,7 @@ void Result::InternalSwap(Result* PROTOBUF_RESTRICT other) {
   auto* arena = GetArena();
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.errormessage_, &other->_impl_.errormessage_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.error_message_, &other->_impl_.error_message_, arena);
 }
 
 ::google::protobuf::Metadata Result::GetMetadata() const {
