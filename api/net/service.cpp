@@ -6,7 +6,7 @@
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/health_check_service_interface.h>
 
-#include "protos/lag.grpc.pb.h"
+#include "lag.grpc.pb.h"
 
 void RunServer(uint16_t port) {
     std::string server_address = absl::StrFormat("127.0.0.1:%d", port);

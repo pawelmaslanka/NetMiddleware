@@ -15,10 +15,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SRC_DIR src)
 
+set(TOP_PROTO_PATH api/net/proto)
+
 include_directories(
     ${SRC_DIR}
-    ${SRC_DIR}/lib
-    api/net
+    "${SRC_DIR}/lib"
+    "${TOP_PROTO_PATH}/common"
+    "${TOP_PROTO_PATH}/lag"
+    "${TOP_PROTO_PATH}/port"
+    "${TOP_PROTO_PATH}/vlan"
 )
 
 set(CPP_HEADER_EXT hpp)
@@ -41,10 +46,10 @@ set(SRC_LIST
 
 # add_library(net_grpc_proto STATIC IMPORTED) # or STATIC instead of SHARED
 # set_target_properties(net_grpc_proto PROPERTIES
-#   IMPORTED_LOCATION "api/net/protos/libnet_grpc_proto.a"
+#   IMPORTED_LOCATION "api/net/proto/libnet_grpc_proto.a"
 # )
 
-link_directories(api/net/protos)
+link_directories(api/net)
 
 add_executable(${PROJECT_NAME} ${INC_LIST} ${SRC_LIST} main.${CPP_SRC_EXT})
 target_link_libraries(${PROJECT_NAME}

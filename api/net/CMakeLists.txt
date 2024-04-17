@@ -6,15 +6,15 @@ find_package(spdlog 1.11.0 REQUIRED)
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/common.cmake")
 
-set(TOP_PROTO_PATH "${CMAKE_CURRENT_SOURCE_DIR}/protos")
-set(COMMON_PROTO_PATH ${TOP_PROTO_PATH})
+set(TOP_PROTO_PATH "${CMAKE_CURRENT_SOURCE_DIR}/proto")
+set(LIB_OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_subdirectory(${COMMON_PROTO_PATH})
+add_subdirectory(${TOP_PROTO_PATH})
 
 # Include generated *.pb.h files
-include_directories(${COMMON_PROTO_PATH})
+include_directories("${TOP_PROTO_PATH}/common" "${TOP_PROTO_PATH}/lag" "${TOP_PROTO_PATH}/port" "${TOP_PROTO_PATH}/vlan")
 
-link_directories(${COMMON_PROTO_PATH})
+link_directories(${LIB_OUTPUT_DIR})
 
 foreach(_target
     service)
