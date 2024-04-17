@@ -41,46 +41,46 @@ VlanManagement::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   , rpcmethod_RemoveVlanMember_(VlanManagement_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status VlanManagement::Stub::CreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::Net::Result* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::Net::VlanInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CreateVlan_, context, request, response);
+::grpc::Status VlanManagement::Stub::CreateVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::Net::Result* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::Net::Vlan, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CreateVlan_, context, request, response);
 }
 
-void VlanManagement::Stub::async::CreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::Net::VlanInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateVlan_, context, request, response, std::move(f));
+void VlanManagement::Stub::async::CreateVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::Net::Vlan, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateVlan_, context, request, response, std::move(f));
 }
 
-void VlanManagement::Stub::async::CreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) {
+void VlanManagement::Stub::async::CreateVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateVlan_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::Net::Result>* VlanManagement::Stub::PrepareAsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::Net::Result, ::Net::VlanInstance, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CreateVlan_, context, request);
+::grpc::ClientAsyncResponseReader< ::Net::Result>* VlanManagement::Stub::PrepareAsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::Net::Result, ::Net::Vlan, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CreateVlan_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::Net::Result>* VlanManagement::Stub::AsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::Net::Result>* VlanManagement::Stub::AsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncCreateVlanRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status VlanManagement::Stub::DeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::Net::Result* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::Net::VlanInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_DeleteVlan_, context, request, response);
+::grpc::Status VlanManagement::Stub::DeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::Net::Result* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::Net::Vlan, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_DeleteVlan_, context, request, response);
 }
 
-void VlanManagement::Stub::async::DeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::Net::VlanInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DeleteVlan_, context, request, response, std::move(f));
+void VlanManagement::Stub::async::DeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::Net::Vlan, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DeleteVlan_, context, request, response, std::move(f));
 }
 
-void VlanManagement::Stub::async::DeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) {
+void VlanManagement::Stub::async::DeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DeleteVlan_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::Net::Result>* VlanManagement::Stub::PrepareAsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::Net::Result, ::Net::VlanInstance, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_DeleteVlan_, context, request);
+::grpc::ClientAsyncResponseReader< ::Net::Result>* VlanManagement::Stub::PrepareAsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::Net::Result, ::Net::Vlan, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_DeleteVlan_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::Net::Result>* VlanManagement::Stub::AsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::Net::Result>* VlanManagement::Stub::AsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncDeleteVlanRaw(context, request, cq);
   result->StartCall();
@@ -137,20 +137,20 @@ VlanManagement::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       VlanManagement_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< VlanManagement::Service, ::Net::VlanInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< VlanManagement::Service, ::Net::Vlan, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](VlanManagement::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::Net::VlanInstance* req,
+             const ::Net::Vlan* req,
              ::Net::Result* resp) {
                return service->CreateVlan(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       VlanManagement_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< VlanManagement::Service, ::Net::VlanInstance, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< VlanManagement::Service, ::Net::Vlan, ::Net::Result, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](VlanManagement::Service* service,
              ::grpc::ServerContext* ctx,
-             const ::Net::VlanInstance* req,
+             const ::Net::Vlan* req,
              ::Net::Result* resp) {
                return service->DeleteVlan(ctx, req, resp);
              }, this)));
@@ -179,14 +179,14 @@ VlanManagement::Service::Service() {
 VlanManagement::Service::~Service() {
 }
 
-::grpc::Status VlanManagement::Service::CreateVlan(::grpc::ServerContext* context, const ::Net::VlanInstance* request, ::Net::Result* response) {
+::grpc::Status VlanManagement::Service::CreateVlan(::grpc::ServerContext* context, const ::Net::Vlan* request, ::Net::Result* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status VlanManagement::Service::DeleteVlan(::grpc::ServerContext* context, const ::Net::VlanInstance* request, ::Net::Result* response) {
+::grpc::Status VlanManagement::Service::DeleteVlan(::grpc::ServerContext* context, const ::Net::Vlan* request, ::Net::Result* response) {
   (void) context;
   (void) request;
   (void) response;

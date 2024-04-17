@@ -27,9 +27,10 @@
 #include "google/protobuf/message.h"
 #include "google/protobuf/repeated_field.h"  // IWYU pragma: export
 #include "google/protobuf/extension_set.h"  // IWYU pragma: export
+#include "google/protobuf/generated_enum_reflection.h"
 #include "google/protobuf/unknown_field_set.h"
 #include "common.pb.h"
-#include "port.pb.h"
+#include "interface.pb.h"
 // @@protoc_insertion_point(includes)
 
 // Must be included last.
@@ -52,6 +53,9 @@ struct TableStruct_vlan_2eproto {
 extern const ::google::protobuf::internal::DescriptorTable
     descriptor_table_vlan_2eproto;
 namespace Net {
+class Vlan;
+struct VlanDefaultTypeInternal;
+extern VlanDefaultTypeInternal _Vlan_default_instance_;
 class VlanInstance;
 struct VlanInstanceDefaultTypeInternal;
 extern VlanInstanceDefaultTypeInternal _VlanInstance_default_instance_;
@@ -65,6 +69,40 @@ namespace protobuf {
 }  // namespace google
 
 namespace Net {
+enum VlanMode : int {
+  VLAN_ACCESS = 0,
+  VLAN_TAGGED = 1,
+  VLAN_UNTAGGED = 2,
+  VlanMode_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  VlanMode_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool VlanMode_IsValid(int value);
+extern const uint32_t VlanMode_internal_data_[];
+constexpr VlanMode VlanMode_MIN = static_cast<VlanMode>(0);
+constexpr VlanMode VlanMode_MAX = static_cast<VlanMode>(2);
+constexpr int VlanMode_ARRAYSIZE = 2 + 1;
+const ::google::protobuf::EnumDescriptor*
+VlanMode_descriptor();
+template <typename T>
+const std::string& VlanMode_Name(T value) {
+  static_assert(std::is_same<T, VlanMode>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to VlanMode_Name().");
+  return VlanMode_Name(static_cast<VlanMode>(value));
+}
+template <>
+inline const std::string& VlanMode_Name(VlanMode value) {
+  return ::google::protobuf::internal::NameOfDenseEnum<VlanMode_descriptor,
+                                                 0, 2>(
+      static_cast<int>(value));
+}
+inline bool VlanMode_Parse(absl::string_view name, VlanMode* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<VlanMode>(
+      VlanMode_descriptor(), name, value);
+}
 
 // ===================================================================
 
@@ -244,6 +282,179 @@ class VlanInstance final : public ::google::protobuf::Message
 };
 // -------------------------------------------------------------------
 
+class Vlan final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:Net.Vlan) */ {
+ public:
+  inline Vlan() : Vlan(nullptr) {}
+  ~Vlan() override;
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR Vlan(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline Vlan(const Vlan& from) : Vlan(nullptr, from) {}
+  inline Vlan(Vlan&& from) noexcept
+      : Vlan(nullptr, std::move(from)) {}
+  inline Vlan& operator=(const Vlan& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Vlan& operator=(Vlan&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Vlan& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Vlan* internal_default_instance() {
+    return reinterpret_cast<const Vlan*>(
+        &_Vlan_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 1;
+  friend void swap(Vlan& a, Vlan& b) { a.Swap(&b); }
+  inline void Swap(Vlan* other) {
+    if (other == this) return;
+#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr && GetArena() == other->GetArena()) {
+#else   // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Vlan* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Vlan* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return ::google::protobuf::Message::DefaultConstruct<Vlan>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const Vlan& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const Vlan& from) { Vlan::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(Vlan* other);
+ private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() { return "Net.Vlan"; }
+
+ protected:
+  explicit Vlan(::google::protobuf::Arena* arena);
+  Vlan(::google::protobuf::Arena* arena, const Vlan& from);
+  Vlan(::google::protobuf::Arena* arena, Vlan&& from) noexcept
+      : Vlan(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::MessageLite::ClassData* GetClassData()
+      const final;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const final;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kIdFieldNumber = 1,
+  };
+  // string id = 1;
+  void clear_id() ;
+  const std::string& id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_id(Arg_&& arg, Args_... args);
+  std::string* mutable_id();
+  PROTOBUF_NODISCARD std::string* release_id();
+  void set_allocated_id(std::string* value);
+
+  private:
+  const std::string& _internal_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_id(
+      const std::string& value);
+  std::string* _internal_mutable_id();
+
+  public:
+  // @@protoc_insertion_point(class_scope:Net.Vlan)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 1, 0,
+      19, 2>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::ArenaStringPtr id_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vlan_2eproto;
+};
+// -------------------------------------------------------------------
+
 class VlanMember final : public ::google::protobuf::Message
 /* @@protoc_insertion_point(class_definition:Net.VlanMember) */ {
  public:
@@ -299,7 +510,7 @@ class VlanMember final : public ::google::protobuf::Message
     return reinterpret_cast<const VlanMember*>(
         &_VlanMember_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 1;
+  static constexpr int kIndexInFileMessages = 2;
   friend void swap(VlanMember& a, VlanMember& b) { a.Swap(&b); }
   inline void Swap(VlanMember* other) {
     if (other == this) return;
@@ -369,39 +580,50 @@ class VlanMember final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kMembersFieldNumber = 2,
-    kLagFieldNumber = 1,
+    kMembersFieldNumber = 3,
+    kVlanFieldNumber = 1,
+    kModeFieldNumber = 2,
   };
-  // repeated .Net.Port members = 2;
+  // repeated .Net.Iface members = 3;
   int members_size() const;
   private:
   int _internal_members_size() const;
 
   public:
   void clear_members() ;
-  ::Net::Port* mutable_members(int index);
-  ::google::protobuf::RepeatedPtrField<::Net::Port>* mutable_members();
+  ::Net::Iface* mutable_members(int index);
+  ::google::protobuf::RepeatedPtrField<::Net::Iface>* mutable_members();
 
   private:
-  const ::google::protobuf::RepeatedPtrField<::Net::Port>& _internal_members() const;
-  ::google::protobuf::RepeatedPtrField<::Net::Port>* _internal_mutable_members();
+  const ::google::protobuf::RepeatedPtrField<::Net::Iface>& _internal_members() const;
+  ::google::protobuf::RepeatedPtrField<::Net::Iface>* _internal_mutable_members();
   public:
-  const ::Net::Port& members(int index) const;
-  ::Net::Port* add_members();
-  const ::google::protobuf::RepeatedPtrField<::Net::Port>& members() const;
-  // .Net.VlanInstance lag = 1;
-  bool has_lag() const;
-  void clear_lag() ;
-  const ::Net::VlanInstance& lag() const;
-  PROTOBUF_NODISCARD ::Net::VlanInstance* release_lag();
-  ::Net::VlanInstance* mutable_lag();
-  void set_allocated_lag(::Net::VlanInstance* value);
-  void unsafe_arena_set_allocated_lag(::Net::VlanInstance* value);
-  ::Net::VlanInstance* unsafe_arena_release_lag();
+  const ::Net::Iface& members(int index) const;
+  ::Net::Iface* add_members();
+  const ::google::protobuf::RepeatedPtrField<::Net::Iface>& members() const;
+  // .Net.Vlan vlan = 1;
+  bool has_vlan() const;
+  void clear_vlan() ;
+  const ::Net::Vlan& vlan() const;
+  PROTOBUF_NODISCARD ::Net::Vlan* release_vlan();
+  ::Net::Vlan* mutable_vlan();
+  void set_allocated_vlan(::Net::Vlan* value);
+  void unsafe_arena_set_allocated_vlan(::Net::Vlan* value);
+  ::Net::Vlan* unsafe_arena_release_vlan();
 
   private:
-  const ::Net::VlanInstance& _internal_lag() const;
-  ::Net::VlanInstance* _internal_mutable_lag();
+  const ::Net::Vlan& _internal_vlan() const;
+  ::Net::Vlan* _internal_mutable_vlan();
+
+  public:
+  // .Net.VlanMode mode = 2;
+  void clear_mode() ;
+  ::Net::VlanMode mode() const;
+  void set_mode(::Net::VlanMode value);
+
+  private:
+  ::Net::VlanMode _internal_mode() const;
+  void _internal_set_mode(::Net::VlanMode value);
 
   public:
   // @@protoc_insertion_point(class_scope:Net.VlanMember)
@@ -409,7 +631,7 @@ class VlanMember final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      1, 2, 2,
+      2, 3, 2,
       0, 2>
       _table_;
   friend class ::google::protobuf::MessageLite;
@@ -427,8 +649,9 @@ class VlanMember final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena, const Impl_& from);
     ::google::protobuf::internal::HasBits<1> _has_bits_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
-    ::google::protobuf::RepeatedPtrField< ::Net::Port > members_;
-    ::Net::VlanInstance* lag_;
+    ::google::protobuf::RepeatedPtrField< ::Net::Iface > members_;
+    ::Net::Vlan* vlan_;
+    int mode_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -503,47 +726,101 @@ inline void VlanInstance::set_allocated_id(std::string* value) {
 
 // -------------------------------------------------------------------
 
+// Vlan
+
+// string id = 1;
+inline void Vlan::clear_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.id_.ClearToEmpty();
+}
+inline const std::string& Vlan::id() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:Net.Vlan.id)
+  return _internal_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void Vlan::set_id(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:Net.Vlan.id)
+}
+inline std::string* Vlan::mutable_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_id();
+  // @@protoc_insertion_point(field_mutable:Net.Vlan.id)
+  return _s;
+}
+inline const std::string& Vlan::_internal_id() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.id_.Get();
+}
+inline void Vlan::_internal_set_id(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.id_.Set(value, GetArena());
+}
+inline std::string* Vlan::_internal_mutable_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  return _impl_.id_.Mutable( GetArena());
+}
+inline std::string* Vlan::release_id() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:Net.Vlan.id)
+  return _impl_.id_.Release();
+}
+inline void Vlan::set_allocated_id(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.id_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.id_.IsDefault()) {
+          _impl_.id_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Net.Vlan.id)
+}
+
+// -------------------------------------------------------------------
+
 // VlanMember
 
-// .Net.VlanInstance lag = 1;
-inline bool VlanMember::has_lag() const {
+// .Net.Vlan vlan = 1;
+inline bool VlanMember::has_vlan() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.lag_ != nullptr);
+  PROTOBUF_ASSUME(!value || _impl_.vlan_ != nullptr);
   return value;
 }
-inline void VlanMember::clear_lag() {
+inline void VlanMember::clear_vlan() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  if (_impl_.lag_ != nullptr) _impl_.lag_->Clear();
+  if (_impl_.vlan_ != nullptr) _impl_.vlan_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::Net::VlanInstance& VlanMember::_internal_lag() const {
+inline const ::Net::Vlan& VlanMember::_internal_vlan() const {
   PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  const ::Net::VlanInstance* p = _impl_.lag_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Net::VlanInstance&>(::Net::_VlanInstance_default_instance_);
+  const ::Net::Vlan* p = _impl_.vlan_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Net::Vlan&>(::Net::_Vlan_default_instance_);
 }
-inline const ::Net::VlanInstance& VlanMember::lag() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:Net.VlanMember.lag)
-  return _internal_lag();
+inline const ::Net::Vlan& VlanMember::vlan() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:Net.VlanMember.vlan)
+  return _internal_vlan();
 }
-inline void VlanMember::unsafe_arena_set_allocated_lag(::Net::VlanInstance* value) {
+inline void VlanMember::unsafe_arena_set_allocated_vlan(::Net::Vlan* value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   if (GetArena() == nullptr) {
-    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.lag_);
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.vlan_);
   }
-  _impl_.lag_ = reinterpret_cast<::Net::VlanInstance*>(value);
+  _impl_.vlan_ = reinterpret_cast<::Net::Vlan*>(value);
   if (value != nullptr) {
     _impl_._has_bits_[0] |= 0x00000001u;
   } else {
     _impl_._has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Net.VlanMember.lag)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Net.VlanMember.vlan)
 }
-inline ::Net::VlanInstance* VlanMember::release_lag() {
+inline ::Net::Vlan* VlanMember::release_vlan() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
 
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::Net::VlanInstance* released = _impl_.lag_;
-  _impl_.lag_ = nullptr;
+  ::Net::Vlan* released = _impl_.vlan_;
+  _impl_.vlan_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
   released = ::google::protobuf::internal::DuplicateIfNonNull(released);
@@ -557,34 +834,34 @@ inline ::Net::VlanInstance* VlanMember::release_lag() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return released;
 }
-inline ::Net::VlanInstance* VlanMember::unsafe_arena_release_lag() {
+inline ::Net::Vlan* VlanMember::unsafe_arena_release_vlan() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  // @@protoc_insertion_point(field_release:Net.VlanMember.lag)
+  // @@protoc_insertion_point(field_release:Net.VlanMember.vlan)
 
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::Net::VlanInstance* temp = _impl_.lag_;
-  _impl_.lag_ = nullptr;
+  ::Net::Vlan* temp = _impl_.vlan_;
+  _impl_.vlan_ = nullptr;
   return temp;
 }
-inline ::Net::VlanInstance* VlanMember::_internal_mutable_lag() {
+inline ::Net::Vlan* VlanMember::_internal_mutable_vlan() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  if (_impl_.lag_ == nullptr) {
-    auto* p = ::google::protobuf::Message::DefaultConstruct<::Net::VlanInstance>(GetArena());
-    _impl_.lag_ = reinterpret_cast<::Net::VlanInstance*>(p);
+  if (_impl_.vlan_ == nullptr) {
+    auto* p = ::google::protobuf::Message::DefaultConstruct<::Net::Vlan>(GetArena());
+    _impl_.vlan_ = reinterpret_cast<::Net::Vlan*>(p);
   }
-  return _impl_.lag_;
+  return _impl_.vlan_;
 }
-inline ::Net::VlanInstance* VlanMember::mutable_lag() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline ::Net::Vlan* VlanMember::mutable_vlan() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   _impl_._has_bits_[0] |= 0x00000001u;
-  ::Net::VlanInstance* _msg = _internal_mutable_lag();
-  // @@protoc_insertion_point(field_mutable:Net.VlanMember.lag)
+  ::Net::Vlan* _msg = _internal_mutable_vlan();
+  // @@protoc_insertion_point(field_mutable:Net.VlanMember.vlan)
   return _msg;
 }
-inline void VlanMember::set_allocated_lag(::Net::VlanInstance* value) {
+inline void VlanMember::set_allocated_vlan(::Net::Vlan* value) {
   ::google::protobuf::Arena* message_arena = GetArena();
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   if (message_arena == nullptr) {
-    delete (_impl_.lag_);
+    delete (_impl_.vlan_);
   }
 
   if (value != nullptr) {
@@ -597,50 +874,72 @@ inline void VlanMember::set_allocated_lag(::Net::VlanInstance* value) {
     _impl_._has_bits_[0] &= ~0x00000001u;
   }
 
-  _impl_.lag_ = reinterpret_cast<::Net::VlanInstance*>(value);
-  // @@protoc_insertion_point(field_set_allocated:Net.VlanMember.lag)
+  _impl_.vlan_ = reinterpret_cast<::Net::Vlan*>(value);
+  // @@protoc_insertion_point(field_set_allocated:Net.VlanMember.vlan)
 }
 
-// repeated .Net.Port members = 2;
+// .Net.VlanMode mode = 2;
+inline void VlanMember::clear_mode() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.mode_ = 0;
+}
+inline ::Net::VlanMode VlanMember::mode() const {
+  // @@protoc_insertion_point(field_get:Net.VlanMember.mode)
+  return _internal_mode();
+}
+inline void VlanMember::set_mode(::Net::VlanMode value) {
+  _internal_set_mode(value);
+  // @@protoc_insertion_point(field_set:Net.VlanMember.mode)
+}
+inline ::Net::VlanMode VlanMember::_internal_mode() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return static_cast<::Net::VlanMode>(_impl_.mode_);
+}
+inline void VlanMember::_internal_set_mode(::Net::VlanMode value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.mode_ = value;
+}
+
+// repeated .Net.Iface members = 3;
 inline int VlanMember::_internal_members_size() const {
   return _internal_members().size();
 }
 inline int VlanMember::members_size() const {
   return _internal_members_size();
 }
-inline ::Net::Port* VlanMember::mutable_members(int index)
+inline ::Net::Iface* VlanMember::mutable_members(int index)
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_mutable:Net.VlanMember.members)
   return _internal_mutable_members()->Mutable(index);
 }
-inline ::google::protobuf::RepeatedPtrField<::Net::Port>* VlanMember::mutable_members()
+inline ::google::protobuf::RepeatedPtrField<::Net::Iface>* VlanMember::mutable_members()
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_mutable_list:Net.VlanMember.members)
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   return _internal_mutable_members();
 }
-inline const ::Net::Port& VlanMember::members(int index) const
+inline const ::Net::Iface& VlanMember::members(int index) const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_get:Net.VlanMember.members)
   return _internal_members().Get(index);
 }
-inline ::Net::Port* VlanMember::add_members() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+inline ::Net::Iface* VlanMember::add_members() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ::Net::Port* _add = _internal_mutable_members()->Add();
+  ::Net::Iface* _add = _internal_mutable_members()->Add();
   // @@protoc_insertion_point(field_add:Net.VlanMember.members)
   return _add;
 }
-inline const ::google::protobuf::RepeatedPtrField<::Net::Port>& VlanMember::members() const
+inline const ::google::protobuf::RepeatedPtrField<::Net::Iface>& VlanMember::members() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_list:Net.VlanMember.members)
   return _internal_members();
 }
-inline const ::google::protobuf::RepeatedPtrField<::Net::Port>&
+inline const ::google::protobuf::RepeatedPtrField<::Net::Iface>&
 VlanMember::_internal_members() const {
   PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
   return _impl_.members_;
 }
-inline ::google::protobuf::RepeatedPtrField<::Net::Port>*
+inline ::google::protobuf::RepeatedPtrField<::Net::Iface>*
 VlanMember::_internal_mutable_members() {
   PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
   return &_impl_.members_;
@@ -653,6 +952,19 @@ VlanMember::_internal_mutable_members() {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Net
 
+
+namespace google {
+namespace protobuf {
+
+template <>
+struct is_proto_enum<::Net::VlanMode> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::Net::VlanMode>() {
+  return ::Net::VlanMode_descriptor();
+}
+
+}  // namespace protobuf
+}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
 

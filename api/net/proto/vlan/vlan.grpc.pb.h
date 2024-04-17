@@ -36,18 +36,18 @@ class VlanManagement final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status CreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::Net::Result* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> AsyncCreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
+    virtual ::grpc::Status CreateVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::Net::Result* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> AsyncCreateVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>>(AsyncCreateVlanRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> PrepareAsyncCreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> PrepareAsyncCreateVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>>(PrepareAsyncCreateVlanRaw(context, request, cq));
     }
-    virtual ::grpc::Status DeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::Net::Result* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> AsyncDeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
+    virtual ::grpc::Status DeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::Net::Result* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> AsyncDeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>>(AsyncDeleteVlanRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> PrepareAsyncDeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> PrepareAsyncDeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>>(PrepareAsyncDeleteVlanRaw(context, request, cq));
     }
     virtual ::grpc::Status AddVlanMember(::grpc::ClientContext* context, const ::Net::VlanMember& request, ::Net::Result* response) = 0;
@@ -67,10 +67,10 @@ class VlanManagement final {
     class async_interface {
      public:
       virtual ~async_interface() {}
-      virtual void CreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void CreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void DeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void DeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void CreateVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreateVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void DeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void AddVlanMember(::grpc::ClientContext* context, const ::Net::VlanMember* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
       virtual void AddVlanMember(::grpc::ClientContext* context, const ::Net::VlanMember* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void RemoveVlanMember(::grpc::ClientContext* context, const ::Net::VlanMember* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
@@ -80,10 +80,10 @@ class VlanManagement final {
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
    private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* PrepareAsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* PrepareAsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* PrepareAsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* PrepareAsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncAddVlanMemberRaw(::grpc::ClientContext* context, const ::Net::VlanMember& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* PrepareAsyncAddVlanMemberRaw(::grpc::ClientContext* context, const ::Net::VlanMember& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncRemoveVlanMemberRaw(::grpc::ClientContext* context, const ::Net::VlanMember& request, ::grpc::CompletionQueue* cq) = 0;
@@ -92,18 +92,18 @@ class VlanManagement final {
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
-    ::grpc::Status CreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::Net::Result* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> AsyncCreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
+    ::grpc::Status CreateVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::Net::Result* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> AsyncCreateVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>>(AsyncCreateVlanRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> PrepareAsyncCreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> PrepareAsyncCreateVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>>(PrepareAsyncCreateVlanRaw(context, request, cq));
     }
-    ::grpc::Status DeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::Net::Result* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> AsyncDeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
+    ::grpc::Status DeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::Net::Result* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> AsyncDeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>>(AsyncDeleteVlanRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> PrepareAsyncDeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> PrepareAsyncDeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>>(PrepareAsyncDeleteVlanRaw(context, request, cq));
     }
     ::grpc::Status AddVlanMember(::grpc::ClientContext* context, const ::Net::VlanMember& request, ::Net::Result* response) override;
@@ -123,10 +123,10 @@ class VlanManagement final {
     class async final :
       public StubInterface::async_interface {
      public:
-      void CreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
-      void CreateVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void DeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
-      void DeleteVlan(::grpc::ClientContext* context, const ::Net::VlanInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CreateVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
+      void CreateVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void DeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
+      void DeleteVlan(::grpc::ClientContext* context, const ::Net::Vlan* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
       void AddVlanMember(::grpc::ClientContext* context, const ::Net::VlanMember* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
       void AddVlanMember(::grpc::ClientContext* context, const ::Net::VlanMember* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
       void RemoveVlanMember(::grpc::ClientContext* context, const ::Net::VlanMember* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
@@ -142,10 +142,10 @@ class VlanManagement final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::Net::Result>* PrepareAsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::Net::Result>* PrepareAsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::VlanInstance& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::Net::Result>* PrepareAsyncCreateVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::Net::Result>* PrepareAsyncDeleteVlanRaw(::grpc::ClientContext* context, const ::Net::Vlan& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncAddVlanMemberRaw(::grpc::ClientContext* context, const ::Net::VlanMember& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::Net::Result>* PrepareAsyncAddVlanMemberRaw(::grpc::ClientContext* context, const ::Net::VlanMember& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncRemoveVlanMemberRaw(::grpc::ClientContext* context, const ::Net::VlanMember& request, ::grpc::CompletionQueue* cq) override;
@@ -161,8 +161,8 @@ class VlanManagement final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status CreateVlan(::grpc::ServerContext* context, const ::Net::VlanInstance* request, ::Net::Result* response);
-    virtual ::grpc::Status DeleteVlan(::grpc::ServerContext* context, const ::Net::VlanInstance* request, ::Net::Result* response);
+    virtual ::grpc::Status CreateVlan(::grpc::ServerContext* context, const ::Net::Vlan* request, ::Net::Result* response);
+    virtual ::grpc::Status DeleteVlan(::grpc::ServerContext* context, const ::Net::Vlan* request, ::Net::Result* response);
     virtual ::grpc::Status AddVlanMember(::grpc::ServerContext* context, const ::Net::VlanMember* request, ::Net::Result* response);
     virtual ::grpc::Status RemoveVlanMember(::grpc::ServerContext* context, const ::Net::VlanMember* request, ::Net::Result* response);
   };
@@ -178,11 +178,11 @@ class VlanManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestCreateVlan(::grpc::ServerContext* context, ::Net::VlanInstance* request, ::grpc::ServerAsyncResponseWriter< ::Net::Result>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestCreateVlan(::grpc::ServerContext* context, ::Net::Vlan* request, ::grpc::ServerAsyncResponseWriter< ::Net::Result>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -198,11 +198,11 @@ class VlanManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestDeleteVlan(::grpc::ServerContext* context, ::Net::VlanInstance* request, ::grpc::ServerAsyncResponseWriter< ::Net::Result>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestDeleteVlan(::grpc::ServerContext* context, ::Net::Vlan* request, ::grpc::ServerAsyncResponseWriter< ::Net::Result>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -254,25 +254,25 @@ class VlanManagement final {
    public:
     WithCallbackMethod_CreateVlan() {
       ::grpc::Service::MarkMethodCallback(0,
-          new ::grpc::internal::CallbackUnaryHandler< ::Net::VlanInstance, ::Net::Result>(
+          new ::grpc::internal::CallbackUnaryHandler< ::Net::Vlan, ::Net::Result>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::Net::VlanInstance* request, ::Net::Result* response) { return this->CreateVlan(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::Net::Vlan* request, ::Net::Result* response) { return this->CreateVlan(context, request, response); }));}
     void SetMessageAllocatorFor_CreateVlan(
-        ::grpc::MessageAllocator< ::Net::VlanInstance, ::Net::Result>* allocator) {
+        ::grpc::MessageAllocator< ::Net::Vlan, ::Net::Result>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::Net::VlanInstance, ::Net::Result>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::Net::Vlan, ::Net::Result>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~WithCallbackMethod_CreateVlan() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* CreateVlan(
-      ::grpc::CallbackServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/)  { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithCallbackMethod_DeleteVlan : public BaseClass {
@@ -281,25 +281,25 @@ class VlanManagement final {
    public:
     WithCallbackMethod_DeleteVlan() {
       ::grpc::Service::MarkMethodCallback(1,
-          new ::grpc::internal::CallbackUnaryHandler< ::Net::VlanInstance, ::Net::Result>(
+          new ::grpc::internal::CallbackUnaryHandler< ::Net::Vlan, ::Net::Result>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::Net::VlanInstance* request, ::Net::Result* response) { return this->DeleteVlan(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::Net::Vlan* request, ::Net::Result* response) { return this->DeleteVlan(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteVlan(
-        ::grpc::MessageAllocator< ::Net::VlanInstance, ::Net::Result>* allocator) {
+        ::grpc::MessageAllocator< ::Net::Vlan, ::Net::Result>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::Net::VlanInstance, ::Net::Result>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::Net::Vlan, ::Net::Result>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~WithCallbackMethod_DeleteVlan() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* DeleteVlan(
-      ::grpc::CallbackServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/)  { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithCallbackMethod_AddVlanMember : public BaseClass {
@@ -369,7 +369,7 @@ class VlanManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -386,7 +386,7 @@ class VlanManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -437,7 +437,7 @@ class VlanManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -457,7 +457,7 @@ class VlanManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -520,7 +520,7 @@ class VlanManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -542,7 +542,7 @@ class VlanManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -601,10 +601,10 @@ class VlanManagement final {
     WithStreamedUnaryMethod_CreateVlan() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::Net::VlanInstance, ::Net::Result>(
+          ::Net::Vlan, ::Net::Result>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::Net::VlanInstance, ::Net::Result>* streamer) {
+                     ::Net::Vlan, ::Net::Result>* streamer) {
                        return this->StreamedCreateVlan(context,
                          streamer);
                   }));
@@ -613,12 +613,12 @@ class VlanManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedCreateVlan(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::Net::VlanInstance,::Net::Result>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedCreateVlan(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::Net::Vlan,::Net::Result>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_DeleteVlan : public BaseClass {
@@ -628,10 +628,10 @@ class VlanManagement final {
     WithStreamedUnaryMethod_DeleteVlan() {
       ::grpc::Service::MarkMethodStreamed(1,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::Net::VlanInstance, ::Net::Result>(
+          ::Net::Vlan, ::Net::Result>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::Net::VlanInstance, ::Net::Result>* streamer) {
+                     ::Net::Vlan, ::Net::Result>* streamer) {
                        return this->StreamedDeleteVlan(context,
                          streamer);
                   }));
@@ -640,12 +640,12 @@ class VlanManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::VlanInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteVlan(::grpc::ServerContext* /*context*/, const ::Net::Vlan* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedDeleteVlan(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::Net::VlanInstance,::Net::Result>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedDeleteVlan(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::Net::Vlan,::Net::Result>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_AddVlanMember : public BaseClass {

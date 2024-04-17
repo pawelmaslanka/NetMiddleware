@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-import "common.proto";
-
-package Net;
-
-message Port {
-    string id = 1;
-}

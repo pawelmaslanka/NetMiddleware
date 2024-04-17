@@ -15,9 +15,9 @@ bool LagManager::createLag(const String& lag_id) {
 
     grpc::ClientContext context;
     Net::Result result;
-    Net::LagInstance lag_instance;
-    lag_instance.set_id(lag_id);
-    auto status = _lag_service->CreateLag(&context, lag_instance, &result);
+    Net::Lag lag;
+    lag.set_id(lag_id);
+    auto status = _lag_service->CreateLag(&context, lag, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to create the LAG instance '{}': {} ({})",
             lag_id, status.error_message(), status.error_code());
@@ -36,9 +36,9 @@ bool LagManager::deleteLag(const String& lag_id) {
 
     grpc::ClientContext context;
     Net::Result result;
-    Net::LagInstance lag_instance;
-    lag_instance.set_id(lag_id);
-    auto status = _lag_service->DeleteLag(&context, lag_instance, &result);
+    Net::Lag lag;
+    lag.set_id(lag_id);
+    auto status = _lag_service->DeleteLag(&context, lag, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to delete the LAG instance '{}': {} ({})",
             lag_id, status.error_message(), status.error_code());
@@ -60,7 +60,9 @@ bool LagManager::addMember(const String& lag_id, const String& member_id) {
     Net::Result result;
     Net::LagMember lag_member;
     lag_member.mutable_lag()->set_id(lag_id);
-    lag_member.add_members()->set_id(member_id);
+    auto member = lag_member.add_members();
+    member->set_id(member_id);
+    member->set_type(Net::IfaceType::IFACE_ETH);
     auto status = _lag_service->AddLagMember(&context, lag_member, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to add member to the LAG instance '{}': {} ({})",
@@ -84,7 +86,9 @@ bool LagManager::removeMember(const String& lag_id, const String& member_id) {
     Net::Result result;
     Net::LagMember lag_member;
     lag_member.mutable_lag()->set_id(lag_id);
-    lag_member.add_members()->set_id(member_id);
+    auto member = lag_member.add_members();
+    member->set_id(member_id);
+    member->set_type(Net::IfaceType::IFACE_ETH);
     auto status = _lag_service->RemoveLagMember(&context, lag_member, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to remove member from the LAG instance '{}': {} ({})",

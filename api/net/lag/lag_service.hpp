@@ -9,8 +9,8 @@
 class LagService final : public Net::LagManagement::Service {
 public:
     virtual ~LagService() = default;
-    virtual grpc::Status CreateLag(grpc::ServerContext* context, const Net::LagInstance* request, Net::Result* response) override;
-    virtual grpc::Status DeleteLag(grpc::ServerContext* context, const Net::LagInstance* request, Net::Result* response) override;
+    virtual grpc::Status CreateLag(grpc::ServerContext* context, const Net::Lag* request, Net::Result* response) override;
+    virtual grpc::Status DeleteLag(grpc::ServerContext* context, const Net::Lag* request, Net::Result* response) override;
     virtual grpc::Status AddLagMember(grpc::ServerContext* context, const Net::LagMember* request, Net::Result* response) override;
     virtual grpc::Status RemoveLagMember(grpc::ServerContext* context, const Net::LagMember* request, Net::Result* response) override;
 };

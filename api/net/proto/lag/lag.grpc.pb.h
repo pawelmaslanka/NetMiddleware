@@ -36,18 +36,18 @@ class LagManagement final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status CreateLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::Net::Result* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> AsyncCreateLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
+    virtual ::grpc::Status CreateLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::Net::Result* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> AsyncCreateLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>>(AsyncCreateLagRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> PrepareAsyncCreateLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> PrepareAsyncCreateLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>>(PrepareAsyncCreateLagRaw(context, request, cq));
     }
-    virtual ::grpc::Status DeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::Net::Result* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> AsyncDeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
+    virtual ::grpc::Status DeleteLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::Net::Result* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> AsyncDeleteLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>>(AsyncDeleteLagRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> PrepareAsyncDeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>> PrepareAsyncDeleteLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>>(PrepareAsyncDeleteLagRaw(context, request, cq));
     }
     virtual ::grpc::Status AddLagMember(::grpc::ClientContext* context, const ::Net::LagMember& request, ::Net::Result* response) = 0;
@@ -67,10 +67,10 @@ class LagManagement final {
     class async_interface {
      public:
       virtual ~async_interface() {}
-      virtual void CreateLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void CreateLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void DeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void DeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void CreateLag(::grpc::ClientContext* context, const ::Net::Lag* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreateLag(::grpc::ClientContext* context, const ::Net::Lag* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void DeleteLag(::grpc::ClientContext* context, const ::Net::Lag* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteLag(::grpc::ClientContext* context, const ::Net::Lag* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void AddLagMember(::grpc::ClientContext* context, const ::Net::LagMember* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
       virtual void AddLagMember(::grpc::ClientContext* context, const ::Net::LagMember* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void RemoveLagMember(::grpc::ClientContext* context, const ::Net::LagMember* request, ::Net::Result* response, std::function<void(::grpc::Status)>) = 0;
@@ -80,10 +80,10 @@ class LagManagement final {
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
    private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* PrepareAsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* PrepareAsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* PrepareAsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* PrepareAsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncAddLagMemberRaw(::grpc::ClientContext* context, const ::Net::LagMember& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* PrepareAsyncAddLagMemberRaw(::grpc::ClientContext* context, const ::Net::LagMember& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::Net::Result>* AsyncRemoveLagMemberRaw(::grpc::ClientContext* context, const ::Net::LagMember& request, ::grpc::CompletionQueue* cq) = 0;
@@ -92,18 +92,18 @@ class LagManagement final {
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
-    ::grpc::Status CreateLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::Net::Result* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> AsyncCreateLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
+    ::grpc::Status CreateLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::Net::Result* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> AsyncCreateLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>>(AsyncCreateLagRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> PrepareAsyncCreateLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> PrepareAsyncCreateLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>>(PrepareAsyncCreateLagRaw(context, request, cq));
     }
-    ::grpc::Status DeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::Net::Result* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> AsyncDeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
+    ::grpc::Status DeleteLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::Net::Result* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> AsyncDeleteLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>>(AsyncDeleteLagRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> PrepareAsyncDeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) {
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>> PrepareAsyncDeleteLag(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::Net::Result>>(PrepareAsyncDeleteLagRaw(context, request, cq));
     }
     ::grpc::Status AddLagMember(::grpc::ClientContext* context, const ::Net::LagMember& request, ::Net::Result* response) override;
@@ -123,10 +123,10 @@ class LagManagement final {
     class async final :
       public StubInterface::async_interface {
      public:
-      void CreateLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
-      void CreateLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void DeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
-      void DeleteLag(::grpc::ClientContext* context, const ::Net::LagInstance* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CreateLag(::grpc::ClientContext* context, const ::Net::Lag* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
+      void CreateLag(::grpc::ClientContext* context, const ::Net::Lag* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void DeleteLag(::grpc::ClientContext* context, const ::Net::Lag* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
+      void DeleteLag(::grpc::ClientContext* context, const ::Net::Lag* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
       void AddLagMember(::grpc::ClientContext* context, const ::Net::LagMember* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
       void AddLagMember(::grpc::ClientContext* context, const ::Net::LagMember* request, ::Net::Result* response, ::grpc::ClientUnaryReactor* reactor) override;
       void RemoveLagMember(::grpc::ClientContext* context, const ::Net::LagMember* request, ::Net::Result* response, std::function<void(::grpc::Status)>) override;
@@ -142,10 +142,10 @@ class LagManagement final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::Net::Result>* PrepareAsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::Net::Result>* PrepareAsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::LagInstance& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::Net::Result>* PrepareAsyncCreateLagRaw(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::Net::Result>* PrepareAsyncDeleteLagRaw(::grpc::ClientContext* context, const ::Net::Lag& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncAddLagMemberRaw(::grpc::ClientContext* context, const ::Net::LagMember& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::Net::Result>* PrepareAsyncAddLagMemberRaw(::grpc::ClientContext* context, const ::Net::LagMember& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::Net::Result>* AsyncRemoveLagMemberRaw(::grpc::ClientContext* context, const ::Net::LagMember& request, ::grpc::CompletionQueue* cq) override;
@@ -161,8 +161,8 @@ class LagManagement final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status CreateLag(::grpc::ServerContext* context, const ::Net::LagInstance* request, ::Net::Result* response);
-    virtual ::grpc::Status DeleteLag(::grpc::ServerContext* context, const ::Net::LagInstance* request, ::Net::Result* response);
+    virtual ::grpc::Status CreateLag(::grpc::ServerContext* context, const ::Net::Lag* request, ::Net::Result* response);
+    virtual ::grpc::Status DeleteLag(::grpc::ServerContext* context, const ::Net::Lag* request, ::Net::Result* response);
     virtual ::grpc::Status AddLagMember(::grpc::ServerContext* context, const ::Net::LagMember* request, ::Net::Result* response);
     virtual ::grpc::Status RemoveLagMember(::grpc::ServerContext* context, const ::Net::LagMember* request, ::Net::Result* response);
   };
@@ -178,11 +178,11 @@ class LagManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestCreateLag(::grpc::ServerContext* context, ::Net::LagInstance* request, ::grpc::ServerAsyncResponseWriter< ::Net::Result>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestCreateLag(::grpc::ServerContext* context, ::Net::Lag* request, ::grpc::ServerAsyncResponseWriter< ::Net::Result>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -198,11 +198,11 @@ class LagManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestDeleteLag(::grpc::ServerContext* context, ::Net::LagInstance* request, ::grpc::ServerAsyncResponseWriter< ::Net::Result>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestDeleteLag(::grpc::ServerContext* context, ::Net::Lag* request, ::grpc::ServerAsyncResponseWriter< ::Net::Result>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -254,25 +254,25 @@ class LagManagement final {
    public:
     WithCallbackMethod_CreateLag() {
       ::grpc::Service::MarkMethodCallback(0,
-          new ::grpc::internal::CallbackUnaryHandler< ::Net::LagInstance, ::Net::Result>(
+          new ::grpc::internal::CallbackUnaryHandler< ::Net::Lag, ::Net::Result>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::Net::LagInstance* request, ::Net::Result* response) { return this->CreateLag(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::Net::Lag* request, ::Net::Result* response) { return this->CreateLag(context, request, response); }));}
     void SetMessageAllocatorFor_CreateLag(
-        ::grpc::MessageAllocator< ::Net::LagInstance, ::Net::Result>* allocator) {
+        ::grpc::MessageAllocator< ::Net::Lag, ::Net::Result>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::Net::LagInstance, ::Net::Result>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::Net::Lag, ::Net::Result>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~WithCallbackMethod_CreateLag() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* CreateLag(
-      ::grpc::CallbackServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/)  { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithCallbackMethod_DeleteLag : public BaseClass {
@@ -281,25 +281,25 @@ class LagManagement final {
    public:
     WithCallbackMethod_DeleteLag() {
       ::grpc::Service::MarkMethodCallback(1,
-          new ::grpc::internal::CallbackUnaryHandler< ::Net::LagInstance, ::Net::Result>(
+          new ::grpc::internal::CallbackUnaryHandler< ::Net::Lag, ::Net::Result>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::Net::LagInstance* request, ::Net::Result* response) { return this->DeleteLag(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::Net::Lag* request, ::Net::Result* response) { return this->DeleteLag(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteLag(
-        ::grpc::MessageAllocator< ::Net::LagInstance, ::Net::Result>* allocator) {
+        ::grpc::MessageAllocator< ::Net::Lag, ::Net::Result>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::Net::LagInstance, ::Net::Result>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::Net::Lag, ::Net::Result>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~WithCallbackMethod_DeleteLag() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* DeleteLag(
-      ::grpc::CallbackServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/)  { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithCallbackMethod_AddLagMember : public BaseClass {
@@ -369,7 +369,7 @@ class LagManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -386,7 +386,7 @@ class LagManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -437,7 +437,7 @@ class LagManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -457,7 +457,7 @@ class LagManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -520,7 +520,7 @@ class LagManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -542,7 +542,7 @@ class LagManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -601,10 +601,10 @@ class LagManagement final {
     WithStreamedUnaryMethod_CreateLag() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::Net::LagInstance, ::Net::Result>(
+          ::Net::Lag, ::Net::Result>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::Net::LagInstance, ::Net::Result>* streamer) {
+                     ::Net::Lag, ::Net::Result>* streamer) {
                        return this->StreamedCreateLag(context,
                          streamer);
                   }));
@@ -613,12 +613,12 @@ class LagManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status CreateLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedCreateLag(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::Net::LagInstance,::Net::Result>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedCreateLag(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::Net::Lag,::Net::Result>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_DeleteLag : public BaseClass {
@@ -628,10 +628,10 @@ class LagManagement final {
     WithStreamedUnaryMethod_DeleteLag() {
       ::grpc::Service::MarkMethodStreamed(1,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::Net::LagInstance, ::Net::Result>(
+          ::Net::Lag, ::Net::Result>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::Net::LagInstance, ::Net::Result>* streamer) {
+                     ::Net::Lag, ::Net::Result>* streamer) {
                        return this->StreamedDeleteLag(context,
                          streamer);
                   }));
@@ -640,12 +640,12 @@ class LagManagement final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::LagInstance* /*request*/, ::Net::Result* /*response*/) override {
+    ::grpc::Status DeleteLag(::grpc::ServerContext* /*context*/, const ::Net::Lag* /*request*/, ::Net::Result* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedDeleteLag(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::Net::LagInstance,::Net::Result>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedDeleteLag(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::Net::Lag,::Net::Result>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_AddLagMember : public BaseClass {

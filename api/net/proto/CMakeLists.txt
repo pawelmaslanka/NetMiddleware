@@ -2,7 +2,7 @@ set(TARGET_GRPC_FILES)
 set(TARGET_GRPC_DIRS)
 
 foreach(proto
-    common port lag vlan)
+    common interface lag vlan)
     get_filename_component(proto_file "${CMAKE_CURRENT_SOURCE_DIR}/${proto}.proto" ABSOLUTE)
     get_filename_component(proto_file_path "${proto}" PATH)
 

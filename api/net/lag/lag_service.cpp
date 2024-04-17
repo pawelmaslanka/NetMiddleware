@@ -2,12 +2,12 @@
 
 #include <spdlog/spdlog.h>
 
-grpc::Status LagService::CreateLag(grpc::ServerContext* context, const Net::LagInstance* request, Net::Result* response) {
+grpc::Status LagService::CreateLag(grpc::ServerContext* context, const Net::Lag* request, Net::Result* response) {
     spdlog::info("Requested to create LAG instance '{}'", request->id());
     return grpc::Status::OK;
 }
 
-grpc::Status LagService::DeleteLag(grpc::ServerContext* context, const Net::LagInstance* request, Net::Result* response) {
+grpc::Status LagService::DeleteLag(grpc::ServerContext* context, const Net::Lag* request, Net::Result* response) {
     spdlog::info("Requested to delete LAG instance '{}'", request->id());
     return grpc::Status::OK;
 }

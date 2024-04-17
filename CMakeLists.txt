@@ -21,8 +21,8 @@ include_directories(
     ${SRC_DIR}
     "${SRC_DIR}/lib"
     "${TOP_PROTO_PATH}/common"
+    "${TOP_PROTO_PATH}/interface"
     "${TOP_PROTO_PATH}/lag"
-    "${TOP_PROTO_PATH}/port"
     "${TOP_PROTO_PATH}/vlan"
 )
 

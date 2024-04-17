@@ -1,25 +1,29 @@
 syntax = "proto3";
 
 import "common.proto";
-import "port.proto";
+import "interface.proto";
 
 package Net;
 
 // The LAG service definition.
 service LagManagement {
-  rpc CreateLag (LagInstance) returns (Result) {}
-  rpc DeleteLag (LagInstance) returns (Result) {}
+    rpc CreateLag (Lag) returns (Result) {}
+    rpc DeleteLag (Lag) returns (Result) {}
 
-  rpc AddLagMember (LagMember) returns (Result) {}
-  rpc RemoveLagMember (LagMember) returns (Result) {}
+    rpc AddLagMember (LagMember) returns (Result) {}
+    rpc RemoveLagMember (LagMember) returns (Result) {}
 }
 
 // The request message containing the LAG id.
 message LagInstance {
-  string id = 1;
+    Iface iface = 1;
+}
+
+message Lag {
+    string id = 1;
 }
 
 message LagMember {
-  LagInstance lag = 1;
-  repeated Port members = 2;
+    Lag lag = 1;
+    repeated Iface members = 2;
 }

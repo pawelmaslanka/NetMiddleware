@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package Net;
+
+enum IfaceType {
+    IFACE_ETH = 0;
+}
+
+message Iface {
+    string id = 1;
+    IfaceType type = 2;
+}
