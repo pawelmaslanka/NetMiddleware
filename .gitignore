@@ -33,4 +33,8 @@
 
 build
 
-api/net_backup
+api/net/proto/common
+api/net/proto/interface
+api/net/proto/lag
+api/net/proto/port
+api/net/proto/vlan
