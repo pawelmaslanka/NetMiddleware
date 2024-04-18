@@ -13,11 +13,11 @@ grpc::Status LagService::DeleteLag(grpc::ServerContext* context, const Net::Lag*
 }
 
 grpc::Status LagService::AddLagMember(grpc::ServerContext* context, const Net::LagMember* request, Net::Result* response) {
-    spdlog::info("Requested to add members '{}' to LAG instance '{}'", request->members().Get(0).id(), request->lag().id());
+    spdlog::info("Requested to add members '{}' to LAG instance '{}'", request->members().Get(0).id(), request->lag_id());
     return grpc::Status::OK;
 }
 
 grpc::Status LagService::RemoveLagMember(grpc::ServerContext* context, const Net::LagMember* request, Net::Result* response) {
-    spdlog::info("Requested to remove members '{}' from LAG instance '{}'", request->members().Get(0).id(), request->lag().id());
+    spdlog::info("Requested to remove members '{}' from LAG instance '{}'", request->members().Get(0).id(), request->lag_id());
     return grpc::Status::OK;
 }

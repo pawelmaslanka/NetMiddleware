@@ -14,16 +14,11 @@ service LagManagement {
     rpc RemoveLagMember (LagMember) returns (Result) {}
 }
 
-// The request message containing the LAG id.
-message LagInstance {
-    Iface iface = 1;
-}
-
 message Lag {
     string id = 1;
 }
 
 message LagMember {
-    Lag lag = 1;
+    string lag_id = 1;
     repeated Iface members = 2;
 }

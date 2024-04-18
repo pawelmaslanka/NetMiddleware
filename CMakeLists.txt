@@ -13,9 +13,12 @@ include(./api/net/common.cmake)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(API_NET_DIR api/net)
+add_subdirectory(${API_NET_DIR})
+
 set(SRC_DIR src)
 
-set(TOP_PROTO_PATH api/net/proto)
+set(TOP_PROTO_PATH "${API_NET_DIR}/proto")
 
 include_directories(
     ${SRC_DIR}

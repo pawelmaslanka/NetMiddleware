@@ -7,7 +7,7 @@
 
 using namespace Log;
 
-class NullLogger final : public Ilogger {
+class NullLogger final : public ILogger {
 public:
     static SharedPtr<NullLogger>& instance() {
         static SharedPtr<NullLogger> logger;
@@ -23,7 +23,7 @@ public:
     }
 
     virtual ~NullLogger() = default;
-    virtual bool log(const Log::Level, const String) override { }
+    virtual void log(const Log::Level, const String&) override { }
 
 private:
     NullLogger() = default;
@@ -34,22 +34,22 @@ Manager::Manager()
 }
 
 void Manager::log(StringView module_name, const Level level, StringView msg) {
-    String module = module_name;
+    String module(module_name);
     LockGuard mtx_lock { _mtx };
     const auto log_level_it = _log_level_by_module_name.find(module);
     if (log_level_it == _log_level_by_module_name.end()) {
         return;
     }
 
-    _logger->log(level, msg);
+    _logger->log(level, String(msg));
 }
 
 void Manager::setLogger(SharedPtr<ILogger> logger) {
     if (!logger) {
-        logger = NullLogger::instance();
+        logger = std::dynamic_pointer_cast<ILogger>(NullLogger::instance());
     }
 
-    LockGuard mtx_lock { mtx };
+    LockGuard mtx_lock { _mtx };
     _logger = logger;
 }
 
@@ -64,7 +64,7 @@ SharedPtr<ManagerBuilder>& ManagerBuilder::instance() {
         }
     }
 
-    return *builder;
+    return builder;
 }
 
 SharedPtr<Manager>& ManagerBuilder::get() {

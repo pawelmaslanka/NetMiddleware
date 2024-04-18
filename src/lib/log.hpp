@@ -23,7 +23,7 @@ enum Level {
 class IService {
 public:
     virtual ~IService() = default;
-    virtual bool log(StringView module_name, const Log::Level level, StringView msg) = 0;
+    virtual void log(StringView module_name, const Log::Level level, StringView msg) = 0;
 };
 
 } // namespace Log

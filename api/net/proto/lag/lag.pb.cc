@@ -46,9 +46,11 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 
 inline constexpr LagMember::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : _cached_size_{0},
-        members_{},
-        lag_{nullptr} {}
+      : members_{},
+        lag_id_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        _cached_size_{0} {}
 
 template <typename>
 PROTOBUF_CONSTEXPR LagMember::LagMember(::_pbi::ConstantInitialized)
@@ -63,27 +65,8 @@ struct LagMemberDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LagMemberDefaultTypeInternal _LagMember_default_instance_;
-
-inline constexpr LagInstance::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : _cached_size_{0},
-        iface_{nullptr} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR LagInstance::LagInstance(::_pbi::ConstantInitialized)
-    : _impl_(::_pbi::ConstantInitialized()) {}
-struct LagInstanceDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR LagInstanceDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~LagInstanceDefaultTypeInternal() {}
-  union {
-    LagInstance _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LagInstanceDefaultTypeInternal _LagInstance_default_instance_;
 }  // namespace Net
-static ::_pb::Metadata file_level_metadata_lag_2eproto[3];
+static ::_pb::Metadata file_level_metadata_lag_2eproto[2];
 static constexpr const ::_pb::EnumDescriptor**
     file_level_enum_descriptors_lag_2eproto = nullptr;
 static constexpr const ::_pb::ServiceDescriptor**
@@ -91,16 +74,6 @@ static constexpr const ::_pb::ServiceDescriptor**
 const ::uint32_t
     TableStruct_lag_2eproto::offsets[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
         protodesc_cold) = {
-        PROTOBUF_FIELD_OFFSET(::Net::LagInstance, _impl_._has_bits_),
-        PROTOBUF_FIELD_OFFSET(::Net::LagInstance, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::Net::LagInstance, _impl_.iface_),
-        0,
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::Net::Lag, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -110,7 +83,7 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::Net::Lag, _impl_.id_),
-        PROTOBUF_FIELD_OFFSET(::Net::LagMember, _impl_._has_bits_),
+        ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::Net::LagMember, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -118,35 +91,30 @@ const ::uint32_t
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::Net::LagMember, _impl_.lag_),
+        PROTOBUF_FIELD_OFFSET(::Net::LagMember, _impl_.lag_id_),
         PROTOBUF_FIELD_OFFSET(::Net::LagMember, _impl_.members_),
-        0,
-        ~0u,
 };
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-        {0, 9, -1, sizeof(::Net::LagInstance)},
-        {10, -1, -1, sizeof(::Net::Lag)},
-        {19, 29, -1, sizeof(::Net::LagMember)},
+        {0, -1, -1, sizeof(::Net::Lag)},
+        {9, -1, -1, sizeof(::Net::LagMember)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
-    &::Net::_LagInstance_default_instance_._instance,
     &::Net::_Lag_default_instance_._instance,
     &::Net::_LagMember_default_instance_._instance,
 };
 const char descriptor_table_protodef_lag_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
     "\n\tlag.proto\022\003Net\032\014common.proto\032\017interfac"
-    "e.proto\"(\n\013LagInstance\022\031\n\005iface\030\001 \001(\0132\n."
-    "Net.Iface\"\021\n\003Lag\022\n\n\002id\030\001 \001(\t\"\?\n\tLagMembe"
-    "r\022\025\n\003lag\030\001 \001(\0132\010.Net.Lag\022\033\n\007members\030\002 \003("
-    "\0132\n.Net.Iface2\274\001\n\rLagManagement\022$\n\tCreat"
-    "eLag\022\010.Net.Lag\032\013.Net.Result\"\000\022$\n\tDeleteL"
-    "ag\022\010.Net.Lag\032\013.Net.Result\"\000\022-\n\014AddLagMem"
-    "ber\022\016.Net.LagMember\032\013.Net.Result\"\000\0220\n\017Re"
-    "moveLagMember\022\016.Net.LagMember\032\013.Net.Resu"
-    "lt\"\000b\006proto3"
+    "e.proto\"\021\n\003Lag\022\n\n\002id\030\001 \001(\t\"8\n\tLagMember\022"
+    "\016\n\006lag_id\030\001 \001(\t\022\033\n\007members\030\002 \003(\0132\n.Net.I"
+    "face2\274\001\n\rLagManagement\022$\n\tCreateLag\022\010.Ne"
+    "t.Lag\032\013.Net.Result\"\000\022$\n\tDeleteLag\022\010.Net."
+    "Lag\032\013.Net.Result\"\000\022-\n\014AddLagMember\022\016.Net"
+    ".LagMember\032\013.Net.Result\"\000\0220\n\017RemoveLagMe"
+    "mber\022\016.Net.LagMember\032\013.Net.Result\"\000b\006pro"
+    "to3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_lag_2eproto_deps[2] =
     {
@@ -157,13 +125,13 @@ static ::absl::once_flag descriptor_table_lag_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_lag_2eproto = {
     false,
     false,
-    372,
+    323,
     descriptor_table_protodef_lag_2eproto,
     "lag.proto",
     &descriptor_table_lag_2eproto_once,
     descriptor_table_lag_2eproto_deps,
     2,
-    3,
+    2,
     schemas,
     file_default_instances,
     TableStruct_lag_2eproto::offsets,
@@ -187,225 +155,6 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_lag_2epr
   return &descriptor_table_lag_2eproto;
 }
 namespace Net {
-// ===================================================================
-
-class LagInstance::_Internal {
- public:
-  using HasBits = decltype(std::declval<LagInstance>()._impl_._has_bits_);
-  static constexpr ::int32_t kHasBitsOffset =
-    8 * PROTOBUF_FIELD_OFFSET(LagInstance, _impl_._has_bits_);
-};
-
-void LagInstance::clear_iface() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  if (_impl_.iface_ != nullptr) _impl_.iface_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000001u;
-}
-LagInstance::LagInstance(::google::protobuf::Arena* arena)
-    : ::google::protobuf::Message(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:Net.LagInstance)
-}
-inline PROTOBUF_NDEBUG_INLINE LagInstance::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from)
-      : _has_bits_{from._has_bits_},
-        _cached_size_{0} {}
-
-LagInstance::LagInstance(
-    ::google::protobuf::Arena* arena,
-    const LagInstance& from)
-    : ::google::protobuf::Message(arena) {
-  LagInstance* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
-  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
-  _impl_.iface_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::Net::Iface>(
-                              arena, *from._impl_.iface_)
-                        : nullptr;
-
-  // @@protoc_insertion_point(copy_constructor:Net.LagInstance)
-}
-inline PROTOBUF_NDEBUG_INLINE LagInstance::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : _cached_size_{0} {}
-
-inline void LagInstance::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.iface_ = {};
-}
-LagInstance::~LagInstance() {
-  // @@protoc_insertion_point(destructor:Net.LagInstance)
-  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  SharedDtor();
-}
-inline void LagInstance::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  delete _impl_.iface_;
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-LagInstance::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
-      ClassDataFull _data_ = {
-          {
-              nullptr,  // OnDemandRegisterArenaDtor
-              PROTOBUF_FIELD_OFFSET(LagInstance, _impl_._cached_size_),
-              false,
-          },
-          &LagInstance::MergeImpl,
-          &LagInstance::kDescriptorMethods,
-      };
-  return &_data_;
-}
-PROTOBUF_NOINLINE void LagInstance::Clear() {
-// @@protoc_insertion_point(message_clear_start:Net.LagInstance)
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(_impl_.iface_ != nullptr);
-    _impl_.iface_->Clear();
-  }
-  _impl_._has_bits_.Clear();
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-const char* LagInstance::_InternalParse(
-    const char* ptr, ::_pbi::ParseContext* ctx) {
-  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
-  return ptr;
-}
-
-
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 1, 0, 2> LagInstance::_table_ = {
-  {
-    PROTOBUF_FIELD_OFFSET(LagInstance, _impl_._has_bits_),
-    0, // no _extensions_
-    1, 0,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967294,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    1,  // num_field_entries
-    1,  // num_aux_entries
-    offsetof(decltype(_table_), aux_entries),
-    &_LagInstance_default_instance_._instance,
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::Net::LagInstance>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // .Net.Iface iface = 1;
-    {::_pbi::TcParser::FastMtS1,
-     {10, 0, 0, PROTOBUF_FIELD_OFFSET(LagInstance, _impl_.iface_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // .Net.Iface iface = 1;
-    {PROTOBUF_FIELD_OFFSET(LagInstance, _impl_.iface_), _Internal::kHasBitsOffset + 0, 0,
-    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
-  }}, {{
-    {::_pbi::TcParser::GetTable<::Net::Iface>()},
-  }}, {{
-  }},
-};
-
-::uint8_t* LagInstance::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Net.LagInstance)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  cached_has_bits = _impl_._has_bits_[0];
-  // .Net.Iface iface = 1;
-  if (cached_has_bits & 0x00000001u) {
-    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-        1, *_impl_.iface_, _impl_.iface_->GetCachedSize(), target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target =
-        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:Net.LagInstance)
-  return target;
-}
-
-::size_t LagInstance::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Net.LagInstance)
-  ::size_t total_size = 0;
-
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // .Net.Iface iface = 1;
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size +=
-        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.iface_);
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-
-void LagInstance::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<LagInstance*>(&to_msg);
-  auto& from = static_cast<const LagInstance&>(from_msg);
-  ::google::protobuf::Arena* arena = _this->GetArena();
-  // @@protoc_insertion_point(class_specific_merge_from_start:Net.LagInstance)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(from._impl_.iface_ != nullptr);
-    if (_this->_impl_.iface_ == nullptr) {
-      _this->_impl_.iface_ =
-          ::google::protobuf::Message::CopyConstruct<::Net::Iface>(arena, *from._impl_.iface_);
-    } else {
-      _this->_impl_.iface_->MergeFrom(*from._impl_.iface_);
-    }
-  }
-  _this->_impl_._has_bits_[0] |= cached_has_bits;
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void LagInstance::CopyFrom(const LagInstance& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Net.LagInstance)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-PROTOBUF_NOINLINE bool LagInstance::IsInitialized() const {
-  return true;
-}
-
-void LagInstance::InternalSwap(LagInstance* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  swap(_impl_.iface_, other->_impl_.iface_);
-}
-
-::google::protobuf::Metadata LagInstance::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(&descriptor_table_lag_2eproto_getter,
-                                   &descriptor_table_lag_2eproto_once,
-                                   file_level_metadata_lag_2eproto[0]);
-}
 // ===================================================================
 
 class Lag::_Internal {
@@ -601,15 +350,12 @@ void Lag::InternalSwap(Lag* PROTOBUF_RESTRICT other) {
 ::google::protobuf::Metadata Lag::GetMetadata() const {
   return ::_pbi::AssignDescriptors(&descriptor_table_lag_2eproto_getter,
                                    &descriptor_table_lag_2eproto_once,
-                                   file_level_metadata_lag_2eproto[1]);
+                                   file_level_metadata_lag_2eproto[0]);
 }
 // ===================================================================
 
 class LagMember::_Internal {
  public:
-  using HasBits = decltype(std::declval<LagMember>()._impl_._has_bits_);
-  static constexpr ::int32_t kHasBitsOffset =
-    8 * PROTOBUF_FIELD_OFFSET(LagMember, _impl_._has_bits_);
 };
 
 void LagMember::clear_members() {
@@ -624,9 +370,9 @@ LagMember::LagMember(::google::protobuf::Arena* arena)
 inline PROTOBUF_NDEBUG_INLINE LagMember::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
     const Impl_& from)
-      : _has_bits_{from._has_bits_},
-        _cached_size_{0},
-        members_{visibility, arena, from.members_} {}
+      : members_{visibility, arena, from.members_},
+        lag_id_(arena, from.lag_id_),
+        _cached_size_{0} {}
 
 LagMember::LagMember(
     ::google::protobuf::Arena* arena,
@@ -637,22 +383,18 @@ LagMember::LagMember(
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
-  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
-  _impl_.lag_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::Net::Lag>(
-                              arena, *from._impl_.lag_)
-                        : nullptr;
 
   // @@protoc_insertion_point(copy_constructor:Net.LagMember)
 }
 inline PROTOBUF_NDEBUG_INLINE LagMember::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : _cached_size_{0},
-        members_{visibility, arena} {}
+      : members_{visibility, arena},
+        lag_id_(arena),
+        _cached_size_{0} {}
 
 inline void LagMember::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.lag_ = {};
 }
 LagMember::~LagMember() {
   // @@protoc_insertion_point(destructor:Net.LagMember)
@@ -661,7 +403,7 @@ LagMember::~LagMember() {
 }
 inline void LagMember::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  delete _impl_.lag_;
+  _impl_.lag_id_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -687,12 +429,7 @@ PROTOBUF_NOINLINE void LagMember::Clear() {
   (void) cached_has_bits;
 
   _impl_.members_.Clear();
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(_impl_.lag_ != nullptr);
-    _impl_.lag_->Clear();
-  }
-  _impl_._has_bits_.Clear();
+  _impl_.lag_id_.ClearToEmpty();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -704,16 +441,16 @@ const char* LagMember::_InternalParse(
 
 
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 2, 0, 2> LagMember::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 1, 28, 2> LagMember::_table_ = {
   {
-    PROTOBUF_FIELD_OFFSET(LagMember, _impl_._has_bits_),
+    0,  // no _has_bits_
     0, // no _extensions_
     2, 8,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
     4294967292,  // skipmap
     offsetof(decltype(_table_), field_entries),
     2,  // num_field_entries
-    2,  // num_aux_entries
+    1,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     &_LagMember_default_instance_._instance,
     ::_pbi::TcParser::GenericFallback,  // fallback
@@ -723,23 +460,25 @@ const ::_pbi::TcParseTable<1, 2, 2, 0, 2> LagMember::_table_ = {
   }, {{
     // repeated .Net.Iface members = 2;
     {::_pbi::TcParser::FastMtR1,
-     {18, 63, 1, PROTOBUF_FIELD_OFFSET(LagMember, _impl_.members_)}},
-    // .Net.Lag lag = 1;
-    {::_pbi::TcParser::FastMtS1,
-     {10, 0, 0, PROTOBUF_FIELD_OFFSET(LagMember, _impl_.lag_)}},
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(LagMember, _impl_.members_)}},
+    // string lag_id = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(LagMember, _impl_.lag_id_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // .Net.Lag lag = 1;
-    {PROTOBUF_FIELD_OFFSET(LagMember, _impl_.lag_), _Internal::kHasBitsOffset + 0, 0,
-    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // string lag_id = 1;
+    {PROTOBUF_FIELD_OFFSET(LagMember, _impl_.lag_id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
     // repeated .Net.Iface members = 2;
-    {PROTOBUF_FIELD_OFFSET(LagMember, _impl_.members_), -1, 1,
+    {PROTOBUF_FIELD_OFFSET(LagMember, _impl_.members_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
-    {::_pbi::TcParser::GetTable<::Net::Lag>()},
     {::_pbi::TcParser::GetTable<::Net::Iface>()},
   }}, {{
+    "\15\6\0\0\0\0\0\0"
+    "Net.LagMember"
+    "lag_id"
   }},
 };
 
@@ -750,11 +489,12 @@ const ::_pbi::TcParseTable<1, 2, 2, 0, 2> LagMember::_table_ = {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  cached_has_bits = _impl_._has_bits_[0];
-  // .Net.Lag lag = 1;
-  if (cached_has_bits & 0x00000001u) {
-    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-        1, *_impl_.lag_, _impl_.lag_->GetCachedSize(), target, stream);
+  // string lag_id = 1;
+  if (!this->_internal_lag_id().empty()) {
+    const std::string& _s = this->_internal_lag_id();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "Net.LagMember.lag_id");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // repeated .Net.Iface members = 2;
@@ -790,11 +530,10 @@ const ::_pbi::TcParseTable<1, 2, 2, 0, 2> LagMember::_table_ = {
   for (const auto& msg : this->_internal_members()) {
     total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
   }
-  // .Net.Lag lag = 1;
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size +=
-        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.lag_);
+  // string lag_id = 1;
+  if (!this->_internal_lag_id().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_lag_id());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -804,7 +543,6 @@ const ::_pbi::TcParseTable<1, 2, 2, 0, 2> LagMember::_table_ = {
 void LagMember::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
   auto* const _this = static_cast<LagMember*>(&to_msg);
   auto& from = static_cast<const LagMember&>(from_msg);
-  ::google::protobuf::Arena* arena = _this->GetArena();
   // @@protoc_insertion_point(class_specific_merge_from_start:Net.LagMember)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
@@ -812,17 +550,9 @@ void LagMember::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::googl
 
   _this->_internal_mutable_members()->MergeFrom(
       from._internal_members());
-  cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(from._impl_.lag_ != nullptr);
-    if (_this->_impl_.lag_ == nullptr) {
-      _this->_impl_.lag_ =
-          ::google::protobuf::Message::CopyConstruct<::Net::Lag>(arena, *from._impl_.lag_);
-    } else {
-      _this->_impl_.lag_->MergeFrom(*from._impl_.lag_);
-    }
+  if (!from._internal_lag_id().empty()) {
+    _this->_internal_set_lag_id(from._internal_lag_id());
   }
-  _this->_impl_._has_bits_[0] |= cached_has_bits;
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -839,16 +569,17 @@ PROTOBUF_NOINLINE bool LagMember::IsInitialized() const {
 
 void LagMember::InternalSwap(LagMember* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.members_.InternalSwap(&other->_impl_.members_);
-  swap(_impl_.lag_, other->_impl_.lag_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.lag_id_, &other->_impl_.lag_id_, arena);
 }
 
 ::google::protobuf::Metadata LagMember::GetMetadata() const {
   return ::_pbi::AssignDescriptors(&descriptor_table_lag_2eproto_getter,
                                    &descriptor_table_lag_2eproto_once,
-                                   file_level_metadata_lag_2eproto[2]);
+                                   file_level_metadata_lag_2eproto[1]);
 }
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Net

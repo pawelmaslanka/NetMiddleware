@@ -12,7 +12,12 @@ set(TOP_PROTO_PATH "${CMAKE_CURRENT_SOURCE_DIR}/proto")
 add_subdirectory(${TOP_PROTO_PATH})
 
 # Include generated *.pb.h files
-include_directories("${TOP_PROTO_PATH}/common" "${TOP_PROTO_PATH}/interface" "${TOP_PROTO_PATH}/lag" "${TOP_PROTO_PATH}/vlan")
+include_directories(
+    "${TOP_PROTO_PATH}/common"
+    "${TOP_PROTO_PATH}/interface"
+    "${TOP_PROTO_PATH}/lag"
+    "${TOP_PROTO_PATH}/port"
+    "${TOP_PROTO_PATH}/vlan")
 
 link_directories(${LIB_OUTPUT_DIR})
 

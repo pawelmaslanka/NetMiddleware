@@ -55,9 +55,6 @@ namespace Net {
 class Lag;
 struct LagDefaultTypeInternal;
 extern LagDefaultTypeInternal _Lag_default_instance_;
-class LagInstance;
-struct LagInstanceDefaultTypeInternal;
-extern LagInstanceDefaultTypeInternal _LagInstance_default_instance_;
 class LagMember;
 struct LagMemberDefaultTypeInternal;
 extern LagMemberDefaultTypeInternal _LagMember_default_instance_;
@@ -129,7 +126,7 @@ class Lag final : public ::google::protobuf::Message
     return reinterpret_cast<const Lag*>(
         &_Lag_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 1;
+  static constexpr int kIndexInFileMessages = 0;
   friend void swap(Lag& a, Lag& b) { a.Swap(&b); }
   inline void Swap(Lag* other) {
     if (other == this) return;
@@ -302,7 +299,7 @@ class LagMember final : public ::google::protobuf::Message
     return reinterpret_cast<const LagMember*>(
         &_LagMember_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 2;
+  static constexpr int kIndexInFileMessages = 1;
   friend void swap(LagMember& a, LagMember& b) { a.Swap(&b); }
   inline void Swap(LagMember* other) {
     if (other == this) return;
@@ -373,7 +370,7 @@ class LagMember final : public ::google::protobuf::Message
   // accessors -------------------------------------------------------
   enum : int {
     kMembersFieldNumber = 2,
-    kLagFieldNumber = 1,
+    kLagIdFieldNumber = 1,
   };
   // repeated .Net.Iface members = 2;
   int members_size() const;
@@ -392,19 +389,20 @@ class LagMember final : public ::google::protobuf::Message
   const ::Net::Iface& members(int index) const;
   ::Net::Iface* add_members();
   const ::google::protobuf::RepeatedPtrField<::Net::Iface>& members() const;
-  // .Net.Lag lag = 1;
-  bool has_lag() const;
-  void clear_lag() ;
-  const ::Net::Lag& lag() const;
-  PROTOBUF_NODISCARD ::Net::Lag* release_lag();
-  ::Net::Lag* mutable_lag();
-  void set_allocated_lag(::Net::Lag* value);
-  void unsafe_arena_set_allocated_lag(::Net::Lag* value);
-  ::Net::Lag* unsafe_arena_release_lag();
+  // string lag_id = 1;
+  void clear_lag_id() ;
+  const std::string& lag_id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_lag_id(Arg_&& arg, Args_... args);
+  std::string* mutable_lag_id();
+  PROTOBUF_NODISCARD std::string* release_lag_id();
+  void set_allocated_lag_id(std::string* value);
 
   private:
-  const ::Net::Lag& _internal_lag() const;
-  ::Net::Lag* _internal_mutable_lag();
+  const std::string& _internal_lag_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_lag_id(
+      const std::string& value);
+  std::string* _internal_mutable_lag_id();
 
   public:
   // @@protoc_insertion_point(class_scope:Net.LagMember)
@@ -412,8 +410,8 @@ class LagMember final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      1, 2, 2,
-      0, 2>
+      1, 2, 1,
+      28, 2>
       _table_;
   friend class ::google::protobuf::MessageLite;
   friend class ::google::protobuf::Arena;
@@ -428,183 +426,9 @@ class LagMember final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena);
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from);
-    ::google::protobuf::internal::HasBits<1> _has_bits_;
-    mutable ::google::protobuf::internal::CachedSize _cached_size_;
     ::google::protobuf::RepeatedPtrField< ::Net::Iface > members_;
-    ::Net::Lag* lag_;
-    PROTOBUF_TSAN_DECLARE_MEMBER
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_lag_2eproto;
-};
-// -------------------------------------------------------------------
-
-class LagInstance final : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:Net.LagInstance) */ {
- public:
-  inline LagInstance() : LagInstance(nullptr) {}
-  ~LagInstance() override;
-  template <typename = void>
-  explicit PROTOBUF_CONSTEXPR LagInstance(
-      ::google::protobuf::internal::ConstantInitialized);
-
-  inline LagInstance(const LagInstance& from) : LagInstance(nullptr, from) {}
-  inline LagInstance(LagInstance&& from) noexcept
-      : LagInstance(nullptr, std::move(from)) {}
-  inline LagInstance& operator=(const LagInstance& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline LagInstance& operator=(LagInstance&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetArena() == from.GetArena()
-#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetArena() != nullptr
-#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::google::protobuf::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::google::protobuf::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const LagInstance& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const LagInstance* internal_default_instance() {
-    return reinterpret_cast<const LagInstance*>(
-        &_LagInstance_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages = 0;
-  friend void swap(LagInstance& a, LagInstance& b) { a.Swap(&b); }
-  inline void Swap(LagInstance* other) {
-    if (other == this) return;
-#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetArena() != nullptr && GetArena() == other->GetArena()) {
-#else   // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetArena() == other->GetArena()) {
-#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::google::protobuf::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(LagInstance* other) {
-    if (other == this) return;
-    ABSL_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  LagInstance* New(::google::protobuf::Arena* arena = nullptr) const final {
-    return ::google::protobuf::Message::DefaultConstruct<LagInstance>(arena);
-  }
-  using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const LagInstance& from);
-  using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const LagInstance& from) { LagInstance::MergeImpl(*this, from); }
-
-  private:
-  static void MergeImpl(
-      ::google::protobuf::MessageLite& to_msg,
-      const ::google::protobuf::MessageLite& from_msg);
-
-  public:
-  ABSL_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  ::size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::google::protobuf::Arena* arena);
-  void SharedDtor();
-  void InternalSwap(LagInstance* other);
- private:
-  friend class ::google::protobuf::internal::AnyMetadata;
-  static ::absl::string_view FullMessageName() { return "Net.LagInstance"; }
-
- protected:
-  explicit LagInstance(::google::protobuf::Arena* arena);
-  LagInstance(::google::protobuf::Arena* arena, const LagInstance& from);
-  LagInstance(::google::protobuf::Arena* arena, LagInstance&& from) noexcept
-      : LagInstance(arena) {
-    *this = ::std::move(from);
-  }
-  const ::google::protobuf::MessageLite::ClassData* GetClassData()
-      const final;
-
- public:
-  ::google::protobuf::Metadata GetMetadata() const final;
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-  enum : int {
-    kIfaceFieldNumber = 1,
-  };
-  // .Net.Iface iface = 1;
-  bool has_iface() const;
-  void clear_iface() ;
-  const ::Net::Iface& iface() const;
-  PROTOBUF_NODISCARD ::Net::Iface* release_iface();
-  ::Net::Iface* mutable_iface();
-  void set_allocated_iface(::Net::Iface* value);
-  void unsafe_arena_set_allocated_iface(::Net::Iface* value);
-  ::Net::Iface* unsafe_arena_release_iface();
-
-  private:
-  const ::Net::Iface& _internal_iface() const;
-  ::Net::Iface* _internal_mutable_iface();
-
-  public:
-  // @@protoc_insertion_point(class_scope:Net.LagInstance)
- private:
-  class _Internal;
-  friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<
-      0, 1, 1,
-      0, 2>
-      _table_;
-  friend class ::google::protobuf::MessageLite;
-  friend class ::google::protobuf::Arena;
-  template <typename T>
-  friend class ::google::protobuf::Arena::InternalHelper;
-  using InternalArenaConstructable_ = void;
-  using DestructorSkippable_ = void;
-  struct Impl_ {
-    inline explicit constexpr Impl_(
-        ::google::protobuf::internal::ConstantInitialized) noexcept;
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena);
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena, const Impl_& from);
-    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    ::google::protobuf::internal::ArenaStringPtr lag_id_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
-    ::Net::Iface* iface_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -623,101 +447,6 @@ class LagInstance final : public ::google::protobuf::Message
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
-// LagInstance
-
-// .Net.Iface iface = 1;
-inline bool LagInstance::has_iface() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.iface_ != nullptr);
-  return value;
-}
-inline const ::Net::Iface& LagInstance::_internal_iface() const {
-  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  const ::Net::Iface* p = _impl_.iface_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Net::Iface&>(::Net::_Iface_default_instance_);
-}
-inline const ::Net::Iface& LagInstance::iface() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:Net.LagInstance.iface)
-  return _internal_iface();
-}
-inline void LagInstance::unsafe_arena_set_allocated_iface(::Net::Iface* value) {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.iface_);
-  }
-  _impl_.iface_ = reinterpret_cast<::Net::Iface*>(value);
-  if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Net.LagInstance.iface)
-}
-inline ::Net::Iface* LagInstance::release_iface() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::Net::Iface* released = _impl_.iface_;
-  _impl_.iface_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
-  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-  if (GetArena() == nullptr) {
-    delete old;
-  }
-#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArena() != nullptr) {
-    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return released;
-}
-inline ::Net::Iface* LagInstance::unsafe_arena_release_iface() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  // @@protoc_insertion_point(field_release:Net.LagInstance.iface)
-
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::Net::Iface* temp = _impl_.iface_;
-  _impl_.iface_ = nullptr;
-  return temp;
-}
-inline ::Net::Iface* LagInstance::_internal_mutable_iface() {
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  if (_impl_.iface_ == nullptr) {
-    auto* p = ::google::protobuf::Message::DefaultConstruct<::Net::Iface>(GetArena());
-    _impl_.iface_ = reinterpret_cast<::Net::Iface*>(p);
-  }
-  return _impl_.iface_;
-}
-inline ::Net::Iface* LagInstance::mutable_iface() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  ::Net::Iface* _msg = _internal_mutable_iface();
-  // @@protoc_insertion_point(field_mutable:Net.LagInstance.iface)
-  return _msg;
-}
-inline void LagInstance::set_allocated_iface(::Net::Iface* value) {
-  ::google::protobuf::Arena* message_arena = GetArena();
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  if (message_arena == nullptr) {
-    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.iface_);
-  }
-
-  if (value != nullptr) {
-    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
-    if (message_arena != submessage_arena) {
-      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
-    }
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-
-  _impl_.iface_ = reinterpret_cast<::Net::Iface*>(value);
-  // @@protoc_insertion_point(field_set_allocated:Net.LagInstance.iface)
-}
-
 // -------------------------------------------------------------------
 
 // Lag
@@ -776,100 +505,54 @@ inline void Lag::set_allocated_id(std::string* value) {
 
 // LagMember
 
-// .Net.Lag lag = 1;
-inline bool LagMember::has_lag() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.lag_ != nullptr);
-  return value;
-}
-inline void LagMember::clear_lag() {
+// string lag_id = 1;
+inline void LagMember::clear_lag_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  if (_impl_.lag_ != nullptr) _impl_.lag_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_.lag_id_.ClearToEmpty();
 }
-inline const ::Net::Lag& LagMember::_internal_lag() const {
+inline const std::string& LagMember::lag_id() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:Net.LagMember.lag_id)
+  return _internal_lag_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void LagMember::set_lag_id(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.lag_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:Net.LagMember.lag_id)
+}
+inline std::string* LagMember::mutable_lag_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_lag_id();
+  // @@protoc_insertion_point(field_mutable:Net.LagMember.lag_id)
+  return _s;
+}
+inline const std::string& LagMember::_internal_lag_id() const {
   PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
-  const ::Net::Lag* p = _impl_.lag_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Net::Lag&>(::Net::_Lag_default_instance_);
+  return _impl_.lag_id_.Get();
 }
-inline const ::Net::Lag& LagMember::lag() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:Net.LagMember.lag)
-  return _internal_lag();
-}
-inline void LagMember::unsafe_arena_set_allocated_lag(::Net::Lag* value) {
+inline void LagMember::_internal_set_lag_id(const std::string& value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.lag_);
-  }
-  _impl_.lag_ = reinterpret_cast<::Net::Lag*>(value);
-  if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Net.LagMember.lag)
+  _impl_.lag_id_.Set(value, GetArena());
 }
-inline ::Net::Lag* LagMember::release_lag() {
+inline std::string* LagMember::_internal_mutable_lag_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::Net::Lag* released = _impl_.lag_;
-  _impl_.lag_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
-  released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-  if (GetArena() == nullptr) {
-    delete old;
-  }
-#else   // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArena() != nullptr) {
-    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return released;
+  return _impl_.lag_id_.Mutable( GetArena());
 }
-inline ::Net::Lag* LagMember::unsafe_arena_release_lag() {
+inline std::string* LagMember::release_lag_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  // @@protoc_insertion_point(field_release:Net.LagMember.lag)
-
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::Net::Lag* temp = _impl_.lag_;
-  _impl_.lag_ = nullptr;
-  return temp;
+  // @@protoc_insertion_point(field_release:Net.LagMember.lag_id)
+  return _impl_.lag_id_.Release();
 }
-inline ::Net::Lag* LagMember::_internal_mutable_lag() {
+inline void LagMember::set_allocated_lag_id(std::string* value) {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  if (_impl_.lag_ == nullptr) {
-    auto* p = ::google::protobuf::Message::DefaultConstruct<::Net::Lag>(GetArena());
-    _impl_.lag_ = reinterpret_cast<::Net::Lag*>(p);
-  }
-  return _impl_.lag_;
-}
-inline ::Net::Lag* LagMember::mutable_lag() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  ::Net::Lag* _msg = _internal_mutable_lag();
-  // @@protoc_insertion_point(field_mutable:Net.LagMember.lag)
-  return _msg;
-}
-inline void LagMember::set_allocated_lag(::Net::Lag* value) {
-  ::google::protobuf::Arena* message_arena = GetArena();
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  if (message_arena == nullptr) {
-    delete (_impl_.lag_);
-  }
-
-  if (value != nullptr) {
-    ::google::protobuf::Arena* submessage_arena = (value)->GetArena();
-    if (message_arena != submessage_arena) {
-      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
-    }
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-
-  _impl_.lag_ = reinterpret_cast<::Net::Lag*>(value);
-  // @@protoc_insertion_point(field_set_allocated:Net.LagMember.lag)
+  _impl_.lag_id_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.lag_id_.IsDefault()) {
+          _impl_.lag_id_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Net.LagMember.lag_id)
 }
 
 // repeated .Net.Iface members = 2;

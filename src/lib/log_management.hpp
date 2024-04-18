@@ -14,7 +14,7 @@ namespace Log {
 class ILogger {
 public:
     virtual ~ILogger() = default;
-    virtual bool log(const Log::Level level, const String msg);
+    virtual void log(const Log::Level level, const String& msg);
 };
 
 class ManagerBuilder;
@@ -39,11 +39,11 @@ private:
 class ManagerBuilder final {
 public:
     SharedPtr<ManagerBuilder>& instance();
-    static SharedPtr<Manager>& get(SharedPtr<ILogger> logger);
+    static SharedPtr<Manager>& get();
 
 private:
     ManagerBuilder() = default;
-    Mutex _mtx;
+    static Mutex _mtx;
 };
 
 } // namespace Log

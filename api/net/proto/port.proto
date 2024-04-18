@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+import "common.proto";
+
+package Net;
+
+service PortManagement {
+    rpc CreatePort (Port) returns (Result) {}
+    rpc DeletePort (Port) returns (Result) {}
+
+    rpc SetPortBreakout (PortBreakoutMode) returns (Result) {}
+}
+
+enum BreakoutMode {
+    BREAKOUT_NONE = 0;
+    BREAKOUT_4X100G = 1;
+}
+
+message Port {
+    string id = 1;
+}
+
+message PortBreakoutMode {
+    Port port = 1;
+    BreakoutMode mode = 2;
+}

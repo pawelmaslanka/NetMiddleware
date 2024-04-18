@@ -14,10 +14,6 @@ service VlanManagement {
     rpc RemoveVlanMember (VlanMember) returns (Result) {}
 }
 
-message VlanInstance {
-    string id = 1;
-}
-
 enum VlanMode {
     VLAN_ACCESS = 0;
     VLAN_TAGGED = 1;
@@ -29,7 +25,7 @@ message Vlan {
 }
 
 message VlanMember {
-    Vlan vlan = 1;
+    string vlan_id = 1;
     VlanMode mode = 2;
     repeated Iface members = 3;
 }

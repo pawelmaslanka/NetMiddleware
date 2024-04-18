@@ -59,7 +59,7 @@ bool LagManager::addMember(const String& lag_id, const String& member_id) {
     grpc::ClientContext context;
     Net::Result result;
     Net::LagMember lag_member;
-    lag_member.mutable_lag()->set_id(lag_id);
+    lag_member.set_lag_id(lag_id);
     auto member = lag_member.add_members();
     member->set_id(member_id);
     member->set_type(Net::IfaceType::IFACE_ETH);
@@ -85,7 +85,7 @@ bool LagManager::removeMember(const String& lag_id, const String& member_id) {
     grpc::ClientContext context;
     Net::Result result;
     Net::LagMember lag_member;
-    lag_member.mutable_lag()->set_id(lag_id);
+    lag_member.set_lag_id(lag_id);
     auto member = lag_member.add_members();
     member->set_id(member_id);
     member->set_type(Net::IfaceType::IFACE_ETH);

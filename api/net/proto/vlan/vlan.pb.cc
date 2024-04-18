@@ -23,27 +23,6 @@ namespace _pbi = ::google::protobuf::internal;
 namespace _fl = ::google::protobuf::internal::field_layout;
 namespace Net {
 
-inline constexpr VlanInstance::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : id_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
-        _cached_size_{0} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR VlanInstance::VlanInstance(::_pbi::ConstantInitialized)
-    : _impl_(::_pbi::ConstantInitialized()) {}
-struct VlanInstanceDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR VlanInstanceDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~VlanInstanceDefaultTypeInternal() {}
-  union {
-    VlanInstance _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VlanInstanceDefaultTypeInternal _VlanInstance_default_instance_;
-
 inline constexpr Vlan::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : id_(
@@ -67,10 +46,12 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 
 inline constexpr VlanMember::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : _cached_size_{0},
-        members_{},
-        vlan_{nullptr},
-        mode_{static_cast< ::Net::VlanMode >(0)} {}
+      : members_{},
+        vlan_id_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        mode_{static_cast< ::Net::VlanMode >(0)},
+        _cached_size_{0} {}
 
 template <typename>
 PROTOBUF_CONSTEXPR VlanMember::VlanMember(::_pbi::ConstantInitialized)
@@ -86,22 +67,13 @@ struct VlanMemberDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VlanMemberDefaultTypeInternal _VlanMember_default_instance_;
 }  // namespace Net
-static ::_pb::Metadata file_level_metadata_vlan_2eproto[3];
+static ::_pb::Metadata file_level_metadata_vlan_2eproto[2];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_vlan_2eproto[1];
 static constexpr const ::_pb::ServiceDescriptor**
     file_level_service_descriptors_vlan_2eproto = nullptr;
 const ::uint32_t
     TableStruct_vlan_2eproto::offsets[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
         protodesc_cold) = {
-        ~0u,  // no _has_bits_
-        PROTOBUF_FIELD_OFFSET(::Net::VlanInstance, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::Net::VlanInstance, _impl_.id_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::Net::Vlan, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -111,7 +83,7 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::Net::Vlan, _impl_.id_),
-        PROTOBUF_FIELD_OFFSET(::Net::VlanMember, _impl_._has_bits_),
+        ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::Net::VlanMember, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -119,39 +91,33 @@ const ::uint32_t
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::Net::VlanMember, _impl_.vlan_),
+        PROTOBUF_FIELD_OFFSET(::Net::VlanMember, _impl_.vlan_id_),
         PROTOBUF_FIELD_OFFSET(::Net::VlanMember, _impl_.mode_),
         PROTOBUF_FIELD_OFFSET(::Net::VlanMember, _impl_.members_),
-        0,
-        ~0u,
-        ~0u,
 };
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-        {0, -1, -1, sizeof(::Net::VlanInstance)},
-        {9, -1, -1, sizeof(::Net::Vlan)},
-        {18, 29, -1, sizeof(::Net::VlanMember)},
+        {0, -1, -1, sizeof(::Net::Vlan)},
+        {9, -1, -1, sizeof(::Net::VlanMember)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
-    &::Net::_VlanInstance_default_instance_._instance,
     &::Net::_Vlan_default_instance_._instance,
     &::Net::_VlanMember_default_instance_._instance,
 };
 const char descriptor_table_protodef_vlan_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
     "\n\nvlan.proto\022\003Net\032\014common.proto\032\017interfa"
-    "ce.proto\"\032\n\014VlanInstance\022\n\n\002id\030\001 \001(\t\"\022\n\004"
-    "Vlan\022\n\n\002id\030\001 \001(\t\"_\n\nVlanMember\022\027\n\004vlan\030\001"
-    " \001(\0132\t.Net.Vlan\022\033\n\004mode\030\002 \001(\0162\r.Net.Vlan"
-    "Mode\022\033\n\007members\030\003 \003(\0132\n.Net.Iface*\?\n\010Vla"
-    "nMode\022\017\n\013VLAN_ACCESS\020\000\022\017\n\013VLAN_TAGGED\020\001\022"
-    "\021\n\rVLAN_UNTAGGED\020\0022\305\001\n\016VlanManagement\022&\n"
-    "\nCreateVlan\022\t.Net.Vlan\032\013.Net.Result\"\000\022&\n"
-    "\nDeleteVlan\022\t.Net.Vlan\032\013.Net.Result\"\000\022/\n"
-    "\rAddVlanMember\022\017.Net.VlanMember\032\013.Net.Re"
-    "sult\"\000\0222\n\020RemoveVlanMember\022\017.Net.VlanMem"
-    "ber\032\013.Net.Result\"\000b\006proto3"
+    "ce.proto\"\022\n\004Vlan\022\n\n\002id\030\001 \001(\t\"W\n\nVlanMemb"
+    "er\022\017\n\007vlan_id\030\001 \001(\t\022\033\n\004mode\030\002 \001(\0162\r.Net."
+    "VlanMode\022\033\n\007members\030\003 \003(\0132\n.Net.Iface*\?\n"
+    "\010VlanMode\022\017\n\013VLAN_ACCESS\020\000\022\017\n\013VLAN_TAGGE"
+    "D\020\001\022\021\n\rVLAN_UNTAGGED\020\0022\305\001\n\016VlanManagemen"
+    "t\022&\n\nCreateVlan\022\t.Net.Vlan\032\013.Net.Result\""
+    "\000\022&\n\nDeleteVlan\022\t.Net.Vlan\032\013.Net.Result\""
+    "\000\022/\n\rAddVlanMember\022\017.Net.VlanMember\032\013.Ne"
+    "t.Result\"\000\0222\n\020RemoveVlanMember\022\017.Net.Vla"
+    "nMember\032\013.Net.Result\"\000b\006proto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_vlan_2eproto_deps[2] =
     {
@@ -162,13 +128,13 @@ static ::absl::once_flag descriptor_table_vlan_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_vlan_2eproto = {
     false,
     false,
-    466,
+    430,
     descriptor_table_protodef_vlan_2eproto,
     "vlan.proto",
     &descriptor_table_vlan_2eproto_once,
     descriptor_table_vlan_2eproto_deps,
     2,
-    3,
+    2,
     schemas,
     file_default_instances,
     TableStruct_vlan_2eproto::offsets,
@@ -200,203 +166,6 @@ PROTOBUF_CONSTINIT const uint32_t VlanMode_internal_data_[] = {
     196608u, 0u, };
 bool VlanMode_IsValid(int value) {
   return 0 <= value && value <= 2;
-}
-// ===================================================================
-
-class VlanInstance::_Internal {
- public:
-};
-
-VlanInstance::VlanInstance(::google::protobuf::Arena* arena)
-    : ::google::protobuf::Message(arena) {
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:Net.VlanInstance)
-}
-inline PROTOBUF_NDEBUG_INLINE VlanInstance::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from)
-      : id_(arena, from.id_),
-        _cached_size_{0} {}
-
-VlanInstance::VlanInstance(
-    ::google::protobuf::Arena* arena,
-    const VlanInstance& from)
-    : ::google::protobuf::Message(arena) {
-  VlanInstance* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
-
-  // @@protoc_insertion_point(copy_constructor:Net.VlanInstance)
-}
-inline PROTOBUF_NDEBUG_INLINE VlanInstance::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : id_(arena),
-        _cached_size_{0} {}
-
-inline void VlanInstance::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-}
-VlanInstance::~VlanInstance() {
-  // @@protoc_insertion_point(destructor:Net.VlanInstance)
-  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  SharedDtor();
-}
-inline void VlanInstance::SharedDtor() {
-  ABSL_DCHECK(GetArena() == nullptr);
-  _impl_.id_.Destroy();
-  _impl_.~Impl_();
-}
-
-const ::google::protobuf::MessageLite::ClassData*
-VlanInstance::GetClassData() const {
-  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
-      ClassDataFull _data_ = {
-          {
-              nullptr,  // OnDemandRegisterArenaDtor
-              PROTOBUF_FIELD_OFFSET(VlanInstance, _impl_._cached_size_),
-              false,
-          },
-          &VlanInstance::MergeImpl,
-          &VlanInstance::kDescriptorMethods,
-      };
-  return &_data_;
-}
-PROTOBUF_NOINLINE void VlanInstance::Clear() {
-// @@protoc_insertion_point(message_clear_start:Net.VlanInstance)
-  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  _impl_.id_.ClearToEmpty();
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-const char* VlanInstance::_InternalParse(
-    const char* ptr, ::_pbi::ParseContext* ctx) {
-  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
-  return ptr;
-}
-
-
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 27, 2> VlanInstance::_table_ = {
-  {
-    0,  // no _has_bits_
-    0, // no _extensions_
-    1, 0,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967294,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    1,  // num_field_entries
-    0,  // num_aux_entries
-    offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_VlanInstance_default_instance_._instance,
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::Net::VlanInstance>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // string id = 1;
-    {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(VlanInstance, _impl_.id_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // string id = 1;
-    {PROTOBUF_FIELD_OFFSET(VlanInstance, _impl_.id_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-  }},
-  // no aux_entries
-  {{
-    "\20\2\0\0\0\0\0\0"
-    "Net.VlanInstance"
-    "id"
-  }},
-};
-
-::uint8_t* VlanInstance::_InternalSerialize(
-    ::uint8_t* target,
-    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Net.VlanInstance)
-  ::uint32_t cached_has_bits = 0;
-  (void)cached_has_bits;
-
-  // string id = 1;
-  if (!this->_internal_id().empty()) {
-    const std::string& _s = this->_internal_id();
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "Net.VlanInstance.id");
-    target = stream->WriteStringMaybeAliased(1, _s, target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target =
-        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:Net.VlanInstance)
-  return target;
-}
-
-::size_t VlanInstance::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Net.VlanInstance)
-  ::size_t total_size = 0;
-
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // string id = 1;
-  if (!this->_internal_id().empty()) {
-    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                    this->_internal_id());
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
-}
-
-
-void VlanInstance::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<VlanInstance*>(&to_msg);
-  auto& from = static_cast<const VlanInstance&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:Net.VlanInstance)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (!from._internal_id().empty()) {
-    _this->_internal_set_id(from._internal_id());
-  }
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void VlanInstance::CopyFrom(const VlanInstance& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Net.VlanInstance)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-PROTOBUF_NOINLINE bool VlanInstance::IsInitialized() const {
-  return true;
-}
-
-void VlanInstance::InternalSwap(VlanInstance* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  auto* arena = GetArena();
-  ABSL_DCHECK_EQ(arena, other->GetArena());
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.id_, &other->_impl_.id_, arena);
-}
-
-::google::protobuf::Metadata VlanInstance::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(&descriptor_table_vlan_2eproto_getter,
-                                   &descriptor_table_vlan_2eproto_once,
-                                   file_level_metadata_vlan_2eproto[0]);
 }
 // ===================================================================
 
@@ -593,15 +362,12 @@ void Vlan::InternalSwap(Vlan* PROTOBUF_RESTRICT other) {
 ::google::protobuf::Metadata Vlan::GetMetadata() const {
   return ::_pbi::AssignDescriptors(&descriptor_table_vlan_2eproto_getter,
                                    &descriptor_table_vlan_2eproto_once,
-                                   file_level_metadata_vlan_2eproto[1]);
+                                   file_level_metadata_vlan_2eproto[0]);
 }
 // ===================================================================
 
 class VlanMember::_Internal {
  public:
-  using HasBits = decltype(std::declval<VlanMember>()._impl_._has_bits_);
-  static constexpr ::int32_t kHasBitsOffset =
-    8 * PROTOBUF_FIELD_OFFSET(VlanMember, _impl_._has_bits_);
 };
 
 void VlanMember::clear_members() {
@@ -616,9 +382,9 @@ VlanMember::VlanMember(::google::protobuf::Arena* arena)
 inline PROTOBUF_NDEBUG_INLINE VlanMember::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
     const Impl_& from)
-      : _has_bits_{from._has_bits_},
-        _cached_size_{0},
-        members_{visibility, arena, from.members_} {}
+      : members_{visibility, arena, from.members_},
+        vlan_id_(arena, from.vlan_id_),
+        _cached_size_{0} {}
 
 VlanMember::VlanMember(
     ::google::protobuf::Arena* arena,
@@ -629,10 +395,6 @@ VlanMember::VlanMember(
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
-  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
-  _impl_.vlan_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::Net::Vlan>(
-                              arena, *from._impl_.vlan_)
-                        : nullptr;
   _impl_.mode_ = from._impl_.mode_;
 
   // @@protoc_insertion_point(copy_constructor:Net.VlanMember)
@@ -640,17 +402,13 @@ VlanMember::VlanMember(
 inline PROTOBUF_NDEBUG_INLINE VlanMember::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : _cached_size_{0},
-        members_{visibility, arena} {}
+      : members_{visibility, arena},
+        vlan_id_(arena),
+        _cached_size_{0} {}
 
 inline void VlanMember::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
-  ::memset(reinterpret_cast<char *>(&_impl_) +
-               offsetof(Impl_, vlan_),
-           0,
-           offsetof(Impl_, mode_) -
-               offsetof(Impl_, vlan_) +
-               sizeof(Impl_::mode_));
+  _impl_.mode_ = {};
 }
 VlanMember::~VlanMember() {
   // @@protoc_insertion_point(destructor:Net.VlanMember)
@@ -659,7 +417,7 @@ VlanMember::~VlanMember() {
 }
 inline void VlanMember::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
-  delete _impl_.vlan_;
+  _impl_.vlan_id_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -685,13 +443,8 @@ PROTOBUF_NOINLINE void VlanMember::Clear() {
   (void) cached_has_bits;
 
   _impl_.members_.Clear();
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(_impl_.vlan_ != nullptr);
-    _impl_.vlan_->Clear();
-  }
+  _impl_.vlan_id_.ClearToEmpty();
   _impl_.mode_ = 0;
-  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -703,16 +456,16 @@ const char* VlanMember::_InternalParse(
 
 
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<2, 3, 2, 0, 2> VlanMember::_table_ = {
+const ::_pbi::TcParseTable<2, 3, 1, 30, 2> VlanMember::_table_ = {
   {
-    PROTOBUF_FIELD_OFFSET(VlanMember, _impl_._has_bits_),
+    0,  // no _has_bits_
     0, // no _extensions_
     3, 24,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
     4294967288,  // skipmap
     offsetof(decltype(_table_), field_entries),
     3,  // num_field_entries
-    2,  // num_aux_entries
+    1,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     &_VlanMember_default_instance_._instance,
     ::_pbi::TcParser::GenericFallback,  // fallback
@@ -721,31 +474,33 @@ const ::_pbi::TcParseTable<2, 3, 2, 0, 2> VlanMember::_table_ = {
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
     {::_pbi::TcParser::MiniParse, {}},
-    // .Net.Vlan vlan = 1;
-    {::_pbi::TcParser::FastMtS1,
-     {10, 0, 0, PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.vlan_)}},
+    // string vlan_id = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.vlan_id_)}},
     // .Net.VlanMode mode = 2;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(VlanMember, _impl_.mode_), 63>(),
      {16, 63, 0, PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.mode_)}},
     // repeated .Net.Iface members = 3;
     {::_pbi::TcParser::FastMtR1,
-     {26, 63, 1, PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.members_)}},
+     {26, 63, 0, PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.members_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // .Net.Vlan vlan = 1;
-    {PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.vlan_), _Internal::kHasBitsOffset + 0, 0,
-    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // string vlan_id = 1;
+    {PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.vlan_id_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
     // .Net.VlanMode mode = 2;
-    {PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.mode_), -1, 0,
+    {PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.mode_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
     // repeated .Net.Iface members = 3;
-    {PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.members_), -1, 1,
+    {PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.members_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
-    {::_pbi::TcParser::GetTable<::Net::Vlan>()},
     {::_pbi::TcParser::GetTable<::Net::Iface>()},
   }}, {{
+    "\16\7\0\0\0\0\0\0"
+    "Net.VlanMember"
+    "vlan_id"
   }},
 };
 
@@ -756,11 +511,12 @@ const ::_pbi::TcParseTable<2, 3, 2, 0, 2> VlanMember::_table_ = {
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
-  cached_has_bits = _impl_._has_bits_[0];
-  // .Net.Vlan vlan = 1;
-  if (cached_has_bits & 0x00000001u) {
-    target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-        1, *_impl_.vlan_, _impl_.vlan_->GetCachedSize(), target, stream);
+  // string vlan_id = 1;
+  if (!this->_internal_vlan_id().empty()) {
+    const std::string& _s = this->_internal_vlan_id();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "Net.VlanMember.vlan_id");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
   // .Net.VlanMode mode = 2;
@@ -803,11 +559,10 @@ const ::_pbi::TcParseTable<2, 3, 2, 0, 2> VlanMember::_table_ = {
   for (const auto& msg : this->_internal_members()) {
     total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
   }
-  // .Net.Vlan vlan = 1;
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size +=
-        1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.vlan_);
+  // string vlan_id = 1;
+  if (!this->_internal_vlan_id().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_vlan_id());
   }
 
   // .Net.VlanMode mode = 2;
@@ -823,7 +578,6 @@ const ::_pbi::TcParseTable<2, 3, 2, 0, 2> VlanMember::_table_ = {
 void VlanMember::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
   auto* const _this = static_cast<VlanMember*>(&to_msg);
   auto& from = static_cast<const VlanMember&>(from_msg);
-  ::google::protobuf::Arena* arena = _this->GetArena();
   // @@protoc_insertion_point(class_specific_merge_from_start:Net.VlanMember)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
@@ -831,20 +585,12 @@ void VlanMember::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::goog
 
   _this->_internal_mutable_members()->MergeFrom(
       from._internal_members());
-  cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(from._impl_.vlan_ != nullptr);
-    if (_this->_impl_.vlan_ == nullptr) {
-      _this->_impl_.vlan_ =
-          ::google::protobuf::Message::CopyConstruct<::Net::Vlan>(arena, *from._impl_.vlan_);
-    } else {
-      _this->_impl_.vlan_->MergeFrom(*from._impl_.vlan_);
-    }
+  if (!from._internal_vlan_id().empty()) {
+    _this->_internal_set_vlan_id(from._internal_vlan_id());
   }
   if (from._internal_mode() != 0) {
     _this->_impl_.mode_ = from._impl_.mode_;
   }
-  _this->_impl_._has_bits_[0] |= cached_has_bits;
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -861,21 +607,18 @@ PROTOBUF_NOINLINE bool VlanMember::IsInitialized() const {
 
 void VlanMember::InternalSwap(VlanMember* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   _impl_.members_.InternalSwap(&other->_impl_.members_);
-  ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.mode_)
-      + sizeof(VlanMember::_impl_.mode_)
-      - PROTOBUF_FIELD_OFFSET(VlanMember, _impl_.vlan_)>(
-          reinterpret_cast<char*>(&_impl_.vlan_),
-          reinterpret_cast<char*>(&other->_impl_.vlan_));
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.vlan_id_, &other->_impl_.vlan_id_, arena);
+  swap(_impl_.mode_, other->_impl_.mode_);
 }
 
 ::google::protobuf::Metadata VlanMember::GetMetadata() const {
   return ::_pbi::AssignDescriptors(&descriptor_table_vlan_2eproto_getter,
                                    &descriptor_table_vlan_2eproto_once,
-                                   file_level_metadata_vlan_2eproto[2]);
+                                   file_level_metadata_vlan_2eproto[1]);
 }
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Net
