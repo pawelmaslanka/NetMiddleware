@@ -38,11 +38,12 @@ set(NET_GRPC_PROTO net_grpc_proto)
 add_library(${NET_GRPC_PROTO}
     ${TARGET_GRPC_FILES})
 
+# link_directories(/usr/lib/x86_64-linux-gnu)
 target_link_libraries(${NET_GRPC_PROTO}
     ${_REFLECTION}
     ${_GRPC_GRPCPP}
     ${_PROTOBUF_LIBPROTOBUF})
 
 add_custom_command(TARGET ${NET_GRPC_PROTO} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${NET_GRPC_PROTO}> ${LIB_OUTPUT_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${NET_GRPC_PROTO}> ${OUTPUT_DIR}
 )

@@ -1,13 +1,12 @@
-Source: netmiddleware
+Source: net-middleware
 Section: devel
 Priority: optional
 Maintainer: Pawel Maslanka <pawmas@hotmail.com>
-Build-Depends: debhelper (>= 12.0.0), json-schema-validator (>= 0.1), libspdlog-dev
+Build-Depends: debhelper (>= 12.0.0), nlohmann-json3-dev, libspdlog-dev
 Standards-Version: 3.9.3
 Homepage: https://github.com/pawelmaslanka/NetMiddleware
-XS-Go-Import-Path: https://github.com/pawelmaslanka/NetMiddleware
 
-Package: netmiddleware
+Package: net-middleware
 Architecture: amd64
 Built-Using: ${misc:Built-Using}
 Depends: ${shlibs:Depends}

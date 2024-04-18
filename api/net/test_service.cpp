@@ -8,8 +8,13 @@
 
 #include "lag.grpc.pb.h"
 
+#include <sstream>
+
 void RunServer(uint16_t port) {
-    std::string server_address = absl::StrFormat("127.0.0.1:%d", port);
+    std::ostringstream stringStream;
+    stringStream << "127.0.0.1:";
+    stringStream << port;
+    std::string server_address = stringStream.str();
     LagService lagService;
 
     grpc::EnableDefaultHealthCheckService(true);

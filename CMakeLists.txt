@@ -1,18 +1,17 @@
-cmake_minimum_required(VERSION 3.26.3)
+cmake_minimum_required(VERSION 3.18.4)
 
 project(NetMiddleware LANGUAGES CXX)
 
-find_package(fmt 9.1.0 REQUIRED)
+find_package(fmt 7.1.3 REQUIRED)
 # Seeking lib as seen in /usr/local/lib/cmake/nlohmann_json_schema_validator
 find_package(nlohmann_json_schema_validator 2.2.0 REQUIRED)
-find_package(nlohmann_json 3.11.3 REQUIRED)
-find_package(spdlog 1.11.0 REQUIRED)
+find_package(nlohmann_json 3.9.1 REQUIRED)
+find_package(spdlog 1.8.1 REQUIRED)
 
-include(./api/net/common.cmake)
-
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(API_NET_DIR api/net)
 add_subdirectory(${API_NET_DIR})
 

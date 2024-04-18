@@ -1,12 +1,34 @@
-cmake_minimum_required(VERSION 3.26.3)
+cmake_minimum_required(VERSION 3.18.4)
 
 project(NetRPC C CXX)
 
-find_package(spdlog 1.11.0 REQUIRED)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include("${CMAKE_CURRENT_SOURCE_DIR}/common.cmake")
+find_package(fmt 7.1.3 REQUIRED)
+# Seeking lib as seen in /usr/local/lib/cmake/nlohmann_json_schema_validator
+find_package(nlohmann_json_schema_validator 2.2.0 REQUIRED)
+find_package(nlohmann_json 3.9.1 REQUIRED)
+find_package(spdlog 1.8.1 REQUIRED)
 
-set(LIB_OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+find_package(Threads REQUIRED)
+
+set(LIST_LINK_DIRS "${OUTPUT_DIR}")
+
+if(APPLE)
+    # NOTE: The file "common.cmake" has been taken from
+    # the official gRPC repo: https://github.com/grpc/grpc
+    include(common.cmake)
+else()
+    # SONiC 202305
+    set(_PROTOBUF_PROTOC /usr/bin/protoc)
+    set(_PROTOBUF_LIBPROTOBUF protobuf)
+    set(_GRPC_CPP_PLUGIN_EXECUTABLE /usr/bin/grpc_cpp_plugin)
+    set(_GRPC_GRPCPP grpc++)
+    set(_REFLECTION grpc++_reflection)
+    list(APPEND LIST_LINK_DIRS "/usr/lib/x86_64-linux-gnu")
+endif()
+
 set(TOP_PROTO_PATH "${CMAKE_CURRENT_SOURCE_DIR}/proto")
 
 add_subdirectory(${TOP_PROTO_PATH})
@@ -19,7 +41,7 @@ include_directories(
     "${TOP_PROTO_PATH}/port"
     "${TOP_PROTO_PATH}/vlan")
 
-link_directories(${LIB_OUTPUT_DIR})
+link_directories(${LIST_LINK_DIRS})
 
 set(BINARY_OUTPUT "Service")
 add_executable(${BINARY_OUTPUT} "lag/lag_service.cpp" test_service.cpp)
