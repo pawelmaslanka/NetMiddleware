@@ -43,11 +43,14 @@ include_directories(
 
 link_directories(${LIST_LINK_DIRS})
 
-set(BINARY_OUTPUT "Service")
-add_executable(${BINARY_OUTPUT} "lag/lag_service.cpp" test_service.cpp)
-target_link_libraries(${BINARY_OUTPUT}
+set(BINARY_OUTPUT_NAME "Service")
+add_executable(${BINARY_OUTPUT_NAME} "lag/lag_service.cpp" test_service.cpp)
+target_link_libraries(${BINARY_OUTPUT_NAME}
     PRIVATE spdlog::spdlog_header_only
     net_grpc_proto
     ${_REFLECTION}
     ${_GRPC_GRPCPP}
     ${_PROTOBUF_LIBPROTOBUF})
+
+add_custom_command(TARGET ${BINARY_OUTPUT_NAME} POST_BUILD
+COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${BINARY_OUTPUT_NAME}> ${OUTPUT_DIR})
