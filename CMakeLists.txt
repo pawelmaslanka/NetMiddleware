@@ -25,6 +25,7 @@ include_directories(
     "${TOP_PROTO_PATH}/common"
     "${TOP_PROTO_PATH}/interface"
     "${TOP_PROTO_PATH}/lag"
+    "${TOP_PROTO_PATH}/port"
     "${TOP_PROTO_PATH}/vlan"
 )
 
