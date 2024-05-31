@@ -28,5 +28,5 @@ private:
     SharedPtr<ModuleRegistry> _module_registry;
     Map<String, SharedPtr<Lag>> _lag_by_id; // LAG by id
     Map<String, String> _lag_by_member;
-    UniquePtr<Net::LagManagement::Stub> _lag_service;
+    UniquePtr<DataPlane::LagManagement::Stub> _lag_service;
 };

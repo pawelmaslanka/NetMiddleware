@@ -3,7 +3,7 @@ syntax = "proto3";
 import "common.proto";
 import "interface.proto";
 
-package Net;
+package DataPlane;
 
 // The LAG service definition.
 service VlanManagement {

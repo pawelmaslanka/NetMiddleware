@@ -4,7 +4,7 @@
 #include <spdlog/spdlog.h>
 
 LagManager::LagManager(SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel)
-: _module_registry { module_registry }, _lag_service { Net::LagManagement::NewStub(rpc_net_channel) } {
+: _module_registry { module_registry }, _lag_service { DataPlane::LagManagement::NewStub(rpc_net_channel) } {
 }
 
 bool LagManager::createLag(const String& lag_id) {
@@ -14,8 +14,8 @@ bool LagManager::createLag(const String& lag_id) {
     }
 
     grpc::ClientContext context;
-    Net::Result result;
-    Net::Lag lag;
+    DataPlane::Result result;
+    DataPlane::Lag lag;
     lag.set_id(lag_id);
     auto status = _lag_service->CreateLag(&context, lag, &result);
     if (!status.ok()) {
@@ -35,8 +35,8 @@ bool LagManager::deleteLag(const String& lag_id) {
     }
 
     grpc::ClientContext context;
-    Net::Result result;
-    Net::Lag lag;
+    DataPlane::Result result;
+    DataPlane::Lag lag;
     lag.set_id(lag_id);
     auto status = _lag_service->DeleteLag(&context, lag, &result);
     if (!status.ok()) {
@@ -57,12 +57,12 @@ bool LagManager::addMember(const String& lag_id, const String& member_id) {
     }
 
     grpc::ClientContext context;
-    Net::Result result;
-    Net::LagMember lag_member;
+    DataPlane::Result result;
+    DataPlane::LagMember lag_member;
     lag_member.set_lag_id(lag_id);
     auto member = lag_member.add_members();
     member->set_id(member_id);
-    member->set_type(Net::IfaceType::IFACE_ETH);
+    member->set_type(DataPlane::IfaceType::IFACE_ETH);
     auto status = _lag_service->AddLagMember(&context, lag_member, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to add member to the LAG instance '{}': {} ({})",
@@ -83,12 +83,12 @@ bool LagManager::removeMember(const String& lag_id, const String& member_id) {
     }
 
     grpc::ClientContext context;
-    Net::Result result;
-    Net::LagMember lag_member;
+    DataPlane::Result result;
+    DataPlane::LagMember lag_member;
     lag_member.set_lag_id(lag_id);
     auto member = lag_member.add_members();
     member->set_id(member_id);
-    member->set_type(Net::IfaceType::IFACE_ETH);
+    member->set_type(DataPlane::IfaceType::IFACE_ETH);
     auto status = _lag_service->RemoveLagMember(&context, lag_member, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to remove member from the LAG instance '{}': {} ({})",

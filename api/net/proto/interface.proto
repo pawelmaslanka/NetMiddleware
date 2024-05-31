@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Net;
+package DataPlane;
 
 enum IfaceType {
     IFACE_ETH = 0;

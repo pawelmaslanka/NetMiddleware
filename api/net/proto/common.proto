@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Net;
+package DataPlane;
 
 // The response message containing the message if error occured
 message Result {
