@@ -21,6 +21,18 @@ private:
     String _lag_id;
 };
 
+class CreateLagEvent final : public ILagObservable {
+public:
+    virtual ~CreateLagEvent() = default;
+    CreateLagEvent(SharedPtr<ILagQueryable> lagQueryable, StringView lag_id);
+};
+
+class DeleteLagEvent final : public ILagObservable {
+public:
+    virtual ~DeleteLagEvent() = default;
+    DeleteLagEvent(SharedPtr<ILagQueryable> lagQueryable, StringView lag_id);
+};
+
 class AddMemberEvent final : public ILagObservable {
 public:
     virtual ~AddMemberEvent() = default;

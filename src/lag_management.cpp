@@ -25,6 +25,7 @@ bool LagManager::createLag(const String& lag_id) {
     }
 
     _lag_by_id[lag_id] = MakeShared<Lag>();
+    notifySubscribers(MakeShared<LagObservable::CreateLagEvent>(shared_from_this(), lag_id));
     return true;
 }
 
@@ -46,6 +47,7 @@ bool LagManager::deleteLag(const String& lag_id) {
     }
 
     _lag_by_id.erase(lag_id);
+    notifySubscribers(MakeShared<LagObservable::DeleteLagEvent>(shared_from_this(), lag_id));
     return true;
 }
 

@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.18.4)
 project(NetMiddleware LANGUAGES CXX)
 
 find_package(fmt 7.1.3 REQUIRED)
-# Seeking lib as seen in /usr/local/lib/cmake/nlohmann_json_schema_validator
-find_package(nlohmann_json_schema_validator 2.2.0 REQUIRED)
 find_package(nlohmann_json 3.9.1 REQUIRED)
 find_package(spdlog 1.8.1 REQUIRED)
 
@@ -36,11 +34,14 @@ set(INC_LIST
     "${SRC_DIR}/lib/observer.${CPP_HEADER_EXT}"
     "${SRC_DIR}/lib/lag_observable.${CPP_HEADER_EXT}"
     "${SRC_DIR}/lib/lag_queryable.${CPP_HEADER_EXT}"
+    "${SRC_DIR}/lib/port_observable.${CPP_HEADER_EXT}"
+    "${SRC_DIR}/lib/port_queryable.${CPP_HEADER_EXT}"
 )
 
 set(SRC_LIST
     "${SRC_DIR}/lib/observer.${CPP_SRC_EXT}"
     "${SRC_DIR}/lib/lag_observable.${CPP_SRC_EXT}"
+    "${SRC_DIR}/lib/port_observable.${CPP_SRC_EXT}"
     "${SRC_DIR}/interface_management.${CPP_SRC_EXT}"
     "${SRC_DIR}/lag_management.${CPP_SRC_EXT}"
     "${SRC_DIR}/port_management.${CPP_SRC_EXT}"

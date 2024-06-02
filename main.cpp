@@ -16,7 +16,7 @@ int main(const int argc, const char* argv[]) {
     auto rpc_net_channel = grpc::CreateChannel("localhost:50052", grpc::InsecureChannelCredentials());
     auto intf_mngr = MakeShared<InterfaceManager>(module_registry);
     auto lag_mngr = MakeShared<LagManager>(module_registry, rpc_net_channel);
-    auto port_mngr = MakeShared<PortManager>(module_registry);
+    auto port_mngr = MakeShared<PortManager>(module_registry, rpc_net_channel);
     auto vlan_mngr = MakeShared<VlanManager>(module_registry);
     module_registry->setInterfaceModule(intf_mngr);
     module_registry->setLagModule(lag_mngr);
@@ -24,13 +24,23 @@ int main(const int argc, const char* argv[]) {
     module_registry->setVlanModule(vlan_mngr);
 
     // TEST: BEG
+    auto eth1_1_id = "eth1-1";
+    if (!port_mngr->createPort(eth1_1_id)) {
+        spdlog::error("Failed to create port '{}'", eth1_1_id);
+        ::exit(EXIT_FAILURE);
+    }
+
+    if (!port_mngr->setPortBreakout(eth1_1_id, Port::BreakoutMode::BREAKOUT_NONE)) {
+        spdlog::error("Failed to set port breakout mode '{}' on the port '{}'", Port::BreakoutMode::BREAKOUT_NONE, eth1_1_id);
+        ::exit(EXIT_FAILURE);
+    }
+
     auto lag1_id = "lag-1";
     if (!lag_mngr->createLag(lag1_id)) {
         spdlog::error("Failed to create LAG '{}'", lag1_id);
         ::exit(EXIT_FAILURE);
     }
 
-    auto eth1_1_id = "eth-1/1";
     if (!lag_mngr->addMember(lag1_id, eth1_1_id)) {
         spdlog::error("Failed to add member '{}' to LAG '{}'", eth1_1_id, lag1_id);
         ::exit(EXIT_FAILURE);
@@ -50,7 +60,7 @@ int main(const int argc, const char* argv[]) {
     spdlog::info("Subscribe VLAN manager to LAG manager");
     lag_mngr->subscribe(vlan_mngr);
 
-    auto eth1_2_id = "eth-1/2";
+    auto eth1_2_id = "eth1-2";
     if (!lag_mngr->addMember(lag1_id, eth1_2_id)) {
         spdlog::error("Failed to add member '{}' to LAG '{}'", eth1_2_id, lag1_id);
         ::exit(EXIT_FAILURE);

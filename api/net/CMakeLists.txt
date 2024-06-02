@@ -6,8 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(fmt 7.1.3 REQUIRED)
-# Seeking lib as seen in /usr/local/lib/cmake/nlohmann_json_schema_validator
-find_package(nlohmann_json_schema_validator 2.2.0 REQUIRED)
 find_package(nlohmann_json 3.9.1 REQUIRED)
 find_package(spdlog 1.8.1 REQUIRED)
 
