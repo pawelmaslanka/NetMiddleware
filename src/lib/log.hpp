@@ -1,29 +1,23 @@
-/*
- * Copyright (C) 2024 Pawel Maslanka (pawmas@hotmail.com)
- * This program is free software: you can redistribute it and/or modify it under the terms
- * of the GNU General Public License as published by the Free Software Foundation, version 3.
- */
 #pragma once
 
 #include "lib/std_types.hpp"
+#include <spdlog/spdlog.h>
+#include <spdlog/common.h>
 
 namespace Log {
-// Log severity level
-enum Level {
-    TRACE   = 0,
-    DEBUG   = 1,
-    INFO    = 2,
-    WARN    = 3,
-    ERROR   = 4,
-    FATAL   = 5
-};
 
-// Log service.
-// Client should use it directly to put the message to the log.
-class IService {
+using Logger = spdlog::logger;
+
+class LoggersRegistry {
 public:
-    virtual ~IService() = default;
-    virtual void log(StringView module_name, const Log::Level level, StringView msg) = 0;
+    LoggersRegistry(spdlog::sinks_init_list sinks_list);
+    virtual ~LoggersRegistry() = default;
+    void registerModule(const String& module_name);
+    SharedPtr<Logger> getLogger(const String& module_name);
+
+private:
+    Map<String, SharedPtr<Logger>> _logger_by_module_name;
+    spdlog::sinks_init_list _sinks_list;
 };
 
 } // namespace Log

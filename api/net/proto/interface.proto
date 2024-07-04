@@ -1,12 +1,37 @@
 syntax = "proto3";
 
-package DataPlane;
+import "common.proto";
 
-enum IfaceType {
-    IFACE_ETH = 0;
+package DataPlane.Interface;
+
+service InterfaceManagement {
+    rpc CreateInterface (Iface) returns (Result) {}
+    rpc DeleteInterface (Iface) returns (Result) {}
+    rpc SetAdminState (IfaceState) returns (Result) {}
+    rpc SetSpeed (IfaceSpeed) returns (Result) {}
 }
 
 message Iface {
     string id = 1;
-    IfaceType type = 2;
+}
+
+enum AdminState {
+    DISABLED = 0;
+    ENABLED = 1;
+}
+
+enum LinkSpeed {
+    SPEED_MAX = 0;
+    SPEED_100G = 100000;
+    SPEED_400G = 400000;
+}
+
+message IfaceSpeed {
+    Iface iface = 1;
+    LinkSpeed speed = 2;
+}
+
+message IfaceState {
+    Iface iface = 1;
+    AdminState state = 2;
 }

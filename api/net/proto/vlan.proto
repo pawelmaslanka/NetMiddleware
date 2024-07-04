@@ -27,5 +27,5 @@ message Vlan {
 message VlanMember {
     string vlan_id = 1;
     VlanMode mode = 2;
-    repeated Iface members = 3;
+    repeated Interface.Iface members = 3;
 }

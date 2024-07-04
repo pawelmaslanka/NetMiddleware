@@ -20,5 +20,5 @@ message Lag {
 
 message LagMember {
     string lag_id = 1;
-    repeated Iface members = 2;
+    repeated Interface.Iface members = 2;
 }

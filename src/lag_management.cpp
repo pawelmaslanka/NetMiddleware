@@ -64,7 +64,7 @@ bool LagManager::addMember(const String& lag_id, const String& member_id) {
     lag_member.set_lag_id(lag_id);
     auto member = lag_member.add_members();
     member->set_id(member_id);
-    member->set_type(DataPlane::IfaceType::IFACE_ETH);
+    // member->set_type(DataPlane::IfaceType::IFACE_ETH);
     auto status = _lag_service->AddLagMember(&context, lag_member, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to add member to the LAG instance '{}': {} ({})",
@@ -90,7 +90,7 @@ bool LagManager::removeMember(const String& lag_id, const String& member_id) {
     lag_member.set_lag_id(lag_id);
     auto member = lag_member.add_members();
     member->set_id(member_id);
-    member->set_type(DataPlane::IfaceType::IFACE_ETH);
+    // member->set_type(DataPlane::IfaceType::IFACE_ETH);
     auto status = _lag_service->RemoveLagMember(&context, lag_member, &result);
     if (!status.ok()) {
         spdlog::error("Failed to send request to remove member from the LAG instance '{}': {} ({})",
