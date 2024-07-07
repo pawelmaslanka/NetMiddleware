@@ -19,7 +19,7 @@ struct Port {
 
     BreakoutMode Breakout = BreakoutMode::BREAKOUT_NONE;
 
-    IdxT getIdx(const ID& port_id) {
+    static IdxT getIdx(const ID& port_id) {
         UnitT unit = 0;
         PortT port = 0;
         SubportT subport = 0;
