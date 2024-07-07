@@ -10,6 +10,7 @@
 #include <std_types.hpp>
 
 namespace Net = Lib::Net;
+namespace DPLag = DataPlane::Lag;
 
 class LagManager final : public Net::ILagQueryable, public Observer::IPublisher, public std::enable_shared_from_this<LagManager> {
 public:
@@ -31,6 +32,6 @@ private:
     SharedPtr<ModuleRegistry> _module_registry;
     Map<Net::ID, SharedPtr<Net::Lag>> _lag_by_id; // LAG by id
     Map<Net::ID, String> _lag_by_member;
-    UniquePtr<DataPlane::LagManagement::Stub> _lag_service;
+    UniquePtr<DPLag::LagManagement::Stub> _lag_service;
     SharedPtr<Log::Logger> _log;
 };

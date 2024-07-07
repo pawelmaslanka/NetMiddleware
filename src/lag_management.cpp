@@ -4,7 +4,7 @@
 #include <spdlog/spdlog.h>
 
 LagManager::LagManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel)
-  : _module_name { module_name }, _module_registry { module_registry }, _lag_service { DataPlane::LagManagement::NewStub(rpc_net_channel) },
+  : _module_name { module_name }, _module_registry { module_registry }, _lag_service { DPLag::LagManagement::NewStub(rpc_net_channel) },
     _log { module_registry->logModule()->getLogger(String(module_name)) } {
     // Nothing more to do
 }
@@ -17,7 +17,7 @@ bool LagManager::createLag(const Net::ID& lag_id) {
 
     grpc::ClientContext context;
     DataPlane::Result result;
-    DataPlane::Lag lag;
+    DPLag::Lag lag;
     lag.set_id(lag_id);
     auto status = _lag_service->CreateLag(&context, lag, &result);
     if (!status.ok()) {
@@ -39,7 +39,7 @@ bool LagManager::deleteLag(const Net::ID& lag_id) {
 
     grpc::ClientContext context;
     DataPlane::Result result;
-    DataPlane::Lag lag;
+    DPLag::Lag lag;
     lag.set_id(lag_id);
     auto status = _lag_service->DeleteLag(&context, lag, &result);
     if (!status.ok()) {
@@ -62,7 +62,7 @@ bool LagManager::addMember(const Net::ID& lag_id, const Net::ID& member_id) {
 
     grpc::ClientContext context;
     DataPlane::Result result;
-    DataPlane::LagMember lag_member;
+    DPLag::LagMember lag_member;
     lag_member.set_lag_id(lag_id);
     auto member = lag_member.add_members();
     member->set_id(member_id);
@@ -88,7 +88,7 @@ bool LagManager::removeMember(const Net::ID& lag_id, const Net::ID& member_id) {
 
     grpc::ClientContext context;
     DataPlane::Result result;
-    DataPlane::LagMember lag_member;
+    DPLag::LagMember lag_member;
     lag_member.set_lag_id(lag_id);
     auto member = lag_member.add_members();
     member->set_id(member_id);

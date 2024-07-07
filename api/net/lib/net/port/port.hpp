@@ -8,7 +8,7 @@
 namespace Lib::Net {
 
 struct Port {
-    using BreakoutMode = DataPlane::BreakoutMode;
+    using BreakoutMode = DataPlane::Port::BreakoutMode;
     typedef uint32_t IdxT;
     typedef uint8_t UnitT;
     typedef uint8_t PortT;

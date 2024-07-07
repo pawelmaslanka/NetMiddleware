@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "common.proto";
 
-package DataPlane;
+package DataPlane.Port;
 
 service PortManagement {
     rpc CreatePort (Port) returns (Result) {}

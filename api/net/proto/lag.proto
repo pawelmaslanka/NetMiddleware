@@ -3,7 +3,7 @@ syntax = "proto3";
 import "common.proto";
 import "interface.proto";
 
-package DataPlane;
+package DataPlane.Lag;
 
 // The LAG service definition.
 service LagManagement {

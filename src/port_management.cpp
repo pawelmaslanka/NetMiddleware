@@ -3,7 +3,7 @@
 #include "lib/port_observable.hpp"
 
 PortManager::PortManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel)
-: _module_name { module_name }, _module_registry { module_registry }, _port_service { DataPlane::PortManagement::NewStub(rpc_net_channel) },
+: _module_name { module_name }, _module_registry { module_registry }, _port_service { DPPort::PortManagement::NewStub(rpc_net_channel) },
   _log { module_registry->logModule()->getLogger(String(module_name)) } {
     // Nothing more to do
 }
@@ -50,7 +50,7 @@ bool PortManager::setPortBreakout(const Net::ID& port_id, const Net::Port::Break
 
     grpc::ClientContext context;
     DataPlane::Result result;
-    DataPlane::PortBreakoutMode port_breakoutmode;
+    DPPort::PortBreakoutMode port_breakoutmode;
     port_breakoutmode.mutable_port()->set_id(port_id);
     port_breakoutmode.set_mode(mode);
     auto status = _port_service->SetPortBreakout(&context, port_breakoutmode, &result);

@@ -8,6 +8,8 @@
 #include <std_types.hpp>
 #include <port.grpc.pb.h>
 
+namespace DPPort = DataPlane::Port;
+
 class PortManager : public Net::IPortQueryable, public Observer::IPublisher, public std::enable_shared_from_this<PortManager> {
 public:
     PortManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel);
@@ -23,6 +25,6 @@ private:
     String _module_name;
     SharedPtr<ModuleRegistry> _module_registry;
     Map<Net::ID, SharedPtr<Net::Port>> _port_by_id;
-    UniquePtr<DataPlane::PortManagement::Stub> _port_service;
+    UniquePtr<DPPort::PortManagement::Stub> _port_service;
     SharedPtr<Log::Logger> _log;
 };
