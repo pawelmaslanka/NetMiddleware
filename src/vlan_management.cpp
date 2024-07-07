@@ -2,7 +2,7 @@
 
 #include "lib/lag_observable.hpp"
 
-#include <lib/port/port_queryable.hpp>
+#include <net/port/port_queryable.hpp>
 #include <spdlog/spdlog.h>
 
 VlanManager::VlanManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry)

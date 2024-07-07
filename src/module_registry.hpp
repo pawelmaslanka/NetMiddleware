@@ -2,8 +2,8 @@
 
 #include "lib/log.hpp"
 
-#include <lib/module_registry.hpp>
-#include <lib/std_types.hpp>
+#include <net/module_registry.hpp>
+#include <std_types.hpp>
 
 namespace Net = Lib::Net;
 

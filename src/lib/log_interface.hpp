@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include "lib/std_types.hpp"
+#include <std_types.hpp>
 
 namespace Log {
 // Log severity level

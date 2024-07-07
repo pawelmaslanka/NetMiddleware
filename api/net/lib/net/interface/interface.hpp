@@ -1,7 +1,7 @@
 #pragma once
 
 #include <interface.pb.h>
-#include <lib/common.hpp>
+#include <net/common.hpp>
 
 namespace Lib::Net {
 

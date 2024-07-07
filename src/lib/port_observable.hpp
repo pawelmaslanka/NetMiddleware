@@ -3,8 +3,8 @@
 
 #include "lib/observer.hpp"
 
-#include <lib/port/port_queryable.hpp>
-#include <lib/std_types.hpp>
+#include <net/port/port_queryable.hpp>
+#include <std_types.hpp>
 
 namespace PortObservable {
 

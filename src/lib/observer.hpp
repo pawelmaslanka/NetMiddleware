@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include "lib/std_types.hpp"
+#include <std_types.hpp>
 
 // This is a typical interface of Observer Design Pattern. In this namespace there is interface
 // called IPublisher which should be implemented by the object which want to notify its subscribers

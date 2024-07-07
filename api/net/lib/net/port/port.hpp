@@ -1,6 +1,6 @@
 #pragma once
 
-#include <lib/common.hpp>
+#include <net/common.hpp>
 #include <port.pb.h>
 
 #include <limits>
@@ -15,6 +15,7 @@ struct Port {
     typedef uint8_t SubportT;
     static constexpr auto INVALID_IDX = std::numeric_limits<IdxT>::max();
     static constexpr SubportT MAX_SUBPORTS = 4;
+    static constexpr auto SUBPORT_SEPARATOR = "_";
 
     BreakoutMode Breakout = BreakoutMode::BREAKOUT_NONE;
 
@@ -41,6 +42,26 @@ struct Port {
         }
 
         return -1;
+    }
+
+    static bool isBasePort(const ID& port_id) {
+        UnitT unit = 0;
+        PortT port = 0;
+        SubportT subport = 0;
+        auto rv = parsePortId(port_id, unit, port, subport);
+        if (rv == 2) {
+            return true;
+        }
+
+        return false;
+    }
+
+    static ID getBasePortId(const ID& port_id) {
+        if (isBasePort(port_id)) {
+            return port_id;
+        }
+
+        return port_id.substr(0, port_id.find(SUBPORT_SEPARATOR));
     }
 };
 

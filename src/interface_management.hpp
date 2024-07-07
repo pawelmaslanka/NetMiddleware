@@ -5,8 +5,8 @@
 
 #include <grpcpp/grpcpp.h>
 #include <interface.grpc.pb.h>
-#include <lib/interface/interface_queryable.hpp>
-#include <lib/std_types.hpp>
+#include <net/interface/interface_queryable.hpp>
+#include <std_types.hpp>
 
 namespace Net = Lib::Net; 
 

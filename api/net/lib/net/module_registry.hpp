@@ -1,14 +1,11 @@
 #pragma once
 
-#include "lib/log.hpp"
+#include <net/interface/interface_queryable.hpp>
+#include <net/lag/lag_queryable.hpp>
+#include <net/port/port_queryable.hpp>
+#include <net/vlan/vlan_queryable.hpp>
 
-#include <lib/interface/interface_queryable.hpp>
-#include <lib/lag/lag_queryable.hpp>
-#include <lib/port/port_queryable.hpp>
-#include <lib/std_types.hpp>
-#include <lib/vlan/vlan_queryable.hpp>
-
-namespace Net = Lib::Net;
+#include <std_types.hpp>
 
 namespace Lib::Net {
 

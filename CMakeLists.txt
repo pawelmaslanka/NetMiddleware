@@ -19,7 +19,7 @@ set(TOP_PROTO_PATH "${API_NET_DIR}/proto")
 
 include_directories(
     ${SRC_DIR}
-    ${API_NET_DIR}
+    "${API_NET_DIR}/lib"
     "${SRC_DIR}/lib"
     "${TOP_PROTO_PATH}/common"
     "${TOP_PROTO_PATH}/interface"

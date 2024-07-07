@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lib/std_types.hpp"
+#include <std_types.hpp>
 #include <spdlog/spdlog.h>
 #include <spdlog/common.h>
 

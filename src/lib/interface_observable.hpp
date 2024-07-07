@@ -1,9 +1,9 @@
 #pragma once
 
 #include "lib/observer.hpp"
-#include "lib/std_types.hpp"
+#include <std_types.hpp>
 
-#include <lib/interface/interface_queryable.hpp>
+#include <net/interface/interface_queryable.hpp>
 
 namespace InterfaceObservable {
 

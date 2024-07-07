@@ -3,8 +3,8 @@
 #include "lib/observer.hpp"
 #include "module_registry.hpp"
 
-#include <lib/vlan/vlan_queryable.hpp>
-#include <lib/std_types.hpp>
+#include <net/vlan/vlan_queryable.hpp>
+#include <std_types.hpp>
 
 namespace Net = Lib::Net;
 

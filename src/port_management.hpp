@@ -4,8 +4,8 @@
 #include "module_registry.hpp"
 
 #include <grpcpp/grpcpp.h>
-#include <lib/port/port_queryable.hpp>
-#include <lib/std_types.hpp>
+#include <net/port/port_queryable.hpp>
+#include <std_types.hpp>
 #include <port.grpc.pb.h>
 
 class PortManager : public Net::IPortQueryable, public Observer::IPublisher, public std::enable_shared_from_this<PortManager> {
