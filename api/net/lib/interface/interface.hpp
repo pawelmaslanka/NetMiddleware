@@ -1,6 +1,9 @@
 #pragma once
 
 #include <interface.pb.h>
+#include <lib/common.hpp>
+
+namespace Lib::Net {
 
 struct Interface {
     using AdminState = DataPlane::Interface::AdminState;
@@ -15,3 +18,5 @@ struct Interface {
     LinkSpeed Speed = LinkSpeed::SPEED_MAX;
     LinkStatus Status = LinkStatus::DOWN;
 };
+
+} // namespace Lib::Net

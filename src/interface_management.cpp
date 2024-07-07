@@ -10,7 +10,7 @@ InterfaceManager::InterfaceManager(StringView module_name, SharedPtr<ModuleRegis
     // Nothing more to do
 }
 
-bool InterfaceManager::createInterface(const String& iface_id) {
+bool InterfaceManager::createInterface(const Net::ID& iface_id) {
     if (_iface_by_id.find(iface_id) != _iface_by_id.end()) {
         _log->error("Interface '{}' already exists", iface_id);
         return false;
@@ -29,13 +29,13 @@ bool InterfaceManager::createInterface(const String& iface_id) {
         return false;
     }
 
-    _iface_by_id[iface_id] = MakeShared<Interface>();
+    _iface_by_id[iface_id] = MakeShared<Net::Interface>();
     _log->info("Successfully created the interface '{}'", iface_id);
     notifySubscribers(MakeShared<InterfaceObservable::CreateInterfaceEvent>(shared_from_this(), iface_id));
     return true;
 }
 
-bool InterfaceManager::deleteInterface(const String& iface_id) {
+bool InterfaceManager::deleteInterface(const Net::ID& iface_id) {
     auto iface_it = _iface_by_id.find(iface_id);
     if (iface_it == _iface_by_id.end()) {
         _log->error("Interface '{}' already exists", iface_id);
@@ -59,7 +59,7 @@ bool InterfaceManager::deleteInterface(const String& iface_id) {
     return true;
 }
 
-bool InterfaceManager::setAdminState(const String& iface_id, Interface::AdminState state) {
+bool InterfaceManager::setAdminState(const Net::ID& iface_id, Net::Interface::AdminState state) {
     auto iface_it = _iface_by_id.find(iface_id);
     if (iface_it == _iface_by_id.end()) {
         _log->error("Interface '{}' does not exists", iface_id);
@@ -82,7 +82,7 @@ bool InterfaceManager::setAdminState(const String& iface_id, Interface::AdminSta
     return true;
 }
 
-bool InterfaceManager::setSpeed(const String& iface_id, Interface::LinkSpeed speed) {
+bool InterfaceManager::setSpeed(const Net::ID& iface_id, Net::Interface::LinkSpeed speed) {
     auto iface_it = _iface_by_id.find(iface_id);
     if (iface_it == _iface_by_id.end()) {
         _log->error("Interface '{}' does not exists", iface_id);
@@ -101,14 +101,14 @@ bool InterfaceManager::setSpeed(const String& iface_id, Interface::LinkSpeed spe
         return false;
     }
 
-    _log->info("Successfully to set the speed {} on the interface '{}'", speed, iface_id);
+    _log->info("Successfully set a speed {} on the interface '{}'", speed, iface_id);
     return true;
 }
 
-const SharedPtr<Interface> InterfaceManager::getInterface(const String& interface_id) const {
+const WeakPtr<Net::Interface> InterfaceManager::getInterface(const Net::ID& interface_id) const {
     auto interface_it = _iface_by_id.find(interface_id);
     if (interface_it != _iface_by_id.end()) {
-        return nullptr;
+        return {};
     }
 
     return interface_it->second;

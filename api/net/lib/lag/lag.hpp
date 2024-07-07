@@ -1,6 +1,9 @@
 #pragma once
 
-#include "lib/std_types.hpp"
+#include <lib/common.hpp>
+#include <lib/std_types.hpp>
+
+namespace Lib::Net {
 
 struct Lag {
     static constexpr auto LAG_IFNAME_PREFIX = "lag";
@@ -9,6 +12,8 @@ struct Lag {
         DYNAMIC = 1
     };
 
-    Set<String> Members;
+    Set<ID> Members;
     LagType Type = LagType::STATIC;
 };
+
+} // namespace Lib::Net

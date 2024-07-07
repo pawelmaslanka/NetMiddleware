@@ -1,29 +1,30 @@
 #include "vlan_management.hpp"
 
 #include "lib/lag_observable.hpp"
-#include "lib/port_queryable.hpp"
 
+#include <lib/port/port_queryable.hpp>
 #include <spdlog/spdlog.h>
 
-VlanManager::VlanManager(SharedPtr<ModuleRegistry> module_registry)
-: _module_registry { module_registry }, ISubscriber { "VlanManager" } {
+VlanManager::VlanManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry)
+  : _module_name { module_name }, _module_registry { module_registry }, ISubscriber { "VlanManager" },
+    _log { module_registry->logModule()->getLogger(String(module_name)) } {
 
 }
 
-bool VlanManager::createVlan(const UInt16 vid) {
+bool VlanManager::createVlan(const Net::Vlan::VID vid) {
     if (_vlan_by_vid.find(vid) != _vlan_by_vid.end()) {
-        spdlog::error("VLAN ID '{}' already exists", vid);
+        _log->error("VLAN ID '{}' already exists", vid);
         return false;
     }
 
-    _vlan_by_vid[vid] = MakeShared<Vlan>();
+    _vlan_by_vid[vid] = MakeShared<Net::Vlan>();
     return true;
 }
 
-bool VlanManager::deleteVlan(const UInt16 vid) {
+bool VlanManager::deleteVlan(const Net::Vlan::VID vid) {
     // FIXME: Check all _*_by_ifname structures if they contain any reference to the 'vid'
     if (_vlan_by_vid.find(vid) == _vlan_by_vid.end()) {
-        spdlog::error("VLAN ID '{}' not exists", vid);
+        _log->error("VLAN ID '{}' not exists", vid);
         return false;
     }
 
@@ -31,16 +32,16 @@ bool VlanManager::deleteVlan(const UInt16 vid) {
     return true;
 }
 
-bool VlanManager::addTaggedMember(const UInt16 vid, const String& member) {
+bool VlanManager::addTaggedMember(const Net::Vlan::VID vid, const Net::ID& member) {
     if (_vlan_by_vid.find(vid) == _vlan_by_vid.end()) {
-        spdlog::error("VLAN ID '{}' does not exists", vid);
+        _log->error("VLAN ID '{}' does not exists", vid);
         return false;
     }
 
-    if (member.find(Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
+    if (member.find(Net::Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
         auto lag_queryable = _module_registry->lagModule();
-        auto lag = lag_queryable->getLag(member);
-        if (lag) {
+        auto lag_ptr = lag_queryable->getLag(member);
+        if (auto lag = lag_ptr.lock()) {
             for (const auto& lag_member : lag->Members) {
                 // FIXME: Push to stack original port VLAN
                 // FIXME: Call RPC to directly set requested VLAN on the each of individual's LAG members
@@ -56,16 +57,16 @@ bool VlanManager::addTaggedMember(const UInt16 vid, const String& member) {
     return true;
 }
 
-bool VlanManager::removeTaggedMember(const UInt16 vid, const String& member) {
+bool VlanManager::removeTaggedMember(const Net::Vlan::VID vid, const Net::ID& member) {
     if (_vlan_by_vid.find(vid) == _vlan_by_vid.end()) {
-        spdlog::error("VLAN ID '{}' does not exists", vid);
+        _log->error("VLAN ID '{}' does not exists", vid);
         return false;
     }
 
-    if (member.find(Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
+    if (member.find(Net::Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
         auto lag_queryable = _module_registry->lagModule();
-        auto lag = lag_queryable->getLag(member);
-        if (lag) {
+        auto lag_ptr = lag_queryable->getLag(member);
+        if (auto lag = lag_ptr.lock()) {
             for (const auto& lag_member : lag->Members) {
                 auto tagged_member_it = _tagged_vid_by_ifname.find(lag_member);
                 if (tagged_member_it != _tagged_vid_by_ifname.end()) {
@@ -83,16 +84,16 @@ bool VlanManager::removeTaggedMember(const UInt16 vid, const String& member) {
     return true;
 }
 
-bool VlanManager::addUntaggedMember(const UInt16 vid, const String& member) {
+bool VlanManager::addUntaggedMember(const Net::Vlan::VID vid, const Net::ID& member) {
     if (_vlan_by_vid.find(vid) == _vlan_by_vid.end()) {
-        spdlog::error("VLAN ID '{}' does not exists", vid);
+        _log->error("VLAN ID '{}' does not exists", vid);
         return false;
     }
 
-    if (member.find(Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
+    if (member.find(Net::Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
         auto lag_queryable = _module_registry->lagModule();
-        auto lag = lag_queryable->getLag(member);
-        if (lag) {
+        auto lag_ptr = lag_queryable->getLag(member);
+        if (auto lag = lag_ptr.lock()) {
             for (const auto& lag_member : lag->Members) {
                 // FIXME: Call RPC to directly set requested VLAN on the each of individual's LAG members
             }
@@ -107,16 +108,16 @@ bool VlanManager::addUntaggedMember(const UInt16 vid, const String& member) {
     return true;
 }
 
-bool VlanManager::removeUntaggedMember(const UInt16 vid, const String& member) {
+bool VlanManager::removeUntaggedMember(const Net::Vlan::VID vid, const Net::ID& member) {
     if (_vlan_by_vid.find(vid) == _vlan_by_vid.end()) {
-        spdlog::error("VLAN ID '{}' does not exists", vid);
+        _log->error("VLAN ID '{}' does not exists", vid);
         return false;
     }
 
-    if (member.find(Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
+    if (member.find(Net::Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
         auto lag_queryable = _module_registry->lagModule();
-        auto lag = lag_queryable->getLag(member);
-        if (lag) {
+        auto lag_ptr = lag_queryable->getLag(member);
+        if (auto lag = lag_ptr.lock()) {
             for (const auto& lag_member : lag->Members) {
                 auto untagged_member_it = _untagged_vid_by_ifname.find(lag_member);
                 if (untagged_member_it != _untagged_vid_by_ifname.end()) {
@@ -134,16 +135,16 @@ bool VlanManager::removeUntaggedMember(const UInt16 vid, const String& member) {
     return true;
 }
 
-bool VlanManager::setNativeVlan(const UInt16 vid, const String& member) {
+bool VlanManager::setNativeVlan(const Net::Vlan::VID vid, const Net::ID& member) {
     if (_vlan_by_vid.find(vid) == _vlan_by_vid.end()) {
-        spdlog::error("VLAN ID '{}' does not exists", vid);
+        _log->error("VLAN ID '{}' does not exists", vid);
         return false;
     }
 
-    if (member.find(Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
+    if (member.find(Net::Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
         auto lag_queryable = _module_registry->lagModule();
-        auto lag = lag_queryable->getLag(member);
-        if (lag) {
+        auto lag_ptr = lag_queryable->getLag(member);
+        if (auto lag = lag_ptr.lock()) {
             for (const auto& lag_member : lag->Members) {
                 // FIXME: Call RPC
             }
@@ -158,19 +159,19 @@ bool VlanManager::setNativeVlan(const UInt16 vid, const String& member) {
     return true;
 }
 
-bool VlanManager::removeNativeVlan(const UInt16 vid, const String& member) {
+bool VlanManager::removeNativeVlan(const Net::Vlan::VID vid, const Net::ID& member) {
     if (_vlan_by_vid.find(vid) == _vlan_by_vid.end()) {
-        spdlog::error("VLAN ID '{}' does not exists", vid);
+        _log->error("VLAN ID '{}' does not exists", vid);
         return false;
     }
 
-    if (member.find(Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
+    if (member.find(Net::Lag::LAG_IFNAME_PREFIX) != StringEnd()) {
         auto lag_queryable = _module_registry->lagModule();
-        auto lag = lag_queryable->getLag(member);
-        if (lag) {
+        auto lag_ptr = lag_queryable->getLag(member);
+        if (auto lag = lag_ptr.lock()) {
             for (const auto& lag_member : lag->Members) {
                 auto native_member_it = _native_vid_by_ifname.find(lag_member);
-                auto native_vid = Vlan::DEFAULT_VLAN;
+                auto native_vid = Net::Vlan::DEFAULT_VLAN;
                 if (native_member_it != _native_vid_by_ifname.end()) {
                     native_vid = native_member_it->second;
                 }
@@ -188,10 +189,10 @@ bool VlanManager::removeNativeVlan(const UInt16 vid, const String& member) {
     return true;
 }
 
-const SharedPtr<Vlan> VlanManager::getVlan(const UInt16 vid) const {
+const WeakPtr<Net::Vlan> VlanManager::getVlan(const Net::Vlan::VID vid) const {
     auto vlan_it = _vlan_by_vid.find(vid);
     if (vlan_it == _vlan_by_vid.end()) {
-        return nullptr;
+        return {};
     }
 
     return vlan_it->second;
@@ -199,17 +200,17 @@ const SharedPtr<Vlan> VlanManager::getVlan(const UInt16 vid) const {
 
 void VlanManager::handleEvent(SharedPtr<Observer::Event> event) {
     if (!event) {
-        spdlog::error("Passed null context from publisher");
+        _log->error("Passed null context from publisher");
         return;
     }
 
     if (auto lagAddMemberEvent = std::dynamic_pointer_cast<LagObservable::AddMemberEvent>(event)) {
-        spdlog::info("[EVENT] Added member '{}' to LAG '{}'",
+        _log->info("[EVENT] Added member '{}' to LAG '{}'",
         lagAddMemberEvent->memberId(), lagAddMemberEvent->lagId());
         // TODO: Add new LAG member to VLAN
     }
     else if (auto lagRemoveMemberEvent = std::dynamic_pointer_cast<LagObservable::RemoveMemberEvent>(event)) {
-        spdlog::info("[EVENT] Removed member '{}' to LAG '{}'",
+        _log->info("[EVENT] Removed member '{}' to LAG '{}'",
         lagRemoveMemberEvent->memberId(), lagRemoveMemberEvent->lagId());
         // TODO: Remove LAG member from VLAN
     }

@@ -1,50 +1,50 @@
 #include "port_management.hpp"
 
 #include "lib/port_observable.hpp"
-#include <spdlog/spdlog.h>
 
-PortManager::PortManager(SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel)
-: _module_registry { module_registry }, _port_service { DataPlane::PortManagement::NewStub(rpc_net_channel) } {
-
+PortManager::PortManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel)
+: _module_name { module_name }, _module_registry { module_registry }, _port_service { DataPlane::PortManagement::NewStub(rpc_net_channel) },
+  _log { module_registry->logModule()->getLogger(String(module_name)) } {
+    // Nothing more to do
 }
 
-const SharedPtr<Port> PortManager::getPort(const String& port_id) const {
+const WeakPtr<Net::Port> PortManager::getPort(const Net::ID& port_id) const {
     auto port_it = _port_by_id.find(port_id);
     if (port_it != _port_by_id.end()) {
-        return nullptr;
+        return {};
     }
 
     return port_it->second;
 }
 
-bool PortManager::createPort(const String& port_id) {
+bool PortManager::createPort(const Net::ID& port_id) {
     if (_port_by_id.find(port_id) != _port_by_id.end()) {
-        spdlog::error("Port '{}' already exists", port_id);
+        _log->error("Port '{}' already exists", port_id);
         return false;
     }
 
-    _port_by_id[port_id] = MakeShared<Port>();
-    spdlog::info("Successfully created the port '{}'", port_id);
+    _port_by_id[port_id] = MakeShared<Net::Port>();
+    _log->info("Successfully created the port '{}'", port_id);
     notifySubscribers(MakeShared<PortObservable::CreatePortEvent>(shared_from_this(), port_id));
     return true;
 }
 
-bool PortManager::deletePort(const String& port_id) {
+bool PortManager::deletePort(const Net::ID& port_id) {
     if (_port_by_id.find(port_id) == _port_by_id.end()) {
-        spdlog::error("Port '{}' not exists", port_id);
+        _log->error("Port '{}' not exists", port_id);
         return false;
     }
 
     _port_by_id.erase(port_id);
-    spdlog::info("Successfully deleted the port '{}'", port_id);
+    _log->info("Successfully deleted the port '{}'", port_id);
     notifySubscribers(MakeShared<PortObservable::DeletePortEvent>(shared_from_this(), port_id));
     return true;
 }
 
-bool PortManager::setPortBreakout(const String& port_id, const Port::BreakoutMode mode) {
+bool PortManager::setPortBreakout(const Net::ID& port_id, const Net::Port::BreakoutMode mode) {
     auto port_it = _port_by_id.find(port_id);
     if (port_it == _port_by_id.end()) {
-        spdlog::error("Port '{}' not exists", port_id);
+        _log->error("Port '{}' not exists", port_id);
         return false;
     }
 
@@ -55,12 +55,12 @@ bool PortManager::setPortBreakout(const String& port_id, const Port::BreakoutMod
     port_breakoutmode.set_mode(mode);
     auto status = _port_service->SetPortBreakout(&context, port_breakoutmode, &result);
     if (!status.ok()) {
-        spdlog::error("Failed to send request to set breakout mode on the port '{}': {} ({})",
+        _log->error("Failed to send request to set breakout mode on the port '{}': {} ({})",
             port_id, status.error_message(), status.error_code());
         return false;
     }
 
     port_it->second->Breakout = mode;
-    spdlog::info("Successfully set breakout mode '{}' on the port '{}'", mode, port_id);
+    _log->info("Successfully set breakout mode '{}' on the port '{}'", mode, port_id);
     return true;
 }

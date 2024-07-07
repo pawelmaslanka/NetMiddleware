@@ -16,6 +16,8 @@
 
 #include <grpcpp/grpcpp.h>
 
+namespace Net = Lib::Net;
+
 int main(const int argc, const char* argv[]) {
     auto console_sink = MakeShared<spdlog::sinks::stdout_color_sink_mt>();
     console_sink->set_level(spdlog::level::trace);
@@ -28,14 +30,20 @@ int main(const int argc, const char* argv[]) {
     auto loggers_registry = MakeShared<Log::LoggersRegistry>(spdlog::sinks_init_list{ console_sink, file_sink });
     loggers_registry->registerModule(Module::Name::IFACE_MANAGER);
     loggers_registry->getLogger(Module::Name::IFACE_MANAGER)->set_level(spdlog::level::info);
+    loggers_registry->registerModule(Module::Name::LAG_MANAGER);
+    loggers_registry->getLogger(Module::Name::LAG_MANAGER)->set_level(spdlog::level::info);
+    loggers_registry->registerModule(Module::Name::PORT_MANAGER);
+    loggers_registry->getLogger(Module::Name::PORT_MANAGER)->set_level(spdlog::level::info);
+    loggers_registry->registerModule(Module::Name::VLAN_MANAGER);
+    loggers_registry->getLogger(Module::Name::VLAN_MANAGER)->set_level(spdlog::level::info);
 
     auto module_registry = MakeShared<ModuleRegistry>();
     module_registry->setLogModule(loggers_registry);
     auto rpc_net_channel = grpc::CreateChannel("localhost:50052", grpc::InsecureChannelCredentials());
     auto intf_mngr = MakeShared<InterfaceManager>(Module::Name::IFACE_MANAGER, module_registry, rpc_net_channel);
-    auto lag_mngr = MakeShared<LagManager>(module_registry, rpc_net_channel);
-    auto port_mngr = MakeShared<PortManager>(module_registry, rpc_net_channel);
-    auto vlan_mngr = MakeShared<VlanManager>(module_registry);
+    auto lag_mngr = MakeShared<LagManager>(Module::Name::LAG_MANAGER, module_registry, rpc_net_channel);
+    auto port_mngr = MakeShared<PortManager>(Module::Name::PORT_MANAGER, module_registry, rpc_net_channel);
+    auto vlan_mngr = MakeShared<VlanManager>(Module::Name::VLAN_MANAGER, module_registry);
     module_registry->setInterfaceModule(intf_mngr);
     module_registry->setLagModule(lag_mngr);
     module_registry->setPortModule(port_mngr);
@@ -48,8 +56,8 @@ int main(const int argc, const char* argv[]) {
         ::exit(EXIT_FAILURE);
     }
 
-    if (!port_mngr->setPortBreakout(eth1_10_id, Port::BreakoutMode::BREAKOUT_4X100G)) {
-        spdlog::error("Failed to set port breakout mode '{}' on the port '{}'", Port::BreakoutMode::BREAKOUT_4X100G, eth1_10_id);
+    if (!port_mngr->setPortBreakout(eth1_10_id, Net::Port::BreakoutMode::BREAKOUT_4X100G)) {
+        spdlog::error("Failed to set port breakout mode '{}' on the port '{}'", Net::Port::BreakoutMode::BREAKOUT_4X100G, eth1_10_id);
         ::exit(EXIT_FAILURE);
     }
 
@@ -59,13 +67,13 @@ int main(const int argc, const char* argv[]) {
         ::exit(EXIT_FAILURE);
     }
 
-    if (!intf_mngr->setSpeed(eth1_10_1_id, Interface::LinkSpeed::SPEED_100G)) {
-        spdlog::error("Failed to set speed '{}' on the interface '{}'", Interface::LinkSpeed::SPEED_100G, eth1_10_1_id);
+    if (!intf_mngr->setSpeed(eth1_10_1_id, Net::Interface::LinkSpeed::SPEED_100G)) {
+        spdlog::error("Failed to set speed '{}' on the interface '{}'", Net::Interface::LinkSpeed::SPEED_100G, eth1_10_1_id);
         ::exit(EXIT_FAILURE);
     }
 
-    if (!intf_mngr->setAdminState(eth1_10_1_id, Interface::AdminState::ENABLED)) {
-        spdlog::error("Failed to set state '{}' on the interface '{}'", Interface::AdminState::ENABLED, eth1_10_1_id);
+    if (!intf_mngr->setAdminState(eth1_10_1_id, Net::Interface::AdminState::ENABLED)) {
+        spdlog::error("Failed to set state '{}' on the interface '{}'", Net::Interface::AdminState::ENABLED, eth1_10_1_id);
         ::exit(EXIT_FAILURE);
     }
 
@@ -75,8 +83,8 @@ int main(const int argc, const char* argv[]) {
         ::exit(EXIT_FAILURE);
     }
 
-    if (!port_mngr->setPortBreakout(eth1_1_id, Port::BreakoutMode::BREAKOUT_NONE)) {
-        spdlog::error("Failed to set port breakout mode '{}' on the port '{}'", Port::BreakoutMode::BREAKOUT_NONE, eth1_1_id);
+    if (!port_mngr->setPortBreakout(eth1_1_id, Net::Port::BreakoutMode::BREAKOUT_NONE)) {
+        spdlog::error("Failed to set port breakout mode '{}' on the port '{}'", Net::Port::BreakoutMode::BREAKOUT_NONE, eth1_1_id);
         ::exit(EXIT_FAILURE);
     }
 
@@ -85,13 +93,13 @@ int main(const int argc, const char* argv[]) {
         ::exit(EXIT_FAILURE);
     }
 
-    if (!intf_mngr->setSpeed(eth1_1_id, Interface::LinkSpeed::SPEED_400G)) {
-        spdlog::error("Failed to set speed '{}' on the interface '{}'", Interface::LinkSpeed::SPEED_400G, eth1_1_id);
+    if (!intf_mngr->setSpeed(eth1_1_id, Net::Interface::LinkSpeed::SPEED_400G)) {
+        spdlog::error("Failed to set speed '{}' on the interface '{}'", Net::Interface::LinkSpeed::SPEED_400G, eth1_1_id);
         ::exit(EXIT_FAILURE);
     }
 
-    if (!intf_mngr->setAdminState(eth1_1_id, Interface::AdminState::ENABLED)) {
-        spdlog::error("Failed to set state '{}' on the interface '{}'", Interface::AdminState::ENABLED, eth1_1_id);
+    if (!intf_mngr->setAdminState(eth1_1_id, Net::Interface::AdminState::ENABLED)) {
+        spdlog::error("Failed to set state '{}' on the interface '{}'", Net::Interface::AdminState::ENABLED, eth1_1_id);
         ::exit(EXIT_FAILURE);
     }
 

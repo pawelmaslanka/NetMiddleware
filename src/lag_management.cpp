@@ -3,13 +3,15 @@
 #include "lib/lag_observable.hpp"
 #include <spdlog/spdlog.h>
 
-LagManager::LagManager(SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel)
-: _module_registry { module_registry }, _lag_service { DataPlane::LagManagement::NewStub(rpc_net_channel) } {
+LagManager::LagManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel)
+  : _module_name { module_name }, _module_registry { module_registry }, _lag_service { DataPlane::LagManagement::NewStub(rpc_net_channel) },
+    _log { module_registry->logModule()->getLogger(String(module_name)) } {
+    // Nothing more to do
 }
 
-bool LagManager::createLag(const String& lag_id) {
+bool LagManager::createLag(const Net::ID& lag_id) {
     if (_lag_by_id.find(lag_id) != _lag_by_id.end()) {
-        spdlog::error("LAG '{}' already exists", lag_id);
+        _log->error("LAG '{}' already exists", lag_id);
         return false;
     }
 
@@ -19,19 +21,19 @@ bool LagManager::createLag(const String& lag_id) {
     lag.set_id(lag_id);
     auto status = _lag_service->CreateLag(&context, lag, &result);
     if (!status.ok()) {
-        spdlog::error("Failed to send request to create the LAG instance '{}': {} ({})",
+        _log->error("Failed to send request to create the LAG instance '{}': {} ({})",
             lag_id, status.error_message(), status.error_code());
         return false;
     }
 
-    _lag_by_id[lag_id] = MakeShared<Lag>();
+    _lag_by_id[lag_id] = MakeShared<Net::Lag>();
     notifySubscribers(MakeShared<LagObservable::CreateLagEvent>(shared_from_this(), lag_id));
     return true;
 }
 
-bool LagManager::deleteLag(const String& lag_id) {
+bool LagManager::deleteLag(const Net::ID& lag_id) {
     if (_lag_by_id.find(lag_id) == _lag_by_id.end()) {
-        spdlog::error("LAG '{}' not exists", lag_id);
+        _log->error("LAG '{}' not exists", lag_id);
         return false;
     }
 
@@ -41,7 +43,7 @@ bool LagManager::deleteLag(const String& lag_id) {
     lag.set_id(lag_id);
     auto status = _lag_service->DeleteLag(&context, lag, &result);
     if (!status.ok()) {
-        spdlog::error("Failed to send request to delete the LAG instance '{}': {} ({})",
+        _log->error("Failed to send request to delete the LAG instance '{}': {} ({})",
             lag_id, status.error_message(), status.error_code());
         return false;
     }
@@ -51,10 +53,10 @@ bool LagManager::deleteLag(const String& lag_id) {
     return true;
 }
 
-bool LagManager::addMember(const String& lag_id, const String& member_id) {
+bool LagManager::addMember(const Net::ID& lag_id, const Net::ID& member_id) {
     auto lag_it = _lag_by_id.find(lag_id);
     if (lag_it == _lag_by_id.end()) {
-        spdlog::error("LAG '{}' not exists", lag_id);
+        _log->error("LAG '{}' not exists", lag_id);
         return false;
     }
 
@@ -67,7 +69,7 @@ bool LagManager::addMember(const String& lag_id, const String& member_id) {
     // member->set_type(DataPlane::IfaceType::IFACE_ETH);
     auto status = _lag_service->AddLagMember(&context, lag_member, &result);
     if (!status.ok()) {
-        spdlog::error("Failed to send request to add member to the LAG instance '{}': {} ({})",
+        _log->error("Failed to send request to add member to the LAG instance '{}': {} ({})",
             lag_id, status.error_message(), status.error_code());
         return false;
     }
@@ -77,10 +79,10 @@ bool LagManager::addMember(const String& lag_id, const String& member_id) {
     return true;
 }
 
-bool LagManager::removeMember(const String& lag_id, const String& member_id) {
+bool LagManager::removeMember(const Net::ID& lag_id, const Net::ID& member_id) {
     auto lag_it = _lag_by_id.find(lag_id);
     if (lag_it == _lag_by_id.end()) {
-        spdlog::error("LAG '{}' not exists", lag_id);
+        _log->error("LAG '{}' not exists", lag_id);
         return false;
     }
 
@@ -93,7 +95,7 @@ bool LagManager::removeMember(const String& lag_id, const String& member_id) {
     // member->set_type(DataPlane::IfaceType::IFACE_ETH);
     auto status = _lag_service->RemoveLagMember(&context, lag_member, &result);
     if (!status.ok()) {
-        spdlog::error("Failed to send request to remove member from the LAG instance '{}': {} ({})",
+        _log->error("Failed to send request to remove member from the LAG instance '{}': {} ({})",
             lag_id, status.error_message(), status.error_code());
         return false;
     }
@@ -103,17 +105,17 @@ bool LagManager::removeMember(const String& lag_id, const String& member_id) {
     return true;
 }
 
-bool LagManager::enableLacpProtocol(const String& lag_id, const bool enableLacp) {
+bool LagManager::enableLacpProtocol(const Net::ID& lag_id, const bool enableLacp) {
     auto lag_it = _lag_by_id.find(lag_id);
     if (lag_it == _lag_by_id.end()) {
-        spdlog::error("LAG '{}' not exists", lag_id);
+        _log->error("LAG '{}' not exists", lag_id);
         return false;
     }
 
     auto oldLagType = lag_it->second->Type;
-    lag_it->second->Type = enableLacp ? Lag::LagType::DYNAMIC : Lag::LagType::STATIC;
+    lag_it->second->Type = enableLacp ? Net::Lag::LagType::DYNAMIC : Net::Lag::LagType::STATIC;
     if (oldLagType != lag_it->second->Type) {
-        if (lag_it->second->Type == Lag::LagType::DYNAMIC) {
+        if (lag_it->second->Type == Net::Lag::LagType::DYNAMIC) {
             // FIXME: Remove all members from static LAG and re-add them dynamically by LACP
         }
         // FIXME: Call RPC
@@ -122,10 +124,10 @@ bool LagManager::enableLacpProtocol(const String& lag_id, const bool enableLacp)
     return true;
 }
 
-const SharedPtr<Lag> LagManager::getLag(const String& lag_id) const {
+const WeakPtr<Net::Lag> LagManager::getLag(const Net::ID& lag_id) const {
     auto lag_it = _lag_by_id.find(lag_id);
     if (lag_it == _lag_by_id.end()) {
-        return nullptr;
+        return {};
     }
 
     return lag_it->second;

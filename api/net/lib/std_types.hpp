@@ -9,6 +9,7 @@
 // in a lot of files so it should not be changed too frequently.
 
 #include <any>
+#include <array>
 #include <chrono>
 #include <deque>
 #include <forward_list>
@@ -43,11 +44,13 @@ template<class... MutexTypes> using ScopedLock = std::scoped_lock<MutexTypes...>
 template<class T> using Set = std::set<T>;
 template<class T> using SharedPtr = std::shared_ptr<T>;
 template<class T> using Stack = std::stack<T>;
+template<class T> using UniqueLock = std::unique_lock<T>;
 template<class T> using UniquePtr = std::unique_ptr<T>;
 template<class T> using WeakPtr = std::weak_ptr<T>;
 template<class T> using Vector = std::vector<T>;
 
 using Any = std::any;
+#define Array std::array
 using BadAnyCast = std::bad_any_cast;
 // using JThread = std::jthread;
 #define MakeShared std::make_shared

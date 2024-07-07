@@ -1,10 +1,13 @@
 #pragma once
 
-#include "lib/lag_queryable.hpp"
 #include "lib/observer.hpp"
-#include "lib/std_types.hpp"
+
+#include <lib/lag/lag_queryable.hpp>
+#include <lib/std_types.hpp>
 
 namespace LagObservable {
+
+namespace Net = Lib::Net;
 
 class ILagObservable : public Observer::Event {
 public:
@@ -12,31 +15,31 @@ public:
     static constexpr auto ADDED_MEMBER = "ADDED_MEMBER";
     static constexpr auto REMOVED_MEMBER = "REMOVED_MEMBER";
 
-    ILagObservable(SharedPtr<ILagQueryable> lagQueryable, StringView lag_id);
+    ILagObservable(SharedPtr<Net::ILagQueryable> lagQueryable, StringView lag_id);
     virtual ~ILagObservable() = default;
     const String& lagId();
 
 private:
-    SharedPtr<ILagQueryable> _lagQueryable;
+    SharedPtr<Net::ILagQueryable> _lagQueryable;
     String _lag_id;
 };
 
 class CreateLagEvent final : public ILagObservable {
 public:
     virtual ~CreateLagEvent() = default;
-    CreateLagEvent(SharedPtr<ILagQueryable> lagQueryable, StringView lag_id);
+    CreateLagEvent(SharedPtr<Net::ILagQueryable> lagQueryable, StringView lag_id);
 };
 
 class DeleteLagEvent final : public ILagObservable {
 public:
     virtual ~DeleteLagEvent() = default;
-    DeleteLagEvent(SharedPtr<ILagQueryable> lagQueryable, StringView lag_id);
+    DeleteLagEvent(SharedPtr<Net::ILagQueryable> lagQueryable, StringView lag_id);
 };
 
 class AddMemberEvent final : public ILagObservable {
 public:
     virtual ~AddMemberEvent() = default;
-    AddMemberEvent(SharedPtr<ILagQueryable> lagQueryable, StringView lag_id, StringView member_id);
+    AddMemberEvent(SharedPtr<Net::ILagQueryable> lagQueryable, StringView lag_id, StringView member_id);
     const String& memberId();
 
 private:
@@ -46,7 +49,7 @@ private:
 class RemoveMemberEvent final : public ILagObservable {
 public:
     virtual ~RemoveMemberEvent() = default;
-    RemoveMemberEvent(SharedPtr<ILagQueryable> lagQueryable, StringView lag_id, StringView member_id);
+    RemoveMemberEvent(SharedPtr<Net::ILagQueryable> lagQueryable, StringView lag_id, StringView member_id);
     const String& memberId();
 
 private:

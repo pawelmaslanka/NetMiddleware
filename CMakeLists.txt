@@ -19,6 +19,7 @@ set(TOP_PROTO_PATH "${API_NET_DIR}/proto")
 
 include_directories(
     ${SRC_DIR}
+    ${API_NET_DIR}
     "${SRC_DIR}/lib"
     "${TOP_PROTO_PATH}/common"
     "${TOP_PROTO_PATH}/interface"
@@ -33,12 +34,9 @@ set(CPP_SRC_EXT cpp)
 set(INC_LIST
     "${SRC_DIR}/lib/observer.${CPP_HEADER_EXT}"
     "${SRC_DIR}/lib/interface_observable.${CPP_HEADER_EXT}"
-    "${SRC_DIR}/lib/interface_queryable.${CPP_HEADER_EXT}"
     "${SRC_DIR}/lib/lag_observable.${CPP_HEADER_EXT}"
-    "${SRC_DIR}/lib/lag_queryable.${CPP_HEADER_EXT}"
     "${SRC_DIR}/lib/log.${CPP_HEADER_EXT}"
     "${SRC_DIR}/lib/port_observable.${CPP_HEADER_EXT}"
-    "${SRC_DIR}/lib/port_queryable.${CPP_HEADER_EXT}"
 )
 
 set(SRC_LIST
@@ -60,7 +58,7 @@ set(SRC_LIST
 
 link_directories(api/net)
 
-add_executable(${PROJECT_NAME} ${INC_LIST} ${SRC_LIST} main.${CPP_SRC_EXT})
+add_executable(${PROJECT_NAME} ${INC_LIST} ${SRC_LIST} src/main.${CPP_SRC_EXT})
 target_link_libraries(${PROJECT_NAME}
     PRIVATE nlohmann_json::nlohmann_json spdlog::spdlog_header_only
     net_grpc_proto

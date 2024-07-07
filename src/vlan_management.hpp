@@ -1,34 +1,40 @@
 #pragma once
 
 #include "lib/observer.hpp"
-#include "lib/vlan_queryable.hpp"
 #include "module_registry.hpp"
 
-class VlanManager : public IVlanQueryable, public Observer::ISubscriber {
+#include <lib/vlan/vlan_queryable.hpp>
+#include <lib/std_types.hpp>
+
+namespace Net = Lib::Net;
+
+class VlanManager : public Net::IVlanQueryable, public Observer::ISubscriber {
 public:
-    VlanManager(SharedPtr<ModuleRegistry> module_registry);
+    VlanManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry);
     virtual ~VlanManager() = default;
 
-    bool createVlan(const UInt16 vid);
-    bool deleteVlan(const UInt16 vid);
+    bool createVlan(const Net::Vlan::VID vid);
+    bool deleteVlan(const Net::Vlan::VID vid);
 
-    bool addTaggedMember(const UInt16 vid, const String& member);
-    bool removeTaggedMember(const UInt16 vid, const String& member);
+    bool addTaggedMember(const Net::Vlan::VID vid, const Net::ID& member);
+    bool removeTaggedMember(const Net::Vlan::VID vid, const Net::ID& member);
 
-    bool addUntaggedMember(const UInt16 vid, const String& member);
-    bool removeUntaggedMember(const UInt16 vid, const String& member);
+    bool addUntaggedMember(const Net::Vlan::VID vid, const Net::ID& member);
+    bool removeUntaggedMember(const Net::Vlan::VID vid, const Net::ID& member);
 
-    bool setNativeVlan(const UInt16 vid, const String& member);
-    bool removeNativeVlan(const UInt16 vid, const String& member);
+    bool setNativeVlan(const Net::Vlan::VID vid, const Net::ID& member);
+    bool removeNativeVlan(const Net::Vlan::VID vid, const Net::ID& member);
 
-    virtual const SharedPtr<Vlan> getVlan(const UInt16 vid) const override;
+    virtual const WeakPtr<Net::Vlan> getVlan(const Net::Vlan::VID vid) const override;
     virtual void handleEvent(SharedPtr<Observer::Event> event) override;
 
 private:
+    String _module_name;
     SharedPtr<ModuleRegistry> _module_registry;
-    Map<UInt16, SharedPtr<Vlan>> _vlan_by_vid; // VLAN by vid
+    Map<UInt16, SharedPtr<Net::Vlan>> _vlan_by_vid; // VLAN by vid
     // Ethernet port or LAG interface
-    Map<String, UInt16> _tagged_vid_by_ifname;
-    Map<String, UInt16> _untagged_vid_by_ifname;
-    Map<String, UInt16> _native_vid_by_ifname;
+    Map<Net::ID, Net::Vlan::VID> _tagged_vid_by_ifname;
+    Map<Net::ID, Net::Vlan::VID> _untagged_vid_by_ifname;
+    Map<Net::ID, Net::Vlan::VID> _native_vid_by_ifname;
+    SharedPtr<Log::Logger> _log;
 };
