@@ -23,6 +23,17 @@ bool PortManager::createPort(const Net::ID& port_id) {
         return false;
     }
 
+    grpc::ClientContext context;
+    DataPlane::Result result;
+    DPPort::Port port;
+    port.set_id(port_id);
+    auto status = _port_service->CreatePort(&context, port, &result);
+    if (!status.ok()) {
+        _log->error("Failed to send request to create the port '{}': {} ({})",
+            port_id, status.error_message(), status.error_code());
+        return false;
+    }
+
     _port_by_id[port_id] = MakeShared<Net::Port>();
     _log->info("Successfully created the port '{}'", port_id);
     notifySubscribers(MakeShared<PortObservable::CreatePortEvent>(shared_from_this(), port_id));
@@ -32,6 +43,17 @@ bool PortManager::createPort(const Net::ID& port_id) {
 bool PortManager::deletePort(const Net::ID& port_id) {
     if (_port_by_id.find(port_id) == _port_by_id.end()) {
         _log->error("Port '{}' not exists", port_id);
+        return false;
+    }
+
+    grpc::ClientContext context;
+    DataPlane::Result result;
+    DPPort::Port port;
+    port.set_id(port_id);
+    auto status = _port_service->DeletePort(&context, port, &result);
+    if (!status.ok()) {
+        _log->error("Failed to send request to delete the port '{}': {} ({})",
+            port_id, status.error_message(), status.error_code());
         return false;
     }
 
