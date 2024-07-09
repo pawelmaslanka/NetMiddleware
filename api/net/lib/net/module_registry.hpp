@@ -5,7 +5,7 @@
 #include <net/port/port_queryable.hpp>
 #include <net/vlan/vlan_queryable.hpp>
 
-#include <std_types.hpp>
+#include <lib/std_types.hpp>
 
 namespace Lib::Net {
 
@@ -34,7 +34,6 @@ public:
 private:
     SharedPtr<Net::IInterfaceQueryable> _intf_module;
     SharedPtr<Net::ILagQueryable> _lag_module;
-    SharedPtr<Log::LoggersRegistry> _log_module;
     SharedPtr<Net::IPortQueryable> _port_module;
     SharedPtr<Net::IVlanQueryable> _vlan_module;
     // SharedPtr<grpc::Channel> _rpc_net_channel;

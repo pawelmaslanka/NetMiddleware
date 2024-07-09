@@ -1,19 +1,19 @@
 #pragma once
 
 #include <net/common.hpp>
-#include <std_types.hpp>
+#include <lib/std_types.hpp>
 
 namespace Lib::Net {
 
 struct Lag {
     static constexpr auto LAG_IFNAME_PREFIX = "lag";
-    enum class LagType {
-        STATIC  = 0,
-        DYNAMIC = 1
+    enum class ControlProtocol {
+        NONE  = 0,
+        LACP = 1
     };
 
     Set<ID> Members;
-    LagType Type = LagType::STATIC;
+    ControlProtocol Type = ControlProtocol::NONE;
 };
 
 } // namespace Lib::Net

@@ -35,7 +35,6 @@ set(INC_LIST
     "${SRC_DIR}/lib/observer.${CPP_HEADER_EXT}"
     "${SRC_DIR}/lib/interface_observable.${CPP_HEADER_EXT}"
     "${SRC_DIR}/lib/lag_observable.${CPP_HEADER_EXT}"
-    "${SRC_DIR}/lib/log.${CPP_HEADER_EXT}"
     "${SRC_DIR}/lib/port_observable.${CPP_HEADER_EXT}"
 )
 
@@ -43,7 +42,6 @@ set(SRC_LIST
     "${SRC_DIR}/lib/observer.${CPP_SRC_EXT}"
     "${SRC_DIR}/lib/interface_observable.${CPP_SRC_EXT}"
     "${SRC_DIR}/lib/lag_observable.${CPP_SRC_EXT}"
-    "${SRC_DIR}/lib/log.${CPP_SRC_EXT}"
     "${SRC_DIR}/lib/port_observable.${CPP_SRC_EXT}"
     "${SRC_DIR}/interface_management.${CPP_SRC_EXT}"
     "${SRC_DIR}/lag_management.${CPP_SRC_EXT}"

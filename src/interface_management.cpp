@@ -6,7 +6,7 @@ using namespace InterfaceObservable;
 
 InterfaceManager::InterfaceManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel)
   : _module_name { module_name }, _module_registry { module_registry }, _iface_service { DataPlane::Interface::InterfaceManagement::NewStub(rpc_net_channel) },
-    _log { module_registry->logModule()->getLogger(String(module_name)) } {
+    _log { module_registry->loggerRegistry()->getLogger(String(module_name)) } {
     // Nothing more to do
 }
 

@@ -5,7 +5,7 @@
 
 LagManager::LagManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel)
   : _module_name { module_name }, _module_registry { module_registry }, _lag_service { DPLag::LagManagement::NewStub(rpc_net_channel) },
-    _log { module_registry->logModule()->getLogger(String(module_name)) } {
+    _log { module_registry->loggerRegistry()->getLogger(String(module_name)) } {
     // Nothing more to do
 }
 
@@ -113,9 +113,9 @@ bool LagManager::enableLacpProtocol(const Net::ID& lag_id, const bool enableLacp
     }
 
     auto oldLagType = lag_it->second->Type;
-    lag_it->second->Type = enableLacp ? Net::Lag::LagType::DYNAMIC : Net::Lag::LagType::STATIC;
+    lag_it->second->Type = enableLacp ? Net::Lag::ControlProtocol::LACP : Net::Lag::ControlProtocol::NONE;
     if (oldLagType != lag_it->second->Type) {
-        if (lag_it->second->Type == Net::Lag::LagType::DYNAMIC) {
+        if (lag_it->second->Type == Net::Lag::ControlProtocol::LACP) {
             // FIXME: Remove all members from static LAG and re-add them dynamically by LACP
         }
         // FIXME: Call RPC

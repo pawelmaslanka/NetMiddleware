@@ -5,8 +5,8 @@
  */
 #pragma once
 
-#include "lib/log.hpp"
-#include <std_types.hpp>
+#include <lib/log.hpp>
+#include <lib/std_types.hpp>
 
 namespace Log {
 // Logger instance.

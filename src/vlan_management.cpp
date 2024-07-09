@@ -7,7 +7,7 @@
 
 VlanManager::VlanManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry)
   : _module_name { module_name }, _module_registry { module_registry }, ISubscriber { "VlanManager" },
-    _log { module_registry->logModule()->getLogger(String(module_name)) } {
+    _log { module_registry->loggerRegistry()->getLogger(String(module_name)) } {
 
 }
 

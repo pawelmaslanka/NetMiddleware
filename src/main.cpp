@@ -7,7 +7,7 @@
 #include "module_registry.hpp"
 
 // #include "lib/log_management.hpp"
-#include "lib/log.hpp"
+#include <lib/log.hpp>
 
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
@@ -27,18 +27,18 @@ int main(const int argc, const char* argv[]) {
     file_sink->set_level(spdlog::level::trace);
     file_sink->set_pattern("%+");
 
-    auto loggers_registry = MakeShared<Log::LoggersRegistry>(spdlog::sinks_init_list{ console_sink, file_sink });
-    loggers_registry->registerModule(Module::Name::IFACE_MANAGER);
-    loggers_registry->getLogger(Module::Name::IFACE_MANAGER)->set_level(spdlog::level::info);
-    loggers_registry->registerModule(Module::Name::LAG_MANAGER);
-    loggers_registry->getLogger(Module::Name::LAG_MANAGER)->set_level(spdlog::level::info);
-    loggers_registry->registerModule(Module::Name::PORT_MANAGER);
-    loggers_registry->getLogger(Module::Name::PORT_MANAGER)->set_level(spdlog::level::info);
-    loggers_registry->registerModule(Module::Name::VLAN_MANAGER);
-    loggers_registry->getLogger(Module::Name::VLAN_MANAGER)->set_level(spdlog::level::info);
+    auto logger_registry = MakeShared<Log::LoggerRegistry>(spdlog::sinks_init_list{ console_sink, file_sink });
+    logger_registry->registerModule(Module::Name::IFACE_MANAGER);
+    logger_registry->getLogger(Module::Name::IFACE_MANAGER)->set_level(spdlog::level::info);
+    logger_registry->registerModule(Module::Name::LAG_MANAGER);
+    logger_registry->getLogger(Module::Name::LAG_MANAGER)->set_level(spdlog::level::info);
+    logger_registry->registerModule(Module::Name::PORT_MANAGER);
+    logger_registry->getLogger(Module::Name::PORT_MANAGER)->set_level(spdlog::level::info);
+    logger_registry->registerModule(Module::Name::VLAN_MANAGER);
+    logger_registry->getLogger(Module::Name::VLAN_MANAGER)->set_level(spdlog::level::info);
 
     auto module_registry = MakeShared<ModuleRegistry>();
-    module_registry->setLogModule(loggers_registry);
+    module_registry->setLoggerRegistry(logger_registry);
     auto rpc_net_channel = grpc::CreateChannel("localhost:50052", grpc::InsecureChannelCredentials());
     auto intf_mngr = MakeShared<InterfaceManager>(Module::Name::IFACE_MANAGER, module_registry, rpc_net_channel);
     auto lag_mngr = MakeShared<LagManager>(Module::Name::LAG_MANAGER, module_registry, rpc_net_channel);

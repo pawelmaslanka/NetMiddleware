@@ -4,7 +4,7 @@
 #include "module_registry.hpp"
 
 #include <net/vlan/vlan_queryable.hpp>
-#include <std_types.hpp>
+#include <lib/std_types.hpp>
 
 namespace Net = Lib::Net;
 
