@@ -63,6 +63,7 @@ using String = std::string;
 using StringView = std::string_view;
 using Thread = std::thread;
 
+using Byte = std::uint8_t;
 using UInt16 = std::uint16_t;
 using UInt64 = std::uint64_t;
 
