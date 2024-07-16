@@ -11,6 +11,7 @@
 #include <any>
 #include <array>
 #include <chrono>
+#include <condition_variable>
 #include <deque>
 #include <forward_list>
 #include <list>
@@ -52,6 +53,7 @@ template<class T> using Vector = std::vector<T>;
 using Any = std::any;
 #define Array std::array
 using BadAnyCast = std::bad_any_cast;
+using ConditionVariable = std::condition_variable;
 // using JThread = std::jthread;
 #define MakeShared std::make_shared
 #define MakeUnique std::make_unique
