@@ -103,8 +103,6 @@ int main(const int argc, const char* argv[]) {
         ::exit(EXIT_FAILURE);
     }
 
-    /////
-
     auto eth1_2_id = "eth1-2";
     if (!port_mngr->createPort(eth1_2_id)) {
         spdlog::error("Failed to create port '{}'", eth1_2_id);
@@ -130,7 +128,32 @@ int main(const int argc, const char* argv[]) {
         spdlog::error("Failed to set state '{}' on the interface '{}'", Net::Interface::AdminState::ENABLED, eth1_2_id);
         ::exit(EXIT_FAILURE);
     }
-    ////
+
+    auto eth1_3_id = "eth1-3";
+    if (!port_mngr->createPort(eth1_3_id)) {
+        spdlog::error("Failed to create port '{}'", eth1_3_id);
+        ::exit(EXIT_FAILURE);
+    }
+
+    if (!port_mngr->setPortBreakout(eth1_3_id, Net::Port::BreakoutMode::BREAKOUT_NONE)) {
+        spdlog::error("Failed to set port breakout mode '{}' on the port '{}'", Net::Port::BreakoutMode::BREAKOUT_NONE, eth1_3_id);
+        ::exit(EXIT_FAILURE);
+    }
+
+    if (!intf_mngr->createInterface(eth1_3_id)) {
+        spdlog::error("Failed to create the interface '{}'", eth1_3_id);
+        ::exit(EXIT_FAILURE);
+    }
+
+    if (!intf_mngr->setSpeed(eth1_3_id, Net::Interface::LinkSpeed::SPEED_400G)) {
+        spdlog::error("Failed to set speed '{}' on the interface '{}'", Net::Interface::LinkSpeed::SPEED_400G, eth1_3_id);
+        ::exit(EXIT_FAILURE);
+    }
+
+    if (!intf_mngr->setAdminState(eth1_3_id, Net::Interface::AdminState::ENABLED)) {
+        spdlog::error("Failed to set state '{}' on the interface '{}'", Net::Interface::AdminState::ENABLED, eth1_3_id);
+        ::exit(EXIT_FAILURE);
+    }
 
     auto lag1_id = "lag-1";
     if (!lag_mngr->createLag(lag1_id)) {
