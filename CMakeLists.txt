@@ -10,15 +10,20 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(API_CONFIG_DIR api/config)
 set(API_NET_DIR api/net)
 add_subdirectory(${API_NET_DIR})
 
+set(YANOS_LIB_DIR .)
 set(SRC_DIR src)
 
 set(TOP_PROTO_PATH "${API_NET_DIR}/proto")
 
 include_directories(
     ${SRC_DIR}
+    "${YANOS_LIB_DIR}/lib/external/httplib"
+    "${YANOS_LIB_DIR}"
+    "${API_CONFIG_DIR}"
     "${API_NET_DIR}/lib"
     "${SRC_DIR}/lib"
     "${TOP_PROTO_PATH}/common"
@@ -39,6 +44,7 @@ set(INC_LIST
 )
 
 set(SRC_LIST
+    "${API_CONFIG_DIR}/northbound_api.${CPP_SRC_EXT}"
     "${SRC_DIR}/lib/observer.${CPP_SRC_EXT}"
     "${SRC_DIR}/lib/interface_observable.${CPP_SRC_EXT}"
     "${SRC_DIR}/lib/lag_observable.${CPP_SRC_EXT}"
