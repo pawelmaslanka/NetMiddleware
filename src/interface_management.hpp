@@ -14,7 +14,7 @@ class InterfaceManager : public Net::IInterfaceQueryable, public Observer::IPubl
 public:
     InterfaceManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel);
     virtual ~InterfaceManager() = default;
-    bool createInterface(const Net::ID& iface_id);
+    bool createInterface(const Net::ID& iface_id, const String& mac_address);
     bool deleteInterface(const Net::ID& iface_id);
     bool setAdminState(const Net::ID& iface_id, Net::Interface::AdminState state);
     bool setSpeed(const Net::ID& iface_id, Net::Interface::LinkSpeed speed);

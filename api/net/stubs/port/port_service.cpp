@@ -8,7 +8,7 @@ grpc::Status PortService::CreatePort(grpc::ServerContext* context, const DPPort:
 }
 
 grpc::Status PortService::DeletePort(grpc::ServerContext* context, const DPPort::Port* request, DataPlane::Result* response) {
-    spdlog::info("Requested to create port instance '{}'", request->id());
+    spdlog::info("Requested to delete port instance '{}'", request->id());
     return grpc::Status::OK;
 }
 

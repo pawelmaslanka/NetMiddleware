@@ -5,8 +5,9 @@
 #include <net/port/port_queryable.hpp>
 #include <spdlog/spdlog.h>
 
-VlanManager::VlanManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry)
-  : _module_name { module_name }, _module_registry { module_registry }, ISubscriber { "VlanManager" },
+VlanManager::VlanManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel)
+  : _module_name { module_name }, _module_registry { module_registry },
+    _vlan_service { DataPlane::Vlan::VlanManagement::NewStub(rpc_net_channel) }, ISubscriber { "VlanManager" },
     _log { module_registry->loggerRegistry()->getLogger(String(module_name)) } {
 
 }
@@ -14,6 +15,17 @@ VlanManager::VlanManager(StringView module_name, SharedPtr<ModuleRegistry> modul
 bool VlanManager::createVlan(const Net::Vlan::VID vid) {
     if (_vlan_by_vid.find(vid) != _vlan_by_vid.end()) {
         _log->error("VLAN ID '{}' already exists", vid);
+        return false;
+    }
+
+    grpc::ClientContext context;
+    DataPlane::Result result;
+    DataPlane::Vlan::Vlan vlan;
+    vlan.set_id(std::to_string(vid));
+    auto status = _vlan_service->CreateVlan(&context, vlan, &result);
+    if (!status.ok()) {
+        _log->error("Failed to send request to create the vlan instance '{}': {} ({})",
+            vid, status.error_message(), status.error_code());
         return false;
     }
 

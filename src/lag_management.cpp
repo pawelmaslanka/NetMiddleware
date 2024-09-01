@@ -9,7 +9,7 @@ LagManager::LagManager(StringView module_name, SharedPtr<ModuleRegistry> module_
     // Nothing more to do
 }
 
-bool LagManager::createLag(const Net::ID& lag_id) {
+bool LagManager::createLag(const Net::ID& lag_id, const String& mac_address) {
     if (_lag_by_id.find(lag_id) != _lag_by_id.end()) {
         _log->error("LAG '{}' already exists", lag_id);
         return false;
@@ -19,6 +19,7 @@ bool LagManager::createLag(const Net::ID& lag_id) {
     DataPlane::Result result;
     DPLag::Lag lag;
     lag.set_id(lag_id);
+    lag.set_mac_address(mac_address);
     auto status = _lag_service->CreateLag(&context, lag, &result);
     if (!status.ok()) {
         _log->error("Failed to send request to create the LAG instance '{}': {} ({})",

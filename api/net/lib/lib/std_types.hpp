@@ -21,6 +21,7 @@
 #include <queue>
 #include <regex>
 #include <set>
+#include <sstream>
 #include <stack>
 #include <stdexcept>
 #include <string>
@@ -62,6 +63,7 @@ using Mutex = std::mutex;
 using Regex = std::regex;
 using RuntimeError = std::runtime_error;
 using String = std::string;
+using StringStream = std::stringstream;
 using StringView = std::string_view;
 using Thread = std::thread;
 

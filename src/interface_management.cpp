@@ -10,18 +10,17 @@ InterfaceManager::InterfaceManager(StringView module_name, SharedPtr<ModuleRegis
     // Nothing more to do
 }
 
-bool InterfaceManager::createInterface(const Net::ID& iface_id) {
+bool InterfaceManager::createInterface(const Net::ID& iface_id, const String& mac_address) {
     if (_iface_by_id.find(iface_id) != _iface_by_id.end()) {
         _log->error("Interface '{}' already exists", iface_id);
         return false;
     }
 
-    // TODO: Query the port manager to check if corresponding port exists?
-
     grpc::ClientContext context;
     DataPlane::Result result;
     DataPlane::Interface::Iface iface;
     iface.set_id(iface_id);
+    iface.set_mac_address(mac_address);
     auto status = _iface_service->CreateInterface(&context, iface, &result);
     if (!status.ok()) {
         _log->error("Failed to send request to create the interface instance '{}': {} ({})",
@@ -107,7 +106,7 @@ bool InterfaceManager::setSpeed(const Net::ID& iface_id, Net::Interface::LinkSpe
 
 const WeakPtr<Net::Interface> InterfaceManager::getInterface(const Net::ID& interface_id) const {
     auto interface_it = _iface_by_id.find(interface_id);
-    if (interface_it != _iface_by_id.end()) {
+    if (interface_it == _iface_by_id.end()) {
         return {};
     }
 

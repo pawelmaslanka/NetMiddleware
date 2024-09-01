@@ -15,7 +15,7 @@ service VlanManagement {
 }
 
 enum VlanMode {
-    VLAN_ACCESS = 0;
+    VLAN_NATIVE = 0;
     VLAN_TAGGED = 1;
     VLAN_UNTAGGED = 2;
 }

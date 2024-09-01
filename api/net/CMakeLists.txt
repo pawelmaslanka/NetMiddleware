@@ -41,8 +41,9 @@ include_directories(
 
 link_directories(${LIST_LINK_DIRS})
 
-set(BINARY_OUTPUT_NAME "Service")
-add_executable(${BINARY_OUTPUT_NAME} "lag/lag_service.cpp" "port/port_service.cpp" test_service.cpp)
+set(BINARY_OUTPUT_NAME "TestService")
+include_directories(stubs/)
+add_executable(${BINARY_OUTPUT_NAME} "stubs/interface/interface_service.cpp" "stubs/lag/lag_service.cpp" "stubs/port/port_service.cpp" "stubs/vlan/vlan_service.cpp" test_service.cpp)
 target_link_libraries(${BINARY_OUTPUT_NAME}
     PRIVATE spdlog::spdlog_header_only
     net_grpc_proto

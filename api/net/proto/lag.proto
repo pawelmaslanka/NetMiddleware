@@ -16,6 +16,7 @@ service LagManagement {
 
 message Lag {
     string id = 1;
+    string mac_address = 2;
 }
 
 message LagMember {

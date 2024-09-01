@@ -3,7 +3,7 @@
 #include <spdlog/spdlog.h>
 
 grpc::Status LagService::CreateLag(grpc::ServerContext* context, const DPLag::Lag* request, DataPlane::Result* response) {
-    spdlog::info("Requested to create LAG instance '{}'", request->id());
+    spdlog::info("Requested to create LAG instance '{}' with MAC address '{}'", request->id(), request->mac_address());
     return grpc::Status::OK;
 }
 

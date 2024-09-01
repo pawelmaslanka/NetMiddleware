@@ -17,7 +17,7 @@ public:
     LagManager(StringView module_name, SharedPtr<ModuleRegistry> module_registry, SharedPtr<grpc::Channel> rpc_net_channel);
     virtual ~LagManager() = default;
 
-    bool createLag(const Net::ID& lag_id);
+    bool createLag(const Net::ID& lag_id, const String& mac_address);
     bool deleteLag(const Net::ID& lag_id);
 
     bool addMember(const Net::ID& lag_id, const Net::ID& member_id);
