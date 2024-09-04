@@ -13,4 +13,6 @@ public:
     virtual ~VlanService() = default;
     virtual grpc::Status CreateVlan(grpc::ServerContext* context, const DPVlan::Vlan* request, DataPlane::Result* response) override;
     virtual grpc::Status DeleteVlan(grpc::ServerContext* context, const DPVlan::Vlan* request, DataPlane::Result* response) override;
+    virtual grpc::Status AddVlanMember(grpc::ServerContext* context, const DPVlan::VlanMember* request, DataPlane::Result* response) override;
+    virtual grpc::Status RemoveVlanMember(grpc::ServerContext* context, const DPVlan::VlanMember* request, DataPlane::Result* response) override;
 };

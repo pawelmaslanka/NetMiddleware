@@ -62,6 +62,19 @@ bool VlanManager::addTaggedMember(const Net::Vlan::VID vid, const Net::ID& membe
     }
     else {
         // FIXME: Call RPC to set tagged VLAN on the member interface
+        grpc::ClientContext context;
+        DataPlane::Result result;
+        DPVlan::VlanMember vlan_members;
+        vlan_members.set_vlan_id(std::to_string(vid));
+        vlan_members.set_mode(DPVlan::VlanMode::VLAN_TAGGED);
+        auto vlan_member = vlan_members.add_members();
+        vlan_member->set_id(member);
+        auto status = _vlan_service->AddVlanMember(&context, vlan_members, &result);
+        if (!status.ok()) {
+            _log->error("Failed to send request to add member to the VLAN instance '{}': {} ({})",
+                vid, status.error_message(), status.error_code());
+            return false;
+        }
     }
 
     _vlan_by_vid[vid]->TaggedMembers.emplace(member);

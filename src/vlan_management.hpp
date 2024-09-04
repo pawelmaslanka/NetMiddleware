@@ -9,6 +9,7 @@
 #include <lib/std_types.hpp>
 
 namespace Net = Lib::Net;
+namespace DPVlan = DataPlane::Vlan;
 
 class VlanManager : public Net::IVlanQueryable, public Observer::ISubscriber {
 public:
@@ -33,7 +34,7 @@ public:
 private:
     String _module_name;
     SharedPtr<ModuleRegistry> _module_registry;
-    UniquePtr<DataPlane::Vlan::VlanManagement::Stub> _vlan_service;
+    UniquePtr<DPVlan::VlanManagement::Stub> _vlan_service;
     Map<UInt16, SharedPtr<Net::Vlan>> _vlan_by_vid; // VLAN by vid
     // Ethernet port or LAG interface
     Map<Net::ID, Net::Vlan::VID> _tagged_vid_by_ifname;
