@@ -1,5 +1,7 @@
 # NetMiddleware
 
+This is middleware between frontend the service responsible for configuration management and the service responsible for dataplane management. The "NetMiddleware" project is part of a larger project called "yaNOS" (yet another Networking Operating System).
+
 # Design
 ┌──────────────────┐                  ┌──────────────────┐                ┌────────────────────────┐
 │                  │                  │                  │                │                        │
