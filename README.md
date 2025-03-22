@@ -1,6 +1,6 @@
 # NetMiddleware
 
-This is middleware between frontend the service responsible for configuration management and the service responsible for dataplane management. The "NetMiddleware" project is part of a larger project called "yaNOS" (yet another Networking Operating System).
+This is middleware between the frontend service responsible for configuration management and the backend service responsible for dataplane (networking) management. The "NetMiddleware" project is part of a larger project called "yaNOS" (yet another Networking Operating System). The yaNOS is Networking Operation System based on SONiC NOS. 
 
 # Design
 ┌──────────────────┐                  ┌──────────────────┐                ┌────────────────────────┐
