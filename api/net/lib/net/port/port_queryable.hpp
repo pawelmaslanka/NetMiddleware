@@ -14,7 +14,7 @@ struct IPortQueryable {
 struct NullPortQueryable : public IPortQueryable {
     virtual ~NullPortQueryable() = default;
     virtual const WeakPtr<Port> getPort(const ID& port_id) const override {
-        static SharedPtr<Port> port = MakeShared<Port>();
+        static SharedPtr<Port> port = MakeSharedPtr<Port>();
         return port;
     }
 };

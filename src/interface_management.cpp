@@ -28,9 +28,9 @@ bool InterfaceManager::createInterface(const Net::ID& iface_id, const String& ma
         return false;
     }
 
-    _iface_by_id[iface_id] = MakeShared<Net::Interface>();
+    _iface_by_id[iface_id] = MakeSharedPtr<Net::Interface>();
     _log->info("Successfully created the interface '{}'", iface_id);
-    notifySubscribers(MakeShared<InterfaceObservable::CreateInterfaceEvent>(shared_from_this(), iface_id));
+    notifySubscribers(MakeSharedPtr<InterfaceObservable::CreateInterfaceEvent>(shared_from_this(), iface_id));
     return true;
 }
 
@@ -54,7 +54,7 @@ bool InterfaceManager::deleteInterface(const Net::ID& iface_id) {
 
     _iface_by_id.erase(iface_it);
     _log->info("Successfully removed the interface '{}'", iface_id);
-    notifySubscribers(MakeShared<InterfaceObservable::DeleteInterfaceEvent>(shared_from_this(), iface_id));
+    notifySubscribers(MakeSharedPtr<InterfaceObservable::DeleteInterfaceEvent>(shared_from_this(), iface_id));
     return true;
 }
 

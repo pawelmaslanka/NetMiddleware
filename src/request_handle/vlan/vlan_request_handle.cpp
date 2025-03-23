@@ -54,14 +54,14 @@ bool VlanRequestHandle::handle(IRequestHandle::Request& req, IRequestHandle::Res
         return false;
     }
 
-    auto vlan_req_hdl = MakeShared<RequestHandle>(_module_name, _module_registry, vlan_id_str.str(), XPathNode::Node::shared_from_this());
+    auto vlan_req_hdl = MakeSharedPtr<RequestHandle>(_module_name, _module_registry, vlan_id_str.str(), XPathNode::Node::shared_from_this());
     XPathNode::Composite::add(vlan_req_hdl);
-    auto vlan_members_req_hdl = MakeShared<RequestHandle>(_module_name, _module_registry, "members", XPathNode::Node::shared_from_this());
+    auto vlan_members_req_hdl = MakeSharedPtr<RequestHandle>(_module_name, _module_registry, "members", XPathNode::Node::shared_from_this());
     vlan_req_hdl->add(vlan_members_req_hdl);
     for (auto vlan_type : { VlanMembersPerTypeRequestHandle::VlanType::NATIVE,
                             VlanMembersPerTypeRequestHandle::VlanType::TAGGED,
                             VlanMembersPerTypeRequestHandle::VlanType::UNTAGGED }) {
-        auto vlan_members_type_req_hdl = MakeShared<VlanMembersPerTypeRequestHandle>(_module_name, _module_registry, vlan_type, vlan_members_req_hdl);
+        auto vlan_members_type_req_hdl = MakeSharedPtr<VlanMembersPerTypeRequestHandle>(_module_name, _module_registry, vlan_type, vlan_members_req_hdl);
         vlan_members_req_hdl->add(vlan_members_type_req_hdl);
     }
 

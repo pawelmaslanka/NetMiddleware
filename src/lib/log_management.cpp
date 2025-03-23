@@ -15,7 +15,7 @@ public:
         if (!logger) {
             LockGuard lock_mtx { mtx };
             if (!logger) {
-                logger = MakeShared<NullLogger>();
+                logger = MakeSharedPtr<NullLogger>();
             }
         }
 
@@ -60,7 +60,7 @@ SharedPtr<ManagerBuilder>& ManagerBuilder::instance() {
     if (!builder) {
         LockGuard mtx_lock { _mtx };
         if (!builder) {
-            builder = MakeShared<ManagerBuilder>();
+            builder = MakeSharedPtr<ManagerBuilder>();
         }
     }
 
@@ -71,7 +71,7 @@ SharedPtr<Manager>& ManagerBuilder::get() {
     static SharedPtr<Manager> manager;
     LockGuard mtx_lock { _mtx };
     if (!manager) {
-        manager = MakeShared<Manager>();
+        manager = MakeSharedPtr<Manager>();
     }
     
     return manager;

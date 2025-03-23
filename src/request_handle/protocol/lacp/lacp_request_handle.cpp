@@ -50,9 +50,9 @@ bool LacpRequestHandle::handle(IRequestHandle::Request& req, IRequestHandle::Res
         return false;
     }
 
-    auto lag_req_hdl = MakeShared<RequestHandle>(_module_name, _module_registry, lag_id, XPathNode::Node::shared_from_this());
+    auto lag_req_hdl = MakeSharedPtr<RequestHandle>(_module_name, _module_registry, lag_id, XPathNode::Node::shared_from_this());
     XPathNode::Composite::add(lag_req_hdl);
-    auto lag_members_req_hdl = MakeShared<LacpMembersRequestHandle>(_module_name, _module_registry, lag_req_hdl);
+    auto lag_members_req_hdl = MakeSharedPtr<LacpMembersRequestHandle>(_module_name, _module_registry, lag_req_hdl);
     lag_req_hdl->add(lag_members_req_hdl);
     _log->info("Successfully created new node '{}' for xpath '{}'", lag_req_hdl->name(), req.Data.Path);
     return true;

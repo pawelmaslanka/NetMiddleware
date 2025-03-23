@@ -49,9 +49,9 @@ bool PortRequestHandle::handle(IRequestHandle::Request& req, IRequestHandle::Res
         return false;
     }
 
-    auto port_req_hdl = MakeShared<RequestHandle>(_module_name, _module_registry, port_id, XPathNode::Node::shared_from_this());
+    auto port_req_hdl = MakeSharedPtr<RequestHandle>(_module_name, _module_registry, port_id, XPathNode::Node::shared_from_this());
     XPathNode::Composite::add(port_req_hdl);
-    auto port_breakout_mode_req_hdl = MakeShared<PortBreakoutRequestHandle>(_module_name, _module_registry, port_req_hdl);
+    auto port_breakout_mode_req_hdl = MakeSharedPtr<PortBreakoutRequestHandle>(_module_name, _module_registry, port_req_hdl);
     port_req_hdl->add(port_breakout_mode_req_hdl);
     _log->info("Successfully created new node '{}' for xpath '{}'", port_req_hdl->name(), req.Data.Path);
     return true;

@@ -42,3 +42,5 @@ api/net/proto/vlan
 NetMiddleware
 Service
 TestService
+
+.idea

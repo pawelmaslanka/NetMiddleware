@@ -13,7 +13,7 @@ struct ILagQueryable {
 struct NullLagQueryable : public ILagQueryable {
     virtual ~NullLagQueryable() = default;
     virtual const WeakPtr<Lag> getLag(const ID& lag_id) const override {
-        static SharedPtr<Lag> lag = MakeShared<Lag>();
+        static SharedPtr<Lag> lag = MakeSharedPtr<Lag>();
         return lag;
     }
 };

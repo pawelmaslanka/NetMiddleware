@@ -14,7 +14,7 @@ struct IVlanQueryable {
 struct NullVlanQueryable : public IVlanQueryable {
     virtual ~NullVlanQueryable() = default;
     virtual const WeakPtr<Vlan> getVlan(const Vlan::VID vid) const override {
-        static SharedPtr<Vlan> vlan = MakeShared<Vlan>();
+        static SharedPtr<Vlan> vlan = MakeSharedPtr<Vlan>();
         return vlan;
     }
 };

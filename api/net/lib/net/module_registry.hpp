@@ -12,10 +12,10 @@ namespace Lib::Net {
 class ModuleRegistry {
 public:
     ModuleRegistry()
-      : _intf_module { std::dynamic_pointer_cast<Net::IInterfaceQueryable>(MakeShared<Net::NullInterfaceQueryable>()) },
-        _lag_module { std::dynamic_pointer_cast<Net::ILagQueryable>(MakeShared<Net::NullLagQueryable>()) },
-        _port_module { std::dynamic_pointer_cast<Net::IPortQueryable>(MakeShared<Net::NullPortQueryable>()) },
-        _vlan_module { std::dynamic_pointer_cast<Net::IVlanQueryable>(MakeShared<Net::NullVlanQueryable>()) } {
+      : _intf_module { std::dynamic_pointer_cast<Net::IInterfaceQueryable>(MakeSharedPtr<Net::NullInterfaceQueryable>()) },
+        _lag_module { std::dynamic_pointer_cast<Net::ILagQueryable>(MakeSharedPtr<Net::NullLagQueryable>()) },
+        _port_module { std::dynamic_pointer_cast<Net::IPortQueryable>(MakeSharedPtr<Net::NullPortQueryable>()) },
+        _vlan_module { std::dynamic_pointer_cast<Net::IVlanQueryable>(MakeSharedPtr<Net::NullVlanQueryable>()) } {
             // Nothing more to do
         }
 

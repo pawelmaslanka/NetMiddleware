@@ -37,9 +37,9 @@ bool RstpRequestHandle::handle(IRequestHandle::Request& req, IRequestHandle::Res
 
     // TODO: Needs additional implementation to handle bridge instance creating
 
-    auto rstp_bridge_req_hdl = MakeShared<RequestHandle>(_module_name, _module_registry, br_id, XPathNode::Node::shared_from_this());
+    auto rstp_bridge_req_hdl = MakeSharedPtr<RequestHandle>(_module_name, _module_registry, br_id, XPathNode::Node::shared_from_this());
     XPathNode::Composite::add(rstp_bridge_req_hdl);
-    auto rstp_members_bridge_req_hdl = MakeShared<RstpMembersRequestHandle>(_module_name, _module_registry, rstp_bridge_req_hdl);
+    auto rstp_members_bridge_req_hdl = MakeSharedPtr<RstpMembersRequestHandle>(_module_name, _module_registry, rstp_bridge_req_hdl);
     rstp_bridge_req_hdl->add(rstp_members_bridge_req_hdl);
     _log->info("Successfully created new node '{}' for xpath '{}'", rstp_bridge_req_hdl->name(), req.Data.Path);
     return true;

@@ -20,59 +20,59 @@ set(SRC_DIR src)
 set(TOP_PROTO_PATH "${API_NET_DIR}/proto")
 
 include_directories(
-    ${SRC_DIR}
-    "${YANOS_LIB_DIR}/lib/external/httplib"
-    "${YANOS_LIB_DIR}"
-    "${API_CONFIG_DIR}"
-    "${API_NET_DIR}/lib"
-    "${SRC_DIR}/lib"
-    "${SRC_DIR}/request_handle"
-    "${TOP_PROTO_PATH}/common"
-    "${TOP_PROTO_PATH}/interface"
-    "${TOP_PROTO_PATH}/lag"
-    "${TOP_PROTO_PATH}/port"
-    "${TOP_PROTO_PATH}/vlan"
+        ${SRC_DIR}
+        "${YANOS_LIB_DIR}/lib/external/httplib"
+        "${YANOS_LIB_DIR}"
+        "${API_CONFIG_DIR}"
+        "${API_NET_DIR}/lib"
+        "${SRC_DIR}/lib"
+        "${SRC_DIR}/request_handle"
+        "${TOP_PROTO_PATH}/common"
+        "${TOP_PROTO_PATH}/interface"
+        "${TOP_PROTO_PATH}/lag"
+        "${TOP_PROTO_PATH}/port"
+        "${TOP_PROTO_PATH}/vlan"
 )
 
 set(CPP_HEADER_EXT hpp)
 set(CPP_SRC_EXT cpp)
 
 set(INC_LIST
-    "${SRC_DIR}/lib/observer.${CPP_HEADER_EXT}"
-    "${SRC_DIR}/lib/interface_observable.${CPP_HEADER_EXT}"
-    "${SRC_DIR}/lib/lag_observable.${CPP_HEADER_EXT}"
-    "${SRC_DIR}/lib/port_observable.${CPP_HEADER_EXT}"
-    "${SRC_DIR}/lib/xpath/composite.${CPP_HEADER_EXT}"
-    "${SRC_DIR}/lib/xpath/node.${CPP_HEADER_EXT}"
-    "${SRC_DIR}/lib/xpath/visitor.${CPP_HEADER_EXT}"
+        "${SRC_DIR}/lib/observer.${CPP_HEADER_EXT}"
+        "${SRC_DIR}/lib/interface_observable.${CPP_HEADER_EXT}"
+        "${SRC_DIR}/lib/lag_observable.${CPP_HEADER_EXT}"
+        "${SRC_DIR}/lib/port_observable.${CPP_HEADER_EXT}"
+        "${SRC_DIR}/lib/xpath/composite.${CPP_HEADER_EXT}"
+        "${SRC_DIR}/lib/xpath/node.${CPP_HEADER_EXT}"
+        "${SRC_DIR}/lib/xpath/visitor.${CPP_HEADER_EXT}"
 )
 
 set(SRC_LIST
-    "${API_CONFIG_DIR}/northbound_api.${CPP_SRC_EXT}"
-    "${SRC_DIR}/lib/observer.${CPP_SRC_EXT}"
-    "${SRC_DIR}/lib/interface_observable.${CPP_SRC_EXT}"
-    "${SRC_DIR}/lib/lag_observable.${CPP_SRC_EXT}"
-    "${SRC_DIR}/lib/port_observable.${CPP_SRC_EXT}"
-    "${SRC_DIR}/lib/xpath/composite.${CPP_SRC_EXT}"
-    "${SRC_DIR}/lib/xpath/node.${CPP_SRC_EXT}"
-    "${SRC_DIR}/lib/xpath/xpath.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/interface/aggregate_ethernet/aggregate_ethernet_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/interface/aggregate_ethernet/aggregate_ethernet_members_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/interface/ethernet/ethernet_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/interface/ethernet/interface_speed_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/platform/port/port_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/platform/port/port_breakout_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/protocol/lacp/lacp_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/protocol/lacp/lacp_members_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/protocol/rstp/rstp_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/protocol/rstp/rstp_members_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/vlan/vlan_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/request_handle/vlan/vlan_members_request_handle.${CPP_SRC_EXT}"
-    "${SRC_DIR}/interface_management.${CPP_SRC_EXT}"
-    "${SRC_DIR}/lag_management.${CPP_SRC_EXT}"
-    "${SRC_DIR}/port_management.${CPP_SRC_EXT}"
-    "${SRC_DIR}/vlan_management.${CPP_SRC_EXT}"
+        "${API_CONFIG_DIR}/northbound_api.${CPP_SRC_EXT}"
+        "${SRC_DIR}/lib/observer.${CPP_SRC_EXT}"
+        "${SRC_DIR}/lib/interface_observable.${CPP_SRC_EXT}"
+        "${SRC_DIR}/lib/lag_observable.${CPP_SRC_EXT}"
+        "${SRC_DIR}/lib/port_observable.${CPP_SRC_EXT}"
+        "${SRC_DIR}/lib/xpath/composite.${CPP_SRC_EXT}"
+        "${SRC_DIR}/lib/xpath/node.${CPP_SRC_EXT}"
+        "${SRC_DIR}/lib/xpath/xpath.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/interface/aggregate_ethernet/aggregate_ethernet_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/interface/aggregate_ethernet/aggregate_ethernet_members_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/interface/ethernet/ethernet_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/interface/ethernet/interface_speed_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/platform/port/port_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/platform/port/port_breakout_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/protocol/lacp/lacp_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/protocol/lacp/lacp_members_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/protocol/rstp/rstp_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/protocol/rstp/rstp_members_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/vlan/vlan_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/request_handle/vlan/vlan_members_request_handle.${CPP_SRC_EXT}"
+        "${SRC_DIR}/interface_management.${CPP_SRC_EXT}"
+        "${SRC_DIR}/lag_management.${CPP_SRC_EXT}"
+        "${SRC_DIR}/port_management.${CPP_SRC_EXT}"
+        "${SRC_DIR}/vlan_management.${CPP_SRC_EXT}"
 )
 
 # add_library(net_grpc_proto STATIC IMPORTED) # or STATIC instead of SHARED
@@ -84,11 +84,11 @@ link_directories(api/net)
 
 add_executable(${PROJECT_NAME} ${INC_LIST} ${SRC_LIST} src/main.${CPP_SRC_EXT})
 target_link_libraries(${PROJECT_NAME}
-    PRIVATE nlohmann_json::nlohmann_json spdlog::spdlog_header_only
-    net_grpc_proto
-    ${_REFLECTION}
-    ${_GRPC_GRPCPP}
-    ${_PROTOBUF_LIBPROTOBUF})
+        PRIVATE nlohmann_json::nlohmann_json spdlog::spdlog_header_only
+        net_grpc_proto
+        ${_REFLECTION}
+        ${_GRPC_GRPCPP}
+        ${_PROTOBUF_LIBPROTOBUF})
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${OUTPUT_DIR})
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${OUTPUT_DIR})

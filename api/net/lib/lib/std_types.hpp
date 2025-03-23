@@ -56,8 +56,8 @@ using Any = std::any;
 using BadAnyCast = std::bad_any_cast;
 using ConditionVariable = std::condition_variable;
 // using JThread = std::jthread;
-#define MakeShared std::make_shared
-#define MakeUnique std::make_unique
+#define MakeSharedPtr std::make_shared
+#define MakeUniquePtr std::make_unique
 using Mutex = std::mutex;
 #define NullOpt std::nullopt
 using Regex = std::regex;

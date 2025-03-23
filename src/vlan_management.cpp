@@ -29,7 +29,7 @@ bool VlanManager::createVlan(const Net::Vlan::VID vid) {
         return false;
     }
 
-    _vlan_by_vid[vid] = MakeShared<Net::Vlan>();
+    _vlan_by_vid[vid] = MakeSharedPtr<Net::Vlan>();
     return true;
 }
 

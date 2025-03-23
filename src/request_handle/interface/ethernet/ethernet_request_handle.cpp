@@ -63,9 +63,9 @@ bool EthernetRequestHandle::handle(IRequestHandle::Request& req, IRequestHandle:
         return false;
     }
 
-    auto iface_req_hdl = MakeShared<RequestHandle>(_module_name, _module_registry, iface_id, XPathNode::Node::shared_from_this());
+    auto iface_req_hdl = MakeSharedPtr<RequestHandle>(_module_name, _module_registry, iface_id, XPathNode::Node::shared_from_this());
     XPathNode::Composite::add(iface_req_hdl);
-    auto iface_speed_req_hdl = MakeShared<InterfaceSpeedRequestHandle>(_module_name, _module_registry, iface_req_hdl);
+    auto iface_speed_req_hdl = MakeSharedPtr<InterfaceSpeedRequestHandle>(_module_name, _module_registry, iface_req_hdl);
     iface_req_hdl->add(iface_speed_req_hdl);
     _log->info("Successfully created new node '{}' for xpath '{}'", iface_req_hdl->name(), req.Data.Path);
     return true;

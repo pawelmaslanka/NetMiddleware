@@ -34,9 +34,9 @@ bool PortManager::createPort(const Net::ID& port_id) {
         return false;
     }
 
-    _port_by_id[port_id] = MakeShared<Net::Port>();
+    _port_by_id[port_id] = MakeSharedPtr<Net::Port>();
     _log->info("Successfully created the port '{}'", port_id);
-    notifySubscribers(MakeShared<PortObservable::CreatePortEvent>(shared_from_this(), port_id));
+    notifySubscribers(MakeSharedPtr<PortObservable::CreatePortEvent>(shared_from_this(), port_id));
     return true;
 }
 
@@ -59,7 +59,7 @@ bool PortManager::deletePort(const Net::ID& port_id) {
 
     _port_by_id.erase(port_id);
     _log->info("Successfully deleted the port '{}'", port_id);
-    notifySubscribers(MakeShared<PortObservable::DeletePortEvent>(shared_from_this(), port_id));
+    notifySubscribers(MakeSharedPtr<PortObservable::DeletePortEvent>(shared_from_this(), port_id));
     return true;
 }
 

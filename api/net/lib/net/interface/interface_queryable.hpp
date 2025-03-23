@@ -14,7 +14,7 @@ struct IInterfaceQueryable {
 struct NullInterfaceQueryable : public IInterfaceQueryable {
     virtual ~NullInterfaceQueryable() = default;
     virtual const WeakPtr<Interface> getInterface(const ID& iface_id) const override {
-        static SharedPtr<Interface> interface = MakeShared<Interface>();
+        static SharedPtr<Interface> interface = MakeSharedPtr<Interface>();
         return interface;
     }
 };

@@ -10,7 +10,7 @@ namespace Net = Lib::Net;
 class ModuleRegistry : public Net::ModuleRegistry {
 public:
     ModuleRegistry()
-      : _logger_registry { MakeShared<Log::NullLoggerRegistryManagement>() } {
+      : _logger_registry { MakeSharedPtr<Log::NullLoggerRegistryManagement>() } {
         // Nothing more to do
     }
 
